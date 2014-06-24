@@ -4,9 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.*;
-import java.time.Clock;
-
-import utils.FileOperation;
 
 import static org.junit.Assert.assertEquals;
 
@@ -64,8 +61,6 @@ public class SimpleFileOperationTest {
         }
         assertEquals(common, FileOperation.getStringFromRemoteFile("http://users.polytech.unice.fr/~logre/resources/temp2.senml"));
     }
-
-
 
     @After
     public void cleanUp() throws IOException {
