@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fr.unice.i3s</groupId>
+    <artifactId>familiar-pilot</artifactId>
+    <version>0.1</version>
+    <parent>
+        <groupId>fr.unice.i3s</groupId>
+        <artifactId>sensor-data-compo-visu</artifactId>
+        <version>0.1</version>
+    </parent>
+    <packaging>jar</packaging>
+    <name>familiar-pilot</name>
+
+    <repositories>
+        <repository>
+            <id>releases</id>
+            <name>I3S Maven Snapshots Repository</name>
+            <url>http://nyx.unice.fr:9007/nexus/content/repositories/i3s-public</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>fr.familiar</groupId>
+            <artifactId>familiar-basic</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>2.0-beta9</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.core</groupId>
+            <artifactId>runtime</artifactId>
+            <version>3.3.100-v20070530</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.ui</groupId>
+            <artifactId>console</artifactId>
+            <version>3.1.100-v20060605</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.xtext</groupId>
+            <artifactId>org.eclipse.xtext.standalone</artifactId>
+            <version>2.4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sat4j</groupId>
+            <artifactId>org.sat4j.core</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+    </dependencies>
+</project>
