@@ -1,12 +1,8 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.io.IOException;
 
 /**
  * Created by Ivan Logre on 24/06/2014.
@@ -52,5 +48,26 @@ public class FileOperation {
             e.printStackTrace();
         }
         return res.toString();
+    }
+
+    /*
+    * Record an object in a file
+    * H :   the given Object has a toString() method
+    *       the given path is valid
+    */
+    //TODO test limits (existing file or not, append etc)
+    public static void setDataFileFromObject(Object dataToPrint, String filePath, String encoding) {
+        try {
+            Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), encoding));
+            writer.write(dataToPrint.toString());
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("setDataFileFromObject caused this. Untested yet.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void setDataFileFromObject(Object dataToPrint, String filePath) {
+         setDataFileFromObject(dataToPrint, filePath, "utf-8");
     }
 }
