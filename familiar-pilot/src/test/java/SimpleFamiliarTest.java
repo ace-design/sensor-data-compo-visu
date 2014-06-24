@@ -6,6 +6,7 @@
 import static org.junit.Assert.*;
 
 import exception.FMEngineException;
+import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
 import kernel.Pilot;
 import org.junit.Test;
 
@@ -21,13 +22,15 @@ public class SimpleFamiliarTest {
         String FMA = "fma = FM(A: B C [D]; C: (X|Y); D: (Q|T|R)+;)";
         fam_pilot.eval(FMA);
         System.out.println("Eval de FMA");
-        Variable fmav = fam_pilot.getVariable("fma");
-        String expected = "A: [D] B C ; \n"
+        FeatureModelVariable fmav = fam_pilot.getFMVariable("fma");
+        /*String expected = "A: [D] B C ; \n"
                 +"D: (R|T|Q)+ ; \n"
                 +"C: (X|Y) ;";
         String s = fmav.toString();
-        System.out.println("String computed: "+s);
+        */
+        int counting_expected = 16;
+        int counting_fmav = (int)fmav.counting();
         fam_pilot.clearInterpreter();
-        assertEquals(expected,s);
+        assertEquals(counting_expected,counting_fmav);
     }
 }
