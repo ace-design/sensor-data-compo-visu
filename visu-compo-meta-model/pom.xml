@@ -7,12 +7,27 @@
     <groupId>fr.unice.i3s</groupId>
     <artifactId>visu-compo-meta-model</artifactId>
     <version>0.1</version>
+    <parent>
+        <groupId>fr.unice.i3s</groupId>
+        <artifactId>sensor-data-compo-visu</artifactId>
+        <version>0.1</version>
+    </parent>
 
     <dependencies>
         <dependency>
             <groupId>fr.unice.i3s</groupId>
             <artifactId>familiar-pilot</artifactId>
             <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20140107</version>
         </dependency>
     </dependencies>
 
