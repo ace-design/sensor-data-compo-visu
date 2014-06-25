@@ -18,6 +18,7 @@ public class DataDeserializer {
      * H :  bt = base time, e = set of value
      *      t = time of capture of this specific value relatively to the base time, v = value
      * /!\ in test mode, ignore the base time to temporally align two datasets
+     * result : an hash
      */
     public static HashMap<Integer,Integer> AffectHashMapFromSerializedSenMLData(String serializedData){
         HashMap<Integer,Integer> res = new HashMap<Integer, Integer>();
@@ -68,7 +69,7 @@ public class DataDeserializer {
             }
             rootDest.endArray();
             rootDest.endObject();
-            FileOperation.setDataFileFromObject(dataToPrint,"products/"+newDataName+".senml");
+            FileOperation.fillFileFromObject(dataToPrint,"products/"+newDataName+".senml");
 
         } catch (Exception e) {
             System.err.println(e);
