@@ -23,7 +23,8 @@ import fr.unice.polytech.modalis.familiar.variable.VariableImpl;
 import static org.junit.Assert.*;
 
 /**
- * Created by ivan on 23/06/2014.
+ * Created by Simon Urli.
+ * Edited by Ivan Logre
  */
 public class Pilot {
 
@@ -31,7 +32,7 @@ public class Pilot {
     protected final FMLCommandInterpreter _environment;
     protected boolean hasBeenParsed;
     private static Logger log = Logger.getLogger(Pilot.class);
-    private static Pilot instance = new Pilot();
+    private static Pilot instance;
 
     private Pilot() {
         //if (FMLShell.getInstance() == null)
@@ -45,6 +46,8 @@ public class Pilot {
     }
 
     public static Pilot getInstance() {
+        if(instance==null)
+            instance = new Pilot();
         instance.getShell().printFMLHeader();
         return instance;
     }
@@ -68,8 +71,9 @@ public class Pilot {
         String t = "";
         while (br.ready()) {
             t = t.concat(br.readLine());
+            this.eval(t);
+            t ="";
         }
-        this.eval(t);
     }
 
     /**
