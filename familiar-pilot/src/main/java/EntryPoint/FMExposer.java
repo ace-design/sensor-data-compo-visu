@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
@@ -21,16 +20,16 @@ import static java.util.UUID.randomUUID;
 
 
     // the singleton instance of the pilot
-    private Pilot pilot = Pilot.getInstance();
+    private static Pilot pilot = Pilot.getInstance();
     // the unique ID of the feature model representing the variability of known widgets
-    private UUID fm_id;
+    private static String fm_id;
 
     // default constructor using the default path for the fms declaration file
-    public void FMExposer(){
-        FMExposer(Paths.get("").toAbsolutePath().toString()+"/familiar-pilot/src/main/resources/"+"fms_min.fml");
+    public FMExposer(){
+        new FMExposer(Paths.get("").toAbsolutePath().toString()+"/familiar-pilot/src/main/resources/"+"fms_min.fml");
     }
 
-    public void FMExposer(String FM_file_path){
+    public FMExposer(String FM_file_path){
         try {
             // test the existence of the file
             if (!new File(FM_file_path).exists())
@@ -39,10 +38,11 @@ import static java.util.UUID.randomUUID;
             // launch the evaluation on the file, line by line. it should declare the "atomic" features models (products)
             pilot.evalFile(FM_file_path);
 
-            fm_id = randomUUID();
-            pilot.eval(fm_id.toString() + " = merge sunion fm*");
+            fm_id = newID("fm_");
+            System.out.println(fm_id + " = merge sunion fm*");
+            pilot.eval(fm_id + " = merge sunion fm*");
 
-            FeatureModelVariable fm_var = pilot.getFMVariable(fm_id.toString());
+            FeatureModelVariable fm_var = pilot.getFMVariable(fm_id);
             System.out.println("Feature models merge result :");
             System.out.println(fm_var.toString());
             System.out.println("Number of possible configuration :");
@@ -60,10 +60,11 @@ import static java.util.UUID.randomUUID;
         }
     }
 
-    public UUID getConfig(){
-        UUID config_id = randomUUID();
+    public String newConfig(){
+        String config_id = newID("c_");
         try {
-            pilot.eval(config_id.toString() + " = configuration " + fm_id.toString());
+            System.out.println(config_id + " = configuration " + fm_id);
+            pilot.eval(config_id + " = configuration " + fm_id);
         } catch (FMEngineException e) {
             e.printStackTrace();
         }
@@ -74,10 +75,18 @@ import static java.util.UUID.randomUUID;
      * This function take a list of features to select on a given configuration
      * it return the number of possible configuration left.
      */
-    public double reduceByConcerns(List<String> ls, UUID config_id){
+    public double reduceByConcerns(List<String> ls, String config_id){
         double res = 0;
         for(String s : ls)
             res += reduceByConcern(s,config_id);
+
+        System.out.println("Is complete (config "+config_id+") :");
+        try {
+            pilot.isComplete(config_id);
+        } catch (FMEngineException e) {
+            e.printStackTrace();
+        }
+
         return res;
     }
 
@@ -85,10 +94,12 @@ import static java.util.UUID.randomUUID;
      * This function take a feature to select on a given configuration
      * it return the number of possible configuration left.
      */
-    public double reduceByConcern(String s, UUID config_id){
+    public double reduceByConcern(String s, String config_id){
         try {
-            pilot.eval("select " + s + " in " + config_id.toString());
-            pilot.eval("fm_temp = asFM " + config_id.toString());
+            System.out.println("select " + s + " in " + config_id);
+            pilot.eval("select " + s + " in " + config_id);
+            System.out.println("fm_temp = asFM " + config_id);
+            pilot.eval("fm_temp = asFM " + config_id);
             FeatureModelVariable fm_var = pilot.getFMVariable("fm_temp");
             System.out.println("Feature models merge result :");
             System.out.println(fm_var.toString());
@@ -105,6 +116,17 @@ import static java.util.UUID.randomUUID;
         return -1;
     }
 
+    public static void main(String[] args) {
+        FMExposer exposer = new FMExposer();
+        String config = exposer.newConfig();
+        double left = exposer.reduceByConcern("Continuous",config);
+        System.out.println();
+        System.out.println("Final result : "+left);
+    }
+
+    private String newID(String prefix){
+        return prefix+randomUUID().toString().replace("-","");
+    }
 
     /*public static void main(String[] args) {
 
