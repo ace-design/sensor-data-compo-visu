@@ -14,20 +14,21 @@ import static utils.CodeGeneration.codeGeneration;
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
-public class TargetingLineChart {
+public class GenericTargeting {
 
     /*
-     * This example means to illustrate the capability of designing single visualization dashboard with continuous data
+     * This example means to illustrate the capability of designing single visualization dashboard
+     * Letting the user choose the Concern
      * It has to :
      *  - instantiate a valid model (conforms to the meta model)
-     *  - reduce a configuration of the feature model according to the "continuous" criteria
+     *  - reduce a configuration of the feature model according to the chosen criteria
      *  - generate the code of the resulting visualization
      */
     public static void main(String[] args) {
 
         //Design the model of the wanted dashboard
         Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml");
-        Concern concern = Concern.Continuous;
+        Concern concern = Concern.Discrete;
         Visualization visu = new Visualization(data, concern);
 
         //Use feature model to find a suitable generable widget
@@ -46,5 +47,6 @@ public class TargetingLineChart {
         //store the resulting visualization in a file named after the used concern
         FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + "/visu-compo-meta-model/products/" + concern.toString() + ".html");
     }
+
 
 }

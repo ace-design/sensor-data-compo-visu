@@ -1,4 +1,4 @@
-graphColumn(graphname) ::= <<
+graphColumnChart(graphname) ::= <<
 $graphname$.type = "column";
 $graphname$.balloonText = "[[category]]: [[value]]";
 $graphname$.colorField = "color";

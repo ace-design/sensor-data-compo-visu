@@ -6,6 +6,12 @@ package metaclasses;
 public class Visualization {
     private Data data;
     private Concern concern;
+    private String widgetName;
+    //TODO check the existence
+
+    public Visualization(metaclasses.Data data){
+        this.data=data;
+    }
 
     public Visualization(metaclasses.Data data, metaclasses.Concern concern){
         this.concern=concern;
@@ -18,4 +24,17 @@ public class Visualization {
     public Data getData() {
         return data;
     }
+
+    public void addConcern(Concern concern){
+        this.concern=concern;
+    }
+
+    public String getWidgetName() {
+        return widgetName;
+    }
+
+    public void setWidgetName(String widgetName) {
+        this.widgetName = widgetName;
+    }
+
 }

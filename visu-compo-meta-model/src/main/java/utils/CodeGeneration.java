@@ -54,19 +54,8 @@ public class CodeGeneration {
         st_graph.add("graphname", "mygraph");
         st_graph.add("seriename", "v");
 
-        /*
-        For now, the condition is hard coded (continuous -> Line, discrete -> Column)
-        TODO it has to be replace by Feature Model reduction
-        */
-        ST st_graphspe = null;
-        if(visualization.getConcern().equals(Concern.continuous)){ //if we want a LineChart
-            //Line
-            st_graphspe = group.getInstanceOf("graphLine");
-        }
-        else if (visualization.getConcern().equals(Concern.discrete)){ //if we want a ColumnChart
-            //Column
-            st_graphspe = group.getInstanceOf("graphColumn");
-        }
+        //Find the right specialization pattern for the wanted widget
+        ST st_graphspe = group.getInstanceOf("graph"+visualization.getWidgetName());
         st_graphspe.add("graphname", "mygraph");
         st_graph.add("graphspe", st_graphspe);
         st_chart.add("graphs",st_graph);
