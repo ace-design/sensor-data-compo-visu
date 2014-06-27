@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 import exception.FMEngineException;
+import fr.unice.polytech.modalis.familiar.variable.*;
 import org.apache.log4j.Logger;
 
 import fr.unice.polytech.modalis.familiar.interpreter.*;
@@ -14,11 +15,6 @@ import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
 import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
 import fr.unice.polytech.modalis.familiar.parser.FMLCommandInterpreter;
 import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
-import fr.unice.polytech.modalis.familiar.variable.ConfigurationVariable;
-import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
-import fr.unice.polytech.modalis.familiar.variable.SetVariable;
-import fr.unice.polytech.modalis.familiar.variable.Variable;
-import fr.unice.polytech.modalis.familiar.variable.VariableImpl;
 
 import static org.junit.Assert.*;
 
@@ -146,6 +142,25 @@ public class Pilot {
         assertNotNull(v);
         assertTrue(v instanceof FeatureModelVariable);
         return (FeatureModelVariable) v;
+
+    }
+
+
+
+    /**
+     * @param id identifier of a Feature variable
+     * @return a variable of type feature whose identifier is id in the
+     *         current environment
+     * @throws VariableAmbigousConflictException
+     * @throws VariableNotExistingException
+     */
+    public FeatureVariable getFVariable(String id)
+            throws VariableNotExistingException,
+            VariableAmbigousConflictException {
+        Variable v = _environment.getVariable(id);
+        assertNotNull(v);
+        assertTrue(v instanceof FeatureVariable);
+        return (FeatureVariable) v;
 
     }
 

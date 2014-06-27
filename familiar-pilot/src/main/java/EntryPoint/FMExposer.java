@@ -4,6 +4,8 @@ import exception.FMEngineException;
 import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
 import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
+import fr.unice.polytech.modalis.familiar.variable.FeatureVariable;
+import fr.unice.polytech.modalis.familiar.variable.Variable;
 import kernel.Pilot;
 
 import java.io.File;
@@ -116,57 +118,53 @@ import static java.util.UUID.randomUUID;
         return -1;
     }
 
-    public static void main(String[] args) {
-        FMExposer exposer = new FMExposer();
-        String config = exposer.newConfig();
-        double left = exposer.reduceByConcern("Continuous",config);
-        System.out.println();
-        System.out.println("Final result : "+left);
-    }
 
     private String newID(String prefix){
         return prefix+randomUUID().toString().replace("-","");
     }
 
-    /*public static void main(String[] args) {
+    public String getWidgetName(String config_id) {
+        try{
+            pilot.eval("fm_temp = asFM " + config_id);
 
-        //get the singleton instance of the pilot
-        Pilot pilot = Pilot.getInstance();
+            FeatureVariable f_var = pilot.getFVariable("fm_temp.Name");
 
-        // set the path of the file containing the feature model declaration by default
-        String FM_file_path = Paths.get("").toAbsolutePath().toString()+"/familiar-pilot/src/main/resources/"+"fms_functions.fml";
-        // if the program is launch with a parameter, use this path
-        if (args.length>0)
-            FM_file_path = args[0];
-        try {
-            // test the existence of the file
-            if (!new File(FM_file_path).exists())
-                throw new IOException("The given path does not exist !");
-
-            // launch the evaluation on the file, line by line. it should declare the "atomic" features models (products)
-            pilot.evalFile(FM_file_path);
-            // merge those atomic fms
-            //pilot.eval("fm_merged = merge sunion fm*");
-            FeatureModelVariable fm_var = pilot.getFMVariable("fm_merged");
-            System.out.println("Feature models merge result :");
-            System.out.println(fm_var.toString());
-            System.out.println("Number of possible configuration :");
-            System.out.println(fm_var.counting());
+            if(f_var.children().getVars().size()==1){
+                //System.out.println("Value : "+v.getValue());
+                Variable[] varSet = new Variable[]{};
+                Variable v = f_var.children().getVars().toArray(varSet)[0];
+                return v.getValue();
+            }
+            else throw new Exception("Don't understand what is going on! Should always be only one child to Name if the configuration is minimal...");
 
 
-
-            pilot.eval("c = configuration fm_merge");
-
-
-        } catch (FMEngineException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (VariableNotExistingException e) {
             e.printStackTrace();
         } catch (VariableAmbigousConflictException e) {
             e.printStackTrace();
+        } catch (FMEngineException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }*/
+        return "";
+    }
+
+
+
+
+
+    public static void main(String[] args) {
+        FMExposer exposer = new FMExposer();
+        String config = exposer.newConfig();
+        double left = exposer.reduceByConcern("Continuous",config);
+
+
+        if(left==1){ // there is only one configuration available
+            String widgetName = exposer.getWidgetName(config);
+            System.out.println("Final widget = "+widgetName);
+        }
+    }
+
 
 }
