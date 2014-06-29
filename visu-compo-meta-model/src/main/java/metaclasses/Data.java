@@ -5,6 +5,8 @@ package metaclasses;
  */
 public class Data {
     private String url;
-    public Data(String url){this.url=url;}
+    private Format format;
+    public Data(String url,Format format){this.url=url;this.format=format;}
     public String getUrl() {return url;}
+    public Format getFormat() {return format;}
 }

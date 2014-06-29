@@ -37,6 +37,22 @@ public class DataDeserializer {
         return res;
     }
 
+    //TODO comment
+    public static HashMap<Integer,Integer> AffectHashMapFromSerializedSmartCampusData(String serializedData){
+        HashMap<Integer,Integer> res = new HashMap<Integer, Integer>();
+        try {
+            JSONObject rootSource = new JSONObject(serializedData);
+            JSONArray values = rootSource.getJSONArray("values");
+            for (int i = values.length() - 1; i >= 0; i--) {
+                JSONObject v = values.getJSONObject(i);
+                res.put(v.getInt("date"), v.getInt("value"));  // allow to compare factorize data set with different basetime
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return res;
+    }
+
     /*
      * This function copy a serialized JSON string to return slightly different data set
      * Post-condition :  each data value is randomize by plus or minus the given parameter

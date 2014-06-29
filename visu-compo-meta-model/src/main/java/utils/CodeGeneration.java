@@ -1,6 +1,7 @@
 package utils;
 
 import metaclasses.Concern;
+import metaclasses.Format;
 import metaclasses.Visualization;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
@@ -24,7 +25,11 @@ public class CodeGeneration {
         //From the url, we extract the raw String of flat data formatted on JSON (senML)
         dataset_JSON = FileOperation.getStringFromFile(dataSource);
         // Then we convert it in a format understandable by AmChart
-        String dataset_AmChart = DataConverter.convertSenML2AmChartFormat(dataset_JSON);
+        String dataset_AmChart ="";
+        if(visualization.getData().getFormat().equals(Format.SenML))
+            dataset_AmChart = DataConverter.convertSenML2AmChartFormat(dataset_JSON);
+        else
+            dataset_AmChart = DataConverter.convertSmartCampusFormat2AmChartFormat(dataset_JSON);
 
         // We grab the group of string pattern
         STGroup group = new STGroupDir(Paths.get("").toAbsolutePath().toString()+"/visu-compo-meta-model/src/main/resources/stringtemplates/",'$', '$');

@@ -3,6 +3,7 @@ package exampleslibrary;
 import EntryPoint.FMExposer;
 import metaclasses.Concern;
 import metaclasses.Data;
+import metaclasses.Format;
 import metaclasses.Visualization;
 import utils.FileOperation;
 
@@ -28,7 +29,7 @@ public class GenericTargeting {
     public static void main(String[] args) {
 
         //Design the model of the wanted dashboard
-        Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml");
+        Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml", Format.SenML);
         Visualization visu = new Visualization(data);
 
         System.out.println("What Concern do you want your visualization to fulfill ?");

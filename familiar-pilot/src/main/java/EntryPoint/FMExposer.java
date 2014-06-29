@@ -136,7 +136,7 @@ import static java.util.UUID.randomUUID;
                 return v.getValue();
             }
             else throw new Exception("Don't understand what is going on! Should always be only one child to Name if the configuration is minimal...");
-
+//todo est-ce que ce cas arrive ?
 
         } catch (VariableNotExistingException e) {
             e.printStackTrace();

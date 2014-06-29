@@ -3,6 +3,7 @@ package exampleslibrary;
 import EntryPoint.FMExposer;
 import metaclasses.Concern;
 import metaclasses.Data;
+import metaclasses.Format;
 import metaclasses.Visualization;
 import utils.FileOperation;
 
@@ -26,7 +27,7 @@ public class TargetingLineChart {
     public static void main(String[] args) {
 
         //Design the model of the wanted dashboard
-        Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml");
+        Data data = new Data("http://54.76.227.250:8081/data-api/sensors/TEMP_442/data?date=2014-06-28%2007:00:00/2014-06-28%2018:00:00", Format.SmartCampus);
         Concern concern = Concern.Continuous;
         Visualization visu = new Visualization(data, concern);
 
@@ -34,7 +35,7 @@ public class TargetingLineChart {
         FMExposer exposer = new FMExposer();
         String config = exposer.newConfig();
         if(exposer.reduceByConcern(visu.getConcern().toString(),config)==1) // there is only one configuration available after this reduction
-            visu.setWidgetName(exposer.getWidgetName(config).replace(" ",""));
+            visu.setWidgetName(exposer.getWidgetName(config).replace(" ", ""));
 
         //Generation of the HTML code from the model
         String code = codeGeneration(visu);
