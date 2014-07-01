@@ -70,7 +70,7 @@ public class FileOperation {
     *       the given path is valid
     */
     //TODO test limits (existing file or not, append etc)
-    public static void fillFileFromObject(Object dataToPrint, String filePath, String encoding) {
+    private static void fillFileFromObject(Object dataToPrint, String filePath, String encoding) {
         try {
             File f = new File(filePath);
             if (!f.getParentFile().exists()){

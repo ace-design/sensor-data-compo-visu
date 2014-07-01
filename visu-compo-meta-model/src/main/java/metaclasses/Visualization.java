@@ -9,6 +9,8 @@ public class Visualization {
     private String widgetName;
     //TODO check the existence
 
+    public Visualization(){}
+
     public Visualization(metaclasses.Data data){
         this.data=data;
     }
@@ -21,17 +23,18 @@ public class Visualization {
     public Concern getConcern() {
         return concern;
     }
+
     public Data getData() {
         return data;
     }
+
+    public void addData(Data data){this.data=data;}
 
     public void addConcern(Concern concern){
         this.concern=concern;
     }
 
-    public String getWidgetName() {
-        return widgetName;
-    }
+    public String getWidgetName() {return widgetName;}
 
     public void setWidgetName(String widgetName) {
         this.widgetName = widgetName;

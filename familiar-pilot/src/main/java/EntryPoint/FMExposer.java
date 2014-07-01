@@ -31,6 +31,7 @@ import static java.util.UUID.randomUUID;
         new FMExposer(Paths.get("").toAbsolutePath().toString()+"/familiar-pilot/src/main/resources/"+"fms_min.fml");
     }
 
+    //TODO illustrate the capability to merge a given FMs file calling this function
     public FMExposer(String FM_file_path){
         try {
             // test the existence of the file

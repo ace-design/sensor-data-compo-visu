@@ -16,7 +16,7 @@ import static utils.CodeGeneration.codeGeneration;
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
-public class GenericTargeting {
+class GenericTargeting {
 
     /*
      * This example means to illustrate the capability of designing single visualization dashboard

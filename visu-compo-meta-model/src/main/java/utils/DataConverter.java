@@ -11,7 +11,7 @@ import static utils.DataDeserializer.AffectHashMapFromSerializedSmartCampusData;
 /**
  * Created by Ivan Logre on 25/06/2014.
  */
-public class DataConverter {
+class DataConverter {
 
     public static String convertSenML2AmChartFormat(String dataset){
 

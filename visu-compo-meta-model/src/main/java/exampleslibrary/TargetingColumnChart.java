@@ -15,7 +15,7 @@ import static utils.CodeGeneration.codeGeneration;
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
-public class TargetingColumnChart {
+class TargetingColumnChart {
 
     /*
      * This example means to illustrate the capability of designing single visualization dashboard with Discrete data
@@ -27,9 +27,11 @@ public class TargetingColumnChart {
     public static void main(String[] args) {
 
         //Design the model of the wanted dashboard
+        Visualization visu = new Visualization();
         Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml", Format.SenML);
         Concern concern = Concern.Discrete;
-        Visualization visu = new Visualization(data, concern);
+        visu.addData(data);
+        visu.addConcern(concern);
 
         //Use feature model to find a suitable generable widget
         FMExposer exposer = new FMExposer();

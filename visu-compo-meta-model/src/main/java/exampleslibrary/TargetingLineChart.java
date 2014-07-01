@@ -15,7 +15,7 @@ import static utils.CodeGeneration.codeGeneration;
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
-public class TargetingLineChart {
+class TargetingLineChart {
 
     /*
      * This example means to illustrate the capability of designing single visualization dashboard with continuous data

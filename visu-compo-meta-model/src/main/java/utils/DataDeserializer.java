@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Created by Ivan Logre on 24/06/2014.
  */
-public class DataDeserializer {
+class DataDeserializer {
 
     /*
      * This function deserialize a JSON string to return an hashmap according to the senml format description
@@ -32,7 +32,7 @@ public class DataDeserializer {
                 res.put(v.getInt("t"), v.getInt("v"));  // allow to compare factorize data set with different basetime
             }
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
         return res;
     }
@@ -48,7 +48,7 @@ public class DataDeserializer {
                 res.put(v.getInt("date"), v.getInt("value"));  // allow to compare factorize data set with different basetime
             }
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
         return res;
     }
@@ -88,7 +88,7 @@ public class DataDeserializer {
             FileOperation.fillFileFromObject(dataToPrint,"products/"+newDataName+".senml");
 
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 }

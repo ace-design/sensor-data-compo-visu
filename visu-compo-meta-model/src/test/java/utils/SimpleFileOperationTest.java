@@ -14,7 +14,7 @@ public class SimpleFileOperationTest {
 
     private File file;
     private Writer writer;
-    private String fileName = "./imatest";
+    private final String fileName = "./imatest";
 
     @Before
     public void setUp() throws IOException {

@@ -24,10 +24,10 @@ import static org.junit.Assert.*;
  */
 public class Pilot {
 
-    protected final FMLShell _shell;
-    protected final FMLCommandInterpreter _environment;
-    protected boolean hasBeenParsed;
-    private static Logger log = Logger.getLogger(Pilot.class);
+    private final FMLShell _shell;
+    private final FMLCommandInterpreter _environment;
+    private boolean hasBeenParsed;
+    private static final Logger log = Logger.getLogger(Pilot.class);
     private static Pilot instance;
 
     private Pilot() {
@@ -117,8 +117,7 @@ public class Pilot {
         //assert (hasBeenParsed);
 
         try {
-            VariableImpl v = (VariableImpl) _environment.getVariable(id);
-            return v;
+            return (VariableImpl) _environment.getVariable(id);
         } catch (VariableNotExistingException e) {
             throw e;
         } catch (VariableAmbigousConflictException e) {
@@ -171,7 +170,7 @@ public class Pilot {
      * @throws VariableNotExistingException
      * @throws VariableAmbigousConflictException
      */
-    public ConfigurationVariable getConfigurationVariable(String id)
+    ConfigurationVariable getConfigurationVariable(String id)
             throws VariableNotExistingException,
             VariableAmbigousConflictException {
         Variable v = _environment.getVariable(id);
@@ -202,7 +201,7 @@ public class Pilot {
      *
      * @return the internal shell
      */
-    public FMLShell getShell() {
+    FMLShell getShell() {
         return _shell;
     }
 
