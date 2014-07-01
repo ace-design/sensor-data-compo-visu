@@ -112,9 +112,6 @@ public class Pilot {
      *             in case there is no explicit identifier (ambiguity)
      */
     public Variable getVariable(String id) {
-
-        //assert (hasBeenParsed);
-
         try {
             return (VariableImpl) _environment.getVariable(id);
         } catch (VariableNotExistingException | VariableAmbigousConflictException e) {

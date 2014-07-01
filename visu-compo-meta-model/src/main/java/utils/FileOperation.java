@@ -1,17 +1,14 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONWriter;
+
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Paths;
+import java.util.Random;
 
 /**
  * Created by Ivan Logre on 24/06/2014.
@@ -67,6 +64,7 @@ public class FileOperation {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return "{}";
         }
         return res.toString();
     }
@@ -95,4 +93,59 @@ public class FileOperation {
     public static void fillFileFromObject(Object dataToPrint, String filePath) {
          fillFileFromObject(dataToPrint, filePath, "utf-8");
     }
+
+    //Creation of the folder if it doesn't exist already
+    public static void setUpFolder(String folderName) {
+        File f = new File(Paths.get("").toAbsolutePath().toString() + folderName);
+        if ((!f.exists()) || (!f.isDirectory())) {
+            if (!f.mkdirs()) {
+                try {
+                    throw new IOException("Can't create the /product folder !");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /*
+     * This function copy a serialized JSON string to return slightly different data set
+     * Post-condition :  each data value is randomize by plus or minus the given parameter
+     */
+    //TODO make a test validating the capability to create a new dataset from an existing one
+    public static void CreateNewDataFile(String serializedData, String newDataName){
+        try {
+            JSONObject rootSource = new JSONObject(serializedData);
+
+            StringWriter dataToPrint = new StringWriter();
+            JSONWriter rootDest = new JSONWriter(dataToPrint);
+            rootDest.object();
+            rootDest.key("bn");
+            rootDest.value(rootSource.get("bn")+"v2");
+            rootDest.key("bt");
+            rootDest.value(rootSource.get("bt"));
+            rootDest.key("e");
+            rootDest.array();
+            JSONArray values = rootSource.getJSONArray("e");
+            Random delta = new Random();
+            for (int i = 0; i < values.length(); i++) {
+                JSONObject v = values.getJSONObject(i);
+                rootDest.object();
+                //rootDest.key("u");
+                //rootDest.value(v.getString("u"));
+                rootDest.key("t");
+                rootDest.value(v.getInt("t"));
+                rootDest.key("v");
+                rootDest.value(v.getInt("v")+delta.nextInt(7));
+                rootDest.endObject();
+            }
+            rootDest.endArray();
+            rootDest.endObject();
+            FileOperation.fillFileFromObject(dataToPrint,"products/"+newDataName+".senml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

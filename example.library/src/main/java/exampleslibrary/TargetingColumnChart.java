@@ -7,15 +7,16 @@ import metaclasses.Format;
 import metaclasses.Visualization;
 import utils.FileOperation;
 
-import java.io.File;
 import java.nio.file.Paths;
 
-import static utils.CodeGeneration.codeGeneration;
+import static model.exploitation.CodeGeneration.codeGeneration;
 
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
 class TargetingColumnChart {
+
+    private static final String GENERATED_TARGET_FOLDER = "/example.library/products/";
 
     /*
      * This example means to illustrate the capability of designing single visualization dashboard with Discrete data
@@ -43,11 +44,10 @@ class TargetingColumnChart {
         String code = codeGeneration(visu);
 
         //Creation of the /product folder if it doesn't exist already
-        File f = new File(Paths.get("").toAbsolutePath().toString()+"/visu-compo-meta-model/products/");
-        if((!f.exists())||(!f.isDirectory())){f.mkdirs();}
+        FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);
 
         //store the resulting visualization in a file named after the used concern
-        FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + "/visu-compo-meta-model/products/" + concern.toString() + ".html");
+        FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + GENERATED_TARGET_FOLDER + concern.toString() + ".html");
     }
 
 

@@ -3,6 +3,7 @@ package utils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.io.*;
 
 import static org.junit.Assert.assertEquals;
@@ -19,9 +20,8 @@ public class SimpleFileOperationTest {
     @Before
     public void setUp() throws IOException {
         file = new File(fileName);
-        boolean test = false;
-        test = file.createNewFile();
-        test = file.setWritable(true);
+        file.createNewFile();
+        file.setWritable(true);
         writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName),"utf-8"));
     }
 
@@ -65,6 +65,7 @@ public class SimpleFileOperationTest {
     @After
     public void cleanUp() throws IOException {
         writer.close();
+        //noinspection ResultOfMethodCallIgnored
         file.delete();
     }
 

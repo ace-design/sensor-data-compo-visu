@@ -13,6 +13,7 @@
     <modules>
         <module>familiar-pilot</module>
         <module>visu-compo-meta-model</module>
+        <module>example.library</module>
     </modules>
 
     <properties>

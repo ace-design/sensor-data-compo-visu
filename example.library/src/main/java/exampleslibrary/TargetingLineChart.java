@@ -7,15 +7,16 @@ import metaclasses.Format;
 import metaclasses.Visualization;
 import utils.FileOperation;
 
-import java.io.File;
 import java.nio.file.Paths;
 
-import static utils.CodeGeneration.codeGeneration;
+import static model.exploitation.CodeGeneration.codeGeneration;
 
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
 class TargetingLineChart {
+
+    private static final String GENERATED_TARGET_FOLDER = "/example.library/products/";
 
     /*
      * This example means to illustrate the capability of designing single visualization dashboard with continuous data
@@ -27,7 +28,7 @@ class TargetingLineChart {
     public static void main(String[] args) {
 
         //Design the model of the wanted dashboard
-        Data data = new Data("http://54.76.227.250:8081/data-api/sensors/TEMP_442/data?date=2014-06-28%2007:00:00/2014-06-28%2018:00:00", Format.SmartCampus);
+        Data data = new Data("http://54.76.227.250:80/data-api/sensors/TEMP_442V/data?date=2014-06-28%2007:00:00/2014-06-28%2010:00:00", Format.SmartCampus);
         Concern concern = Concern.Continuous;
         Visualization visu = new Visualization(data, concern);
 
@@ -41,11 +42,10 @@ class TargetingLineChart {
         String code = codeGeneration(visu);
 
         //Creation of the /product folder if it doesn't exist already
-        File f = new File(Paths.get("").toAbsolutePath().toString()+"/visu-compo-meta-model/products/");
-        if((!f.exists())||(!f.isDirectory())){f.mkdirs();}
+        FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);
 
         //store the resulting visualization in a file named after the used concern
-        FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + "/visu-compo-meta-model/products/" + concern.toString() + ".html");
+        FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + GENERATED_TARGET_FOLDER + concern.toString() + ".html");
     }
 
 }
