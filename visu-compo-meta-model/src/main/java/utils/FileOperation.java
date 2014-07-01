@@ -1,11 +1,17 @@
 package utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
 
 /**
  * Created by Ivan Logre on 24/06/2014.
@@ -26,7 +32,7 @@ public class FileOperation {
  * Read a local text file, extract and return the content as a String
  */
     public static String getStringFromLocalFile(String fileName) {
-        StringBuffer data = new StringBuffer();
+        StringBuilder data = new StringBuilder();
         try {
             InputStream ips = new FileInputStream(fileName);
             InputStreamReader ipsr = new InputStreamReader(ips);
@@ -34,7 +40,8 @@ public class FileOperation {
             String line = br.readLine();
             data.append(line);
             while ((line = br.readLine()) != null) {
-                data.append("\n"+line);
+                data.append("\n");
+                data.append(line);
             }
             br.close();
         } catch (Exception e) {
@@ -47,7 +54,7 @@ public class FileOperation {
      * Read a remote text file, extract and return the content as a String
      */
     public static String getStringFromRemoteFile(String urlString) {
-        StringBuffer res = new StringBuffer();
+        StringBuilder res = new StringBuilder();
         try {
             URL url = new URL(urlString);
             URLConnection conn = url.openConnection();

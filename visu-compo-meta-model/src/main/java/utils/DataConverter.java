@@ -46,7 +46,7 @@ class DataConverter {
         JSONWriter rootDest = new JSONWriter(dataToPrint);
         rootDest.array();
 
-        TreeSet<Integer> set = new TreeSet(HM_time_value.keySet());
+        TreeSet<Integer> set = new TreeSet<>(HM_time_value.keySet());
         for (Integer i : set) {
             rootDest.object();
             rootDest.key("t");

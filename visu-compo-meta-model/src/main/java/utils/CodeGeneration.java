@@ -1,6 +1,5 @@
 package utils;
 
-import metaclasses.Concern;
 import metaclasses.Format;
 import metaclasses.Visualization;
 import org.stringtemplate.v4.ST;

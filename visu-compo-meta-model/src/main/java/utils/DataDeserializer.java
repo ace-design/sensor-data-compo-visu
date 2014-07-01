@@ -21,10 +21,11 @@ class DataDeserializer {
      * result : an hash
      */
     public static HashMap<Integer,Integer> AffectHashMapFromSerializedSenMLData(String serializedData){
-        HashMap<Integer,Integer> res = new HashMap<Integer, Integer>();
+        HashMap<Integer,Integer> res = new HashMap<>();
         try {
             JSONObject rootSource = new JSONObject(serializedData);
             int baseTime = rootSource.getInt("bt");
+            //TODO offer to use the basetime for a absolute date or to ignore it for a relative one
             JSONArray values = rootSource.getJSONArray("e");
             for (int i = values.length() - 1; i >= 0; i--) {
                 JSONObject v = values.getJSONObject(i);
@@ -39,7 +40,7 @@ class DataDeserializer {
 
     //TODO comment
     public static HashMap<Integer,Integer> AffectHashMapFromSerializedSmartCampusData(String serializedData){
-        HashMap<Integer,Integer> res = new HashMap<Integer, Integer>();
+        HashMap<Integer,Integer> res = new HashMap<>();
         try {
             JSONObject rootSource = new JSONObject(serializedData);
             JSONArray values = rootSource.getJSONArray("values");
@@ -57,6 +58,7 @@ class DataDeserializer {
      * This function copy a serialized JSON string to return slightly different data set
      * Post-condition :  each data value is randomize by plus or minus the given parameter
      */
+    //TODO make a test validating the capability to create a new dataset from an existing one
     public static void CreateNewDataFile(String serializedData, String newDataName){
         try {
             JSONObject rootSource = new JSONObject(serializedData);

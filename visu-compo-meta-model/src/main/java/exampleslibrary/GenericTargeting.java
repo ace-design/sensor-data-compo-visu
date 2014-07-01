@@ -70,7 +70,7 @@ class GenericTargeting {
             File f = new File(Paths.get("").toAbsolutePath().toString()+"/visu-compo-meta-model/products/");
             if((!f.exists())||(!f.isDirectory())){f.mkdirs();}
             //store the resulting visualization in a file named after the used concern
-            FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + "/visu-compo-meta-model/products/" + entry.toString() + ".html");
+            FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + "/visu-compo-meta-model/products/" + entry + ".html");
             System.out.println("OK ! Go find your html visualization in the product folder.");
         }
     }

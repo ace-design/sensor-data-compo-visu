@@ -57,12 +57,12 @@ public class Pilot {
 
     /**
      * Eval file line by line: it won't work with a FM written on multiple lines.
-     * @param filename
+     * @param filename the path of the .fml file to be evaluated
      * @throws FMEngineException, FileNotFoundException, IOException
      * @throws fr.unice.polytech.modalis.familiar.interpreter.FMLFatalError
      * @throws FMLAssertionError
      */
-    public void evalFile(String filename) throws FMEngineException, FileNotFoundException, IOException {
+    public void evalFile(String filename) throws FMEngineException, IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String t = "";
         while (br.ready()) {
@@ -111,19 +111,16 @@ public class Pilot {
      * @throws VariableAmbigousConflictException
      *             in case there is no explicit identifier (ambiguity)
      */
-    public Variable getVariable(String id) throws VariableNotExistingException,
-            VariableAmbigousConflictException {
+    public Variable getVariable(String id) {
 
         //assert (hasBeenParsed);
 
         try {
             return (VariableImpl) _environment.getVariable(id);
-        } catch (VariableNotExistingException e) {
-            throw e;
-        } catch (VariableAmbigousConflictException e) {
-            throw e;
+        } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
+            e.printStackTrace();
         }
-
+        return null;
     }
 
 
@@ -269,7 +266,7 @@ public class Pilot {
     /**
      * Check if a configuration is complete
      * @param configurationID the identifier of a configuration to check
-     * @return
+     * @return Boolean : true if the configuration is complete, false if not.
      * @throws FMEngineException
      */
     public boolean isComplete(String configurationID) throws FMEngineException {

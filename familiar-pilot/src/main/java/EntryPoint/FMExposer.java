@@ -22,7 +22,7 @@ import static java.util.UUID.randomUUID;
 
 
     // the singleton instance of the pilot
-    private static Pilot pilot = Pilot.getInstance();
+    private static final Pilot pilot = Pilot.getInstance();
     // the unique ID of the feature model representing the variability of known widgets
     private static String fm_id;
 
@@ -52,13 +52,7 @@ import static java.util.UUID.randomUUID;
             System.out.println(fm_var.counting());
 
 
-        } catch (FMEngineException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (VariableNotExistingException e) {
-            e.printStackTrace();
-        } catch (VariableAmbigousConflictException e) {
+        } catch (FMEngineException | IOException | VariableNotExistingException | VariableAmbigousConflictException e) {
             e.printStackTrace();
         }
     }
@@ -109,11 +103,7 @@ import static java.util.UUID.randomUUID;
             System.out.println("Number of possible configuration :");
             System.out.println(fm_var.counting());
             return fm_var.counting();
-        } catch (FMEngineException e) {
-            e.printStackTrace();
-        } catch (VariableNotExistingException e) {
-            e.printStackTrace();
-        } catch (VariableAmbigousConflictException e) {
+        } catch (FMEngineException | VariableAmbigousConflictException | VariableNotExistingException e) {
             e.printStackTrace();
         }
         return -1;
@@ -137,13 +127,9 @@ import static java.util.UUID.randomUUID;
                 return v.getValue();
             }
             else throw new Exception("Don't understand what is going on! Should always be only one child to Name if the configuration is minimal...");
-//todo est-ce que ce cas arrive ?
+//todo est-ce que ce cas arrive ? Si oui : design a test. Si non : virer le if.
 
-        } catch (VariableNotExistingException e) {
-            e.printStackTrace();
-        } catch (VariableAmbigousConflictException e) {
-            e.printStackTrace();
-        } catch (FMEngineException e) {
+        } catch (VariableNotExistingException | VariableAmbigousConflictException | FMEngineException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
