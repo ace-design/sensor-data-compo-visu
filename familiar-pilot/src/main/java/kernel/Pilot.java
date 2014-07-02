@@ -36,7 +36,7 @@ public class Pilot {
         //else
         //	_shell = FMLShell.getInstance();
         _environment = _shell.getCurrentEnv();
-        _shell.setVerbose(true);
+        _shell.setVerbose(false);
         log.debug("Environment du shell :"+_environment);
         hasBeenParsed = false;
     }

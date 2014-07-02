@@ -8,9 +8,9 @@ import fr.unice.polytech.modalis.familiar.variable.FeatureVariable;
 import fr.unice.polytech.modalis.familiar.variable.Variable;
 import kernel.Pilot;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.UUID.randomUUID;
@@ -20,11 +20,10 @@ import static java.util.UUID.randomUUID;
  */
    public class FMExposer {
 
-
     // the singleton instance of the pilot
     private static final Pilot pilot = Pilot.getInstance();
     // the unique ID of the feature model representing the variability of known widgets
-    private static String fm_id;
+    private String fm_id;
 
     // default constructor using the default path for the fms declaration file
     public FMExposer(){
@@ -42,20 +41,81 @@ import static java.util.UUID.randomUUID;
             pilot.evalFile(FM_file_path);
 
             fm_id = newID("fm_");
-            System.out.println(fm_id + " = merge sunion fm*");
-            pilot.eval(fm_id + " = merge sunion fm*");
+
+            List<String> fm_names = extractFeatureModelsNames(FM_file_path);
+
+            StringBuilder command = new StringBuilder(" = merge sunion {");
+            for(String s : fm_names){
+                command.append(s);
+                command.append(" ");
+            }
+            command.append("}");
+            pilot.eval(fm_id + command);
 
             FeatureModelVariable fm_var = pilot.getFMVariable(fm_id);
             System.out.println("Feature models merge result :");
             System.out.println(fm_var.toString());
             System.out.println("Number of possible configuration :");
             System.out.println(fm_var.counting());
+            System.out.println("__________________________________");
 
 
         } catch (FMEngineException | IOException | VariableNotExistingException | VariableAmbigousConflictException e) {
             e.printStackTrace();
         }
     }
+
+    private List<String> extractFeatureModelsNames(String fm_file_path) {
+        List<String> res = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fm_file_path)));
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.substring(0, line.indexOf("=") - 1);
+                res.add(line);
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public FMExposer mergeWithFeatureModelFromPath(String FM_file_path){
+        try {
+            // test the existence of the file
+            if (!new File(FM_file_path).exists())
+                throw new IOException("The given path does not exist !");
+
+            // launch the evaluation on the file, line by line. it should declare the "atomic" features models (products)
+            pilot.evalFile(FM_file_path);
+
+            String fm_id_bis = newID("fm_");
+            System.out.println(fm_id_bis  + " = merge sunion fm*");
+            pilot.eval(fm_id_bis  + " = merge sunion fm*");
+
+            fm_id = fm_id_bis;
+
+        } catch (FMEngineException | IOException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    //TODO fme.fm_id
+    public FMExposer merge(FMExposer fme){
+        String fm_id_bis = newID("fm_");
+        try {
+            pilot.eval(fm_id_bis  + " = merge sunion fm*");
+        } catch (FMEngineException e) {
+            e.printStackTrace();
+        }
+        fm_id = fm_id_bis;
+        return this;
+    }
+
 
     public String newConfig(){
         String config_id = newID("c_");
