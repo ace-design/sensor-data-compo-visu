@@ -1,6 +1,7 @@
 package exampleslibrary;
 
-import EntryPoint.FMExposer;
+import EntryPoint.Library;
+import EntryPoint.Reduction;
 import metaclasses.Concern;
 import metaclasses.Data;
 import metaclasses.Format;
@@ -58,11 +59,13 @@ class GenericTargeting {
 
 
         //Use feature model to find a suitable generable widget
-        FMExposer exposer = new FMExposer();
-        String config = exposer.newConfig();
-        if(exposer.reduceByConcern(visu.getConcern().toString(),config)==1){ // there is only one configuration available after this reduction
+        Library lib = new Library();
+        lib.displayLibraryState();
+        Reduction red = new Reduction(lib);
+        red.reduceByConcern(visu.getConcern().toString());
+        if(red.getNumberOfSuitableWidgets()==1){ // there is only one configuration available after this reduction
             System.out.println("There is only one widget suitable for your visualization requirements. Let's generate it.");
-            visu.setWidgetName(exposer.getWidgetName(config).replace(" ",""));
+            visu.setWidgetName(red.getWidgetName().replace(" ",""));
 
             //Generation of the HTML code from the model
             String code = codeGeneration(visu);

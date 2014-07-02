@@ -1,6 +1,6 @@
 package exampleslibrary;
 
-import EntryPoint.FMExposer;
+import EntryPoint.Library;
 
 import java.nio.file.Paths;
 
@@ -9,13 +9,11 @@ import java.nio.file.Paths;
  */
 public class FeatureModelMerge {
     public static void main(String[] args) {
-        FMExposer fme = new FMExposer(Paths.get("").toAbsolutePath().toString() + "/familiar-pilot/src/main/resources/fms_1.fml");
-        FMExposer fme2 = new FMExposer(Paths.get("").toAbsolutePath().toString() + "/familiar-pilot/src/main/resources/fms_2.fml");
+        Library lib1 = new Library(Paths.get("").toAbsolutePath().toString() + "/familiar-pilot/src/main/resources/fms_1.fml");
+        Library lib2 = new Library(Paths.get("").toAbsolutePath().toString() + "/familiar-pilot/src/main/resources/fms_2.fml");
 
-        FMExposer fme_a = fme.merge(fme2);
-        FMExposer fme_b = fme2.merge(fme);
+        Library newlib1 = lib1.merge(lib2);
+        Library newlib2 = lib2.merge(lib1);
 
-        System.out.println(fme_a);
-        System.out.println(fme_b);
     }
 }

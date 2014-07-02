@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 import exception.FMEngineException;
 import fr.unice.polytech.modalis.familiar.variable.*;
@@ -15,6 +18,7 @@ import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
 import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
 import fr.unice.polytech.modalis.familiar.parser.FMLCommandInterpreter;
 import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
+import utils.ToolBox;
 
 import static org.junit.Assert.*;
 
@@ -36,7 +40,7 @@ public class Pilot {
         //else
         //	_shell = FMLShell.getInstance();
         _environment = _shell.getCurrentEnv();
-        _shell.setVerbose(false);
+        _shell.setVerbose(true);
         log.debug("Environment du shell :"+_environment);
         hasBeenParsed = false;
     }
@@ -62,15 +66,53 @@ public class Pilot {
      * @throws fr.unice.polytech.modalis.familiar.interpreter.FMLFatalError
      * @throws FMLAssertionError
      */
-    public void evalFile(String filename) throws FMEngineException, IOException {
+    public List<String> declareFMsByFile(String filename) throws FMEngineException, IOException {
+        List<String> res = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(filename));
-        String t = "";
+        StringBuilder t = new StringBuilder();
+        String idTemp;
         while (br.ready()) {
-            t = t.concat(br.readLine());
-            this.eval(t);
-            t ="";
+            idTemp = ToolBox.newID("fm_");
+            res.add(idTemp);
+            t.append(idTemp);
+            t.append(" = ");
+            t.append(br.readLine());
+            t.append(" ");
         }
+        this.eval(t.toString());
+        return res;
     }
+
+
+
+    public String merge(List<String> knownFMs){
+        String fm_id = ToolBox.newID("fm_");
+        StringBuilder command = new StringBuilder();
+        command.append(fm_id);
+        command.append(" = merge sunion {");
+        for(String s : knownFMs) {
+            command.append(s);
+            command.append(" ");
+        }
+        command.append("}");
+        try {
+            this.eval(command.toString());
+        } catch (FMEngineException e) {
+            e.printStackTrace();
+        }
+        return fm_id;
+    }
+
+    public String asFM(String configID){
+        String fm_id = ToolBox.newID("fm_");
+        try {
+            this.eval(fm_id+" = asFM " + configID);
+        } catch (FMEngineException e) {
+            e.printStackTrace();
+        }
+        return fm_id;
+    }
+
 
     /**
      * @param instr
@@ -120,6 +162,15 @@ public class Pilot {
         return null;
     }
 
+    public String newConfig(String fmID){
+        String config_id = ToolBox.newID("c_");
+        try {
+            this.eval(config_id + " = configuration " + fmID);
+        } catch (FMEngineException e) {
+            e.printStackTrace();
+        }
+        return config_id;
+    }
 
     /**
      * @param id identifier of a FeatureModel variable
