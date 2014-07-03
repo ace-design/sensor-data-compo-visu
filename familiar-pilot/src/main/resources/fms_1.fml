@@ -1,0 +1,6 @@
+FM(widget:Name Comparison Proportion Value Discrete Dimension; Name:"Pie Chart"; Dimension:OneD;)
+FM(widget:Name Comparison Proportion Value Discrete Dimension; Name:"Funnel Chart"; Dimension:OneD;)
+FM(widget:Name Comparison Relationship Patterns DataOverTime Value Variations Extremum Dimension; Name:"Line Chart"; Dimension:TwoD;)
+FM(widget:Name Comparison Relationship Patterns DataOverTime Value Variations Extremum Dimension; Name:"Smoothed Line Chart"; Dimension:TwoD;)
+FM(widget:Name Proportion Relationship Patterns DataOverTime Value Variations Dimension; Name:"Area Chart"; Dimension:TwoD;)
+FM(widget:Name Relationship Distribution Patterns Range DataOverTime Value Discrete Dimension; Name:"Ohlc Chart"; Dimension:TwoD;)

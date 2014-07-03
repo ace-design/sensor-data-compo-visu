@@ -1,12 +1,14 @@
 package exampleslibrary;
 
-import EntryPoint.FMExposer;
+import EntryPoint.Library;
+import EntryPoint.Reduction;
 import metaclasses.Concern;
 import metaclasses.Data;
 import metaclasses.Format;
 import metaclasses.Visualization;
 import utils.FileOperation;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 
 import static model.exploitation.CodeGeneration.codeGeneration;
@@ -25,7 +27,7 @@ class TargetingColumnChart {
      *  - reduce a configuration of the feature model according to the "Discrete" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //Design the model of the wanted dashboard
         Visualization visu = new Visualization();
@@ -35,19 +37,23 @@ class TargetingColumnChart {
         visu.addConcern(concern);
 
         //Use feature model to find a suitable generable widget
-        FMExposer exposer = new FMExposer();
-        String config = exposer.newConfig();
-        if(exposer.reduceByConcern(visu.getConcern().toString(),config)==1) // there is only one configuration available after this reduction
-            visu.setWidgetName(exposer.getWidgetName(config).replace(" ",""));
+        Library lib = new Library();
+        lib.displayLibraryState();
+        Reduction red = new Reduction(lib);
+        red.reduceByConcern(visu.getConcern().toString());
+        if(red.getNumberOfSuitableWidgets()==1) { // there is only one configuration available after this reduction
+            System.out.println("There is only one widget suitable for your visualization requirements. Let's generate it.");
+            visu.setWidgetName(red.getWidgetName().replace(" ", ""));
 
-        //Generation of the HTML code from the model
-        String code = codeGeneration(visu);
+            //Generation of the HTML code from the model
+            String code = codeGeneration(visu);
 
-        //Creation of the /product folder if it doesn't exist already
-        FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);
+            //Creation of the /product folder if it doesn't exist already
+            FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);
 
-        //store the resulting visualization in a file named after the used concern
-        FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + GENERATED_TARGET_FOLDER + concern.toString() + ".html");
+            //store the resulting visualization in a file named after the used concern
+            FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + GENERATED_TARGET_FOLDER + concern.toString() + ".html");
+        }
     }
 
 

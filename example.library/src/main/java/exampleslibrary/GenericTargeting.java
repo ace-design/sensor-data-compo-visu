@@ -1,12 +1,14 @@
 package exampleslibrary;
 
-import EntryPoint.FMExposer;
+import EntryPoint.Library;
+import EntryPoint.Reduction;
 import metaclasses.Concern;
 import metaclasses.Data;
 import metaclasses.Format;
 import metaclasses.Visualization;
 import utils.FileOperation;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
@@ -27,7 +29,7 @@ class GenericTargeting {
      *  - reduce a configuration of the feature model according to the chosen criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //Design the model of the wanted dashboard
         Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml", Format.SenML);
@@ -58,11 +60,13 @@ class GenericTargeting {
 
 
         //Use feature model to find a suitable generable widget
-        FMExposer exposer = new FMExposer();
-        String config = exposer.newConfig();
-        if(exposer.reduceByConcern(visu.getConcern().toString(),config)==1){ // there is only one configuration available after this reduction
+        Library lib = new Library();
+        lib.displayLibraryState();
+        Reduction red = new Reduction(lib);
+        red.reduceByConcern(visu.getConcern().toString());
+        if(red.getNumberOfSuitableWidgets()==1){ // there is only one configuration available after this reduction
             System.out.println("There is only one widget suitable for your visualization requirements. Let's generate it.");
-            visu.setWidgetName(exposer.getWidgetName(config).replace(" ",""));
+            visu.setWidgetName(red.getWidgetName().replace(" ",""));
 
             //Generation of the HTML code from the model
             String code = codeGeneration(visu);

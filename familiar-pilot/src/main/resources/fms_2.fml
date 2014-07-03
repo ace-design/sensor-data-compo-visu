@@ -1,0 +1,6 @@
+FM(widget:Name Comparison Relationship Patterns DataOverTime Value Discrete Variations Dimension; Name:"Step Chart"; Dimension:TwoD;)
+FM(widget:Name Comparison Relationship Patterns DataOverTime Value Discrete Extremum Dimension; Name:"Bar Chart"; Dimension:TwoD;)
+FM(widget:Name Comparison Relationship Probability Distribution Patterns Range DataOverTime Value Discrete Variations Extremum Dimension; Name:"Column Chart"; Dimension:TwoD;)
+FM(widget:Name Proportion Relationship Probability Distribution Patterns DataOverTime Value Discrete Variations Extremum Dimension; Name:"XY/Bubble Chart"; Dimension:ThreeD;)
+FM(widget:Name Patterns Range Value Dimension; Name:"Angular Gauge"; Dimension:OneD;)
+FM(widget:Name Comparison Relationship Distribution Patterns Value Discrete Extremum Dimension; Name:"Radar Chart"; Dimension:OneD;)

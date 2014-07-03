@@ -1,2 +1,2 @@
-fm3 = FM(widget:Name Comparison DataOverTime Value Variations Extremum TwoD Continuous; Name:"Line Chart";)
-fm9 = FM(widget:Name Comparison DataOverTime Value Variations Extremum TwoD Discrete; Name:"Column Chart";)
+FM(widget:Name Comparison DataOverTime Value Variations Extremum TwoD Continuous; Name:"Line Chart";)
+FM(widget:Name Comparison DataOverTime Value Variations Extremum TwoD Discrete; Name:"Column Chart";)
