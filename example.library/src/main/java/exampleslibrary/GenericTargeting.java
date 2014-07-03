@@ -2,10 +2,7 @@ package exampleslibrary;
 
 import EntryPoint.Library;
 import EntryPoint.Reduction;
-import metaclasses.Concern;
-import metaclasses.Data;
-import metaclasses.Format;
-import metaclasses.Visualization;
+import metaclasses.*;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -32,9 +29,10 @@ class GenericTargeting {
     public static void main(String[] args) throws IOException {
 
         //Design the model of the wanted dashboard
+        Dashboard dashboard = new Dashboard();
         Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml", Format.SenML);
         Visualization visu = new Visualization(data);
-
+        dashboard.addVisualization(visu);
         System.out.println("What Concern do you want your visualization to fulfill ?");
 
         Boolean validEntry = false;
@@ -69,7 +67,7 @@ class GenericTargeting {
             visu.setWidgetName(red.getWidgetName().replace(" ",""));
 
             //Generation of the HTML code from the model
-            String code = codeGeneration(visu);
+            String code = codeGeneration(dashboard);
 
 
             //Creation of the /product folder if it doesn't exist already

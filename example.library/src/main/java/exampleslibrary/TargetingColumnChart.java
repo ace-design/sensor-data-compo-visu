@@ -2,10 +2,7 @@ package exampleslibrary;
 
 import EntryPoint.Library;
 import EntryPoint.Reduction;
-import metaclasses.Concern;
-import metaclasses.Data;
-import metaclasses.Format;
-import metaclasses.Visualization;
+import metaclasses.*;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -30,11 +27,13 @@ class TargetingColumnChart {
     public static void main(String[] args) throws IOException {
 
         //Design the model of the wanted dashboard
+        Dashboard dashboard = new Dashboard();
         Visualization visu = new Visualization();
         Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml", Format.SenML);
         Concern concern = Concern.Discrete;
         visu.addData(data);
         visu.addConcern(concern);
+        dashboard.addVisualization(visu);
 
         //Use feature model to find a suitable generable widget
         Library lib = new Library();
@@ -46,7 +45,7 @@ class TargetingColumnChart {
             visu.setWidgetName(red.getWidgetName().replace(" ", ""));
 
             //Generation of the HTML code from the model
-            String code = codeGeneration(visu);
+            String code = codeGeneration(dashboard);
 
             //Creation of the /product folder if it doesn't exist already
             FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);

@@ -1,21 +1,30 @@
 package metaclasses;
 
+import utils.NameCorrectness;
+
+import static java.util.UUID.randomUUID;
+
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
 public class Visualization {
     private Data data;
     private Concern concern;
+    private String name;
     private String widgetName;
     //TODO check the existence
 
-    public Visualization(){}
+    public Visualization(){
+        this.name = "v"+ NameCorrectness.format(randomUUID().toString());
+    }
 
     public Visualization(metaclasses.Data data){
+        this();
         this.data=data;
     }
 
     public Visualization(metaclasses.Data data, metaclasses.Concern concern){
+        this();
         this.concern=concern;
         this.data=data;
     }
@@ -40,4 +49,7 @@ public class Visualization {
         this.widgetName = widgetName;
     }
 
+    public String getName() {
+        return name;
+    }
 }

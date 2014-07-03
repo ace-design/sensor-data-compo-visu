@@ -2,10 +2,7 @@ package exampleslibrary;
 
 import EntryPoint.Library;
 import EntryPoint.Reduction;
-import metaclasses.Concern;
-import metaclasses.Data;
-import metaclasses.Format;
-import metaclasses.Visualization;
+import metaclasses.*;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -30,9 +27,11 @@ class TargetingLineChart {
     public static void main(String[] args) throws IOException {
 
         //Design the model of the wanted dashboard
+        Dashboard dashboard = new Dashboard();
         Data data = new Data("http://54.76.227.250:80/data-api/sensors/TEMP_442V/data?date=2014-06-28%2007:00:00/2014-06-28%2010:00:00", Format.SmartCampus);
         Concern concern = Concern.Continuous;
         Visualization visu = new Visualization(data, concern);
+        dashboard.addVisualization(visu);
 
         //Use feature model to find a suitable generable widget
         Library lib = new Library();
@@ -44,7 +43,7 @@ class TargetingLineChart {
             visu.setWidgetName(red.getWidgetName().replace(" ",""));
 
             //Generation of the HTML code from the model
-            String code = codeGeneration(visu);
+            String code = codeGeneration(dashboard);
 
             //Creation of the /product folder if it doesn't exist already
             FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);

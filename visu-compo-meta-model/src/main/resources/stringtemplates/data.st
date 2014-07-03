@@ -1,3 +1,3 @@
 data(dataname,datavalues) ::= <<
-var $dataname$ = $datavalues$
+var $dataname$ = $datavalues$;
 >>
