@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.nio.file.Paths;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
@@ -76,8 +77,71 @@ public class SimpleFileOperationTest {
         writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./imatest_http_localhost.senml"),"utf-8"));
         writer.write("imatest");
         writer.flush();
-        assertEquals("imatest",FileOperation.getStringFromFile(file.getPath()));
+        assertEquals("imatest", FileOperation.getStringFromFile(file.getPath()));
         file.delete();
+    }
+
+    @Test
+    public void testWriteInFile() throws IOException {
+        StringBuilder s = new StringBuilder();
+        s.append("imatest");
+        FileOperation.fillFileFromObject(s,fileName);
+        assertEquals("imatest", FileOperation.getStringFromFile(fileName));
+    }
+
+    @Test
+    public void testWriteInNotEmptyFileDontAppend() throws IOException {
+        String common = "imatest_old";
+        writer.write(common);
+        writer.flush();
+        StringBuilder s = new StringBuilder();
+        s.append("imatest_new");
+        FileOperation.fillFileFromObject(s,fileName);
+        assertEquals("imatest_new", FileOperation.getStringFromFile(fileName));
+    }
+
+    @Test
+    public void testWriteInNonExistingFileImpliesCreateIt() throws IOException {
+        File file = new File("./iDontExist.senml");
+        if(file.exists())
+            file.delete();
+        StringBuilder s = new StringBuilder();
+        s.append("imatest");
+        FileOperation.fillFileFromObject(s,file.getPath());
+        assertEquals("imatest", FileOperation.getStringFromFile(file.getPath()));
+        file.delete();
+    }
+
+    @Test(expected = IOException.class)
+    public void testWriteInNonExistingFolder() throws IOException {
+        File file = new File("./iDontExist/imatest.senml");
+        StringBuilder s = new StringBuilder();
+        s.append("imatest");
+        FileOperation.fillFileFromObject(s, file.getPath());
+    }
+
+    @Test
+    public void testCreateFolder() throws IOException {
+        String folderName = "iDontExist";
+        FileOperation.setUpFolder(folderName);
+
+        File f = new File(Paths.get("").toAbsolutePath().toString()+"/"+folderName);
+        assertTrue(f.exists());
+        assertTrue(f.isDirectory());
+
+        f.delete();
+    }
+
+    @Test(expected = IOException.class)
+    public void testCreateNullFolder() throws IOException {
+        String folderName = null;
+        FileOperation.setUpFolder(folderName);
+    }
+
+    @Test(expected = IOException.class)
+    public void testBadlyNamedFolder() throws IOException {
+        String folderName = "\u0000";
+        FileOperation.setUpFolder(folderName);
     }
 
     @After
