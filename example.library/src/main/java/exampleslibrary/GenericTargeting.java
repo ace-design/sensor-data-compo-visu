@@ -8,6 +8,7 @@ import metaclasses.Format;
 import metaclasses.Visualization;
 import utils.FileOperation;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
@@ -28,7 +29,7 @@ class GenericTargeting {
      *  - reduce a configuration of the feature model according to the chosen criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //Design the model of the wanted dashboard
         Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml", Format.SenML);

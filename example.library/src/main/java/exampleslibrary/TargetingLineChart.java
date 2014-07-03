@@ -8,6 +8,7 @@ import metaclasses.Format;
 import metaclasses.Visualization;
 import utils.FileOperation;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 
 import static model.exploitation.CodeGeneration.codeGeneration;
@@ -26,7 +27,7 @@ class TargetingLineChart {
      *  - reduce a configuration of the feature model according to the "continuous" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //Design the model of the wanted dashboard
         Data data = new Data("http://54.76.227.250:80/data-api/sensors/TEMP_442V/data?date=2014-06-28%2007:00:00/2014-06-28%2010:00:00", Format.SmartCampus);

@@ -8,6 +8,7 @@ import metaclasses.Format;
 import metaclasses.Visualization;
 import utils.FileOperation;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 
 import static model.exploitation.CodeGeneration.codeGeneration;
@@ -26,7 +27,7 @@ class TargetingColumnChart {
      *  - reduce a configuration of the feature model according to the "Discrete" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //Design the model of the wanted dashboard
         Visualization visu = new Visualization();
