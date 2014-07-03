@@ -17,9 +17,9 @@ public class FileOperation {
     /*
      * Read a local text file, extract and return the content as a String
      */
-    public static String getStringFromFile(String dataSource) {
+    public static String getStringFromFile(String dataSource) throws IOException {
         //the extraction is not the same if it's a remote file or a local one.
-        if (dataSource.contains("http://") || dataSource.contains("localhost"))
+        if (dataSource.contains("http://") || dataSource.contains("localhost:"))
            return FileOperation.getStringFromRemoteFile(dataSource);
         else
             return FileOperation.getStringFromLocalFile(dataSource);
@@ -28,44 +28,36 @@ public class FileOperation {
 /*
  * Read a local text file, extract and return the content as a String
  */
-    public static String getStringFromLocalFile(String fileName) {
+    private static String getStringFromLocalFile(String fileName) throws IOException {
         StringBuilder data = new StringBuilder();
-        try {
-            InputStream ips = new FileInputStream(fileName);
-            InputStreamReader ipsr = new InputStreamReader(ips);
-            BufferedReader br = new BufferedReader(ipsr);
-            String line = br.readLine();
+        InputStream ips = new FileInputStream(fileName);
+        InputStreamReader ipsr = new InputStreamReader(ips);
+        BufferedReader br = new BufferedReader(ipsr);
+        String line = br.readLine();
+        data.append(line);
+        while (null != (line = br.readLine())) {
+            data.append("\n");
             data.append(line);
-            while ((line = br.readLine()) != null) {
-                data.append("\n");
-                data.append(line);
-            }
-            br.close();
-        } catch (Exception e) {
-            System.err.println(e.toString() + e.getMessage());
         }
+        br.close();
         return data.toString();
     }
 
     /*
      * Read a remote text file, extract and return the content as a String
      */
-    public static String getStringFromRemoteFile(String urlString) {
+    private static String getStringFromRemoteFile(String urlString) throws IOException {
         StringBuilder res = new StringBuilder();
-        try {
-            URL url = new URL(urlString);
-            URLConnection conn = url.openConnection();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
 
-            while ((inputLine = reader.readLine()) != null)
-                res.append(inputLine);
-            reader.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return "{}";
-        }
+        URL url = new URL(urlString);
+        URLConnection conn = url.openConnection();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+
+        while ((inputLine = reader.readLine()) != null)
+            res.append(inputLine);
+        reader.close();
+
         return res.toString();
     }
 
