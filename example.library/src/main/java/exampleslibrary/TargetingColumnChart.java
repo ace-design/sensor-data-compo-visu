@@ -2,6 +2,7 @@ package exampleslibrary;
 
 import EntryPoint.Library;
 import EntryPoint.Reduction;
+import constants.Consts;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -29,7 +30,7 @@ class TargetingColumnChart {
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();
         Visualization visu = new Visualization();
-        Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml", Format.SenML);
+        Data data = new Data(Consts.TEMP_SENML, Format.SenML);
         Concern concern = Concern.Discrete;
         visu.addData(data);
         visu.addConcern(concern);

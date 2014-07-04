@@ -2,6 +2,7 @@ package exampleslibrary;
 
 import EntryPoint.Library;
 import EntryPoint.Reduction;
+import constants.Consts;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -15,7 +16,7 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 public class TargetingColumnLeftLineChart {
 
-    private static final String GENERATED_TARGET_FOLDER = "/example.library/products/";
+
 
     /*
      * This example means to illustrate the capability of designing single visualization dashboard with Discrete data
@@ -31,7 +32,7 @@ public class TargetingColumnLeftLineChart {
 
         // #1 visualization : Discrete
         Visualization visu = new Visualization();
-        Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml", Format.SenML);
+        Data data = new Data(Consts.TEMP_SENML, Format.SenML);
         Concern concern = Concern.Discrete;
         visu.addData(data);
         visu.addConcern(concern);
@@ -39,7 +40,7 @@ public class TargetingColumnLeftLineChart {
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
-        Data data2 = new Data("http://users.polytech.unice.fr/~logre/resources/pres2.senml", Format.SenML);
+        Data data2 = new Data(Consts.PRES_SENML, Format.SenML);
         Concern concern2 = Concern.Continuous;
         visu2.addData(data2);
         visu2.addConcern(concern2);
@@ -63,10 +64,10 @@ public class TargetingColumnLeftLineChart {
         String code = codeGeneration(dashboard);
 
         //Creation of the /product folder if it doesn't exist already
-        FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);
+        FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
 
         //store the resulting visualization in a file named after the used concern
-        FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + GENERATED_TARGET_FOLDER + concern + concern2 + ".html");
+        FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER + concern + concern2 + ".html");
     }
 
 }

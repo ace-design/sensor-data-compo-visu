@@ -2,6 +2,7 @@ package exampleslibrary;
 
 import EntryPoint.Library;
 import EntryPoint.Reduction;
+import constants.Consts;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -15,8 +16,6 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 class TargetingLineChart {
 
-    private static final String GENERATED_TARGET_FOLDER = "/example.library/products/";
-
     /*
      * This example means to illustrate the capability of designing single visualization dashboard with continuous data
      * It has to :
@@ -28,7 +27,7 @@ class TargetingLineChart {
 
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();
-        Data data = new Data("http://54.76.227.250:80/data-api/sensors/TEMP_442V/data?date=2014-06-28%2007:00:00/2014-06-28%2010:00:00", Format.SmartCampus);
+        Data data = new Data(Consts.SPEED_SENML, Format.SenML);
         Concern concern = Concern.Continuous;
         Visualization visu = new Visualization(data, concern);
         dashboard.addVisualization(visu);
@@ -46,10 +45,10 @@ class TargetingLineChart {
             String code = codeGeneration(dashboard);
 
             //Creation of the /product folder if it doesn't exist already
-            FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);
+            FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
 
             //store the resulting visualization in a file named after the used concern
-            FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + GENERATED_TARGET_FOLDER + concern.toString() + ".html");
+            FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER+concern.toString() + ".html");
         }
     }
 

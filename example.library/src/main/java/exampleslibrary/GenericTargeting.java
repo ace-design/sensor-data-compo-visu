@@ -2,6 +2,7 @@ package exampleslibrary;
 
 import EntryPoint.Library;
 import EntryPoint.Reduction;
+import constants.Consts;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -16,8 +17,6 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 class GenericTargeting {
 
-    private static final String GENERATED_TARGET_FOLDER = "/example.library/products/";
-
     /*
      * This example means to illustrate the capability of designing single visualization dashboard
      * Letting the user choose the Concern
@@ -30,7 +29,7 @@ class GenericTargeting {
 
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();
-        Data data = new Data("http://users.polytech.unice.fr/~logre/resources/temp2.senml", Format.SenML);
+        Data data = new Data(Consts.TEMP_SENML, Format.SenML);
         Visualization visu = new Visualization(data);
         dashboard.addVisualization(visu);
         System.out.println("What Concern do you want your visualization to fulfill ?");
@@ -71,10 +70,10 @@ class GenericTargeting {
 
 
             //Creation of the /product folder if it doesn't exist already
-            FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);
+            FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
 
             //store the resulting visualization in a file named after the used concern
-            FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + GENERATED_TARGET_FOLDER + entry + ".html");
+            FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER + entry + ".html");
             System.out.println("OK ! Go find your html visualization in the product folder.");
         }
     }

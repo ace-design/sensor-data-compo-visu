@@ -40,7 +40,7 @@ public class Pilot {
         //else
         //	_shell = FMLShell.getInstance();
         _environment = _shell.getCurrentEnv();
-        _shell.setVerbose(true);
+        _shell.setVerbose(false);
         log.debug("Environment du shell :"+_environment);
         hasBeenParsed = false;
     }
@@ -48,7 +48,7 @@ public class Pilot {
     public static Pilot getInstance() {
         if(instance==null)
             instance = new Pilot();
-        instance.getShell().printFMLHeader();
+        //instance.getShell().printFMLHeader();
         return instance;
     }
 
