@@ -7,7 +7,4 @@ public class GetNameOnNonCompleteConfiguration extends Exception{
     public GetNameOnNonCompleteConfiguration(String string) {
         super(string);
     }
-    public GetNameOnNonCompleteConfiguration() {
-        super();
-    }
 }

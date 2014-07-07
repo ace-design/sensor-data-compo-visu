@@ -1,11 +1,13 @@
 package EntryPoint;
 
+import exception.BadIDException;
 import exception.FMEngineException;
-import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
-import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
-import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
+import fr.familiar.interpreter.VariableNotExistingException;
+import fr.familiar.parser.VariableAmbigousConflictException;
+import fr.familiar.variable.FeatureModelVariable;
+import fr.familiar.variable.FeatureVariable;
+import fr.familiar.variable.Variable;
 import kernel.Pilot;
-import utils.ToolBox;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -23,11 +25,11 @@ public class Library {
     private String fm_id;
 
     // default constructor using the default path for the fms declaration file
-    public Library(){
+    public Library() throws IOException {
         this(Paths.get("").toAbsolutePath().toString()+"/familiar-pilot/src/main/resources/"+"fms_min.fml");
     }
 
-    public Library(String libraryPath){
+    public Library(String libraryPath) throws IOException {
         try {
             // test the existence of the file
             if (!new File(libraryPath).exists())
@@ -38,7 +40,7 @@ public class Library {
 
             this.fm_id = pilot.merge(widgets);
 
-        } catch (FMEngineException | IOException e) {
+        } catch (FMEngineException e) {
             e.printStackTrace();
         }
     }
@@ -87,5 +89,28 @@ public class Library {
 
     public String getId() {
         return this.fm_id;
+    }
+
+    public double getNumberValidConfiguration() throws BadIDException{
+        try {
+            return pilot.countingOnFM(this.fm_id);
+        } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
+            throw new BadIDException("The ID " + this.fm_id + " appears to be incorrect.");
+        }
+    }
+
+    public List<String> getWidgetsNames() throws BadIDException {
+        List<String> res = new ArrayList<>();
+        FeatureVariable f_var;
+        try{
+            f_var = pilot.getFVariable(this.getId()+".Name");
+        } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
+            throw new BadIDException("The ID " + this.getId() + " appears to be incorrect.");
+        }
+        for(Variable v : f_var.children().getVars()){
+            res.add(v.getIdentifier());
+        }
+
+        return res;
     }
 }

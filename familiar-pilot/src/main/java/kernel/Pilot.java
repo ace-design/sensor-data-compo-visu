@@ -1,23 +1,21 @@
 package kernel;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 import exception.FMEngineException;
-import fr.unice.polytech.modalis.familiar.variable.*;
+import fr.familiar.variable.*;
 import org.apache.log4j.Logger;
 
-import fr.unice.polytech.modalis.familiar.interpreter.*;
-import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
-import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
-import fr.unice.polytech.modalis.familiar.parser.FMLCommandInterpreter;
-import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
+import fr.familiar.interpreter.*;
+import fr.familiar.interpreter.FMLShell;
+import fr.familiar.interpreter.VariableNotExistingException;
+import fr.familiar.parser.FMLCommandInterpreter;
+import fr.familiar.parser.VariableAmbigousConflictException;
 import utils.ToolBox;
 
 import static org.junit.Assert.*;
@@ -48,7 +46,7 @@ public class Pilot {
     public static Pilot getInstance() {
         if(instance==null)
             instance = new Pilot();
-        //instance.getShell().printFMLHeader();
+        instance.getShell().printFMLHeader();
         return instance;
     }
 
@@ -63,7 +61,7 @@ public class Pilot {
      * Eval file line by line: it won't work with a FM written on multiple lines.
      * @param filename the path of the .fml file to be evaluated
      * @throws FMEngineException, FileNotFoundException, IOException
-     * @throws fr.unice.polytech.modalis.familiar.interpreter.FMLFatalError
+     * @throws fr.familiar.interpreter.FMLFatalError
      * @throws FMLAssertionError
      */
     public List<String> declareFMsByFile(String filename) throws FMEngineException, IOException {
@@ -125,11 +123,7 @@ public class Pilot {
      */
     public void eval(String instr) throws FMEngineException {
         log.debug(instr);
-        try {
-            _shell.parse(instr);
-        } catch (Exception e) {
-            throw new FMEngineException("Unmanaged error :"+e+".\nInstruction: "+instr+"\n");
-        }
+        _shell.parse(instr);
 
         if (_shell.hasFatalErrors()) {
             //throw new FMLFatalError(_shell.getFatalErrors());
@@ -325,4 +319,9 @@ public class Pilot {
             throw new FMEngineException(e.getMessage());
         }
     }
+
+    public double countingOnFM(String FMID) throws VariableNotExistingException, VariableAmbigousConflictException {
+        return getFMVariable(FMID).counting();
+    }
+
 }

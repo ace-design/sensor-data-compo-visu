@@ -6,13 +6,13 @@
 import static org.junit.Assert.*;
 
 import exception.FMEngineException;
-import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
+import fr.familiar.variable.FeatureModelVariable;
 import kernel.Pilot;
 import org.junit.Test;
 
-import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
-import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
-import fr.unice.polytech.modalis.familiar.variable.Variable;
+import fr.familiar.interpreter.VariableNotExistingException;
+import fr.familiar.parser.VariableAmbigousConflictException;
+import fr.familiar.variable.Variable;
 
 public class SimpleFamiliarTest {
     @Test

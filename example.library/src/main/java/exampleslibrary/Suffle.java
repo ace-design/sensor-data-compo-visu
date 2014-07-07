@@ -3,6 +3,8 @@ package exampleslibrary;
 import EntryPoint.Library;
 import EntryPoint.Reduction;
 import constants.Consts;
+import exception.BadIDException;
+import exception.GetNameOnNonCompleteConfiguration;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -17,7 +19,7 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 public class Suffle {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, GetNameOnNonCompleteConfiguration, BadIDException {
 
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();
