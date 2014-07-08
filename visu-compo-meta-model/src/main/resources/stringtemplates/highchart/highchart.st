@@ -1,4 +1,4 @@
-amchart(chartname,dataname,categoryname,graphs) ::= <<
+highchart(options,graphs) ::= <<
     $(function () {
         // Radialize the colors
         Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
@@ -22,36 +22,16 @@ amchart(chartname,dataname,categoryname,graphs) ::= <<
                 plotBorderWidth: null,
                 plotShadow: false
             },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                        style: {
-                            color: (Highcharts.tsheme && Highcharts.theme.contrastTextColor) || 'black'
-                        },
-                        connectorColor: 'silver'
-                    }
-                }
-            },
-            series: [{
-                name: '$dataname$',
-                data: $dataname$
-            }]
+            $options; separator="\n"$
             legend: {
                 layout: 'vertical',
                 align: 'right',
                 verticalAlign: 'middle',
                 borderWidth: 0
             },
-            chart: {
-                type: 'pie'
-            },
+            series: [{
+                $graph; separator="\n"$
+            }]
         });
     });
 >>

@@ -1,0 +1,3 @@
+graphPieChart() ::= <<
+    type: 'pie'
+>>
