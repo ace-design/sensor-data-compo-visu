@@ -58,29 +58,39 @@ public class Pilot {
     }
 
     /**
-     * Eval file line by line: it won't work with a FM written on multiple lines.
-     * @param filename the path of the .fml file to be evaluated
+     * Eval list of fm one by one
+     * @param inlineFMs the list of fms to be evaluated
      * @throws FMEngineException, FileNotFoundException, IOException
-     * @throws fr.familiar.interpreter.FMLFatalError
-     * @throws FMLAssertionError
      */
-    public List<String> declareFMsByFile(String filename) throws FMEngineException, IOException {
-        List<String> res = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader(filename));
+    public List<String> declareFMs(List<String> inlineFMs) throws FMEngineException, IOException {
+        List<String> FM_IDs = new ArrayList<>();
         StringBuilder t = new StringBuilder();
         String idTemp;
-        while (br.ready()) {
+        for(String fm : inlineFMs){
             idTemp = ToolBox.newID("fm_");
-            res.add(idTemp);
+            FM_IDs.add(idTemp);
             t.append(idTemp);
             t.append(" = ");
-            t.append(br.readLine());
+            t.append(fm);
             t.append(" ");
         }
         this.eval(t.toString());
-        return res;
+        return FM_IDs;
     }
 
+    /**
+     * Extract the FMs declaration from a file
+     * @param filename the path of the .fml file to be evaluated
+     * @throws FMEngineException, IOException
+     */
+    public List<String> extractFMsByFile(String filename) throws FMEngineException, IOException {
+        List<String> inlineFMs = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        while (br.ready()) {
+            inlineFMs.add(br.readLine());
+        }
+        return inlineFMs;
+    }
 
 
     public String merge(List<String> knownFMs){

@@ -23,6 +23,7 @@ public class Library {
 
     // the unique ID of the feature model representing the variability of known widgets in this Library
     private String fm_id;
+    private List<String> atomicFMs;
 
     // default constructor using the default path for the fms declaration file
     public Library() throws IOException {
@@ -30,46 +31,51 @@ public class Library {
     }
 
     public Library(String libraryPath) throws IOException {
+        atomicFMs = new ArrayList<>();
         try {
             // test the existence of the file
             if (!new File(libraryPath).exists())
                 throw new IOException("The given path does not exist !");
 
             // launch the evaluation on the file, line by line. it should declare the "atomic" features models (products)
-            List<String> widgets = pilot.declareFMsByFile(libraryPath);
+            atomicFMs = pilot.extractFMsByFile(libraryPath);
+            pilot.declareFMs(atomicFMs);
 
-            this.fm_id = pilot.merge(widgets);
+            this.fm_id = pilot.merge(atomicFMs);
 
         } catch (FMEngineException e) {
             e.printStackTrace();
         }
     }
 
-    public Library merge(Library l2){
+    private Library(String fm_id, List<String> atomicFMs){
+        this.fm_id = fm_id;
+        this.atomicFMs = new ArrayList<>(atomicFMs);
+    }
+
+    public static Library merge(Library l1, Library l2){
         List<String> list = new ArrayList<>();
-        list.add(this.fm_id);
-        list.add(l2.fm_id);
-        this.fm_id = pilot.merge(list);
-        return this;
+        list.addAll(l1.getAtomicFMs());
+        list.addAll(l2.getAtomicFMs());
+        String new_fm_id = pilot.merge(list);
+        return new Library(new_fm_id, list);
     }
 
 
 
-    public Library mergeWithLibraryFileFromPath(String FM_file_path){
+    public void addWidgetsInLibraryFromFile(String FM_file_path){
         try {
             // test the existence of the file
             if (!new File(FM_file_path).exists())
                 throw new IOException("The given path does not exist !");
 
             // launch the evaluation on the file, line by line. it should declare the "atomic" features models (products)
-            List<String> widgets = pilot.declareFMsByFile(FM_file_path);
-            widgets.add(this.fm_id);
-            this.fm_id = pilot.merge(widgets);
-
+            List<String> widgets = pilot.extractFMsByFile(FM_file_path);
+            this.atomicFMs.addAll(widgets);
+            this.fm_id = pilot.merge(atomicFMs);
         } catch (FMEngineException | IOException e) {
             e.printStackTrace();
         }
-        return this;
     }
 
     public void displayLibraryState(){
@@ -112,5 +118,9 @@ public class Library {
         }
 
         return res;
+    }
+
+    public List<String> getAtomicFMs() {
+        return atomicFMs;
     }
 }

@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import fr.familiar.interpreter.VariableNotExistingException;
 import fr.familiar.parser.VariableAmbigousConflictException;
-import fr.familiar.variable.Variable;
 
 public class SimpleFamiliarTest {
     @Test
