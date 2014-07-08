@@ -1,4 +1,4 @@
-chart(chartname,dataname,categoryname,graphs) ::= <<
+amchart(chartname,dataname,categoryname,graphs) ::= <<
 var $chartname$;
 AmCharts.ready(function () {
 	

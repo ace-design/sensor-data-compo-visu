@@ -1,6 +1,6 @@
 graphLineChart(graphname) ::= <<
-$graphname$.bulletSize = 2;
-$graphname$.lineThickness = 1;
+$graphname$.bulletSize = 3;
+$graphname$.lineThickness = 2;
 $graphname$.balloonText = "[[value]]";
 $graphname$.bullet = "round";
 >>
