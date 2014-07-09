@@ -18,12 +18,12 @@ public class DataSimulator {
 
     public static void main(String[] args) throws IOException {
         String dataset_JSON = FileOperation.getStringFromFile(Consts.TEMP_SENML);
-        HashMap<Double, Double> dataSource = new SenMLDeserializer().AffectHashMapFromSerializedData(dataset_JSON).getHM_dataset();
+        HashMap<Double, Double> dataSource = new SenMLDeserializer().getConcreteDataFromSerializedData(dataset_JSON,"t","v").getHM_dataset();
         List<Double> remarkValues = new ArrayList<>();
-        remarkValues.add(27.01);
-        remarkValues.add(30.01);
+        remarkValues.add((double) 27);
+        remarkValues.add((double) 30);
         HashMap<String,Double> categorizedValues = SenML2CategorizedByRemarkableValues(remarkValues,dataSource);
-        FileOperation.fillFileFromObject(SenMLSerializer(categorizedValues),Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER+"categorizedData.senml");
+        FileOperation.fillFileFromObject(StackedSerializer(categorizedValues),Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER+"categorizedData.senml");
     }
 
     /*
@@ -41,10 +41,10 @@ public class DataSimulator {
         remarkValues.sort(Comparator.<Double>reverseOrder());
         for(Double rv : remarkValues)
             if(remarkValues.indexOf(rv)==0)
-                categorization.put((rv+"_PlusInf"),0.0);
+                categorization.put(("> "+rv),0.0);
             else
-                categorization.put(rv+"-"+remarkValues.get(remarkValues.indexOf(rv) - 1),0.0);
-        categorization.put(("LowInf_"+remarkValues.get(remarkValues.size() - 1)),0.0);
+                categorization.put(rv+" - "+remarkValues.get(remarkValues.indexOf(rv) - 1),0.0);
+        categorization.put(("under "+remarkValues.get(remarkValues.size() - 1)),0.0);
 
         for(Double key : dataSource.keySet()){
             Double value = dataSource.get(key);
@@ -59,21 +59,19 @@ public class DataSimulator {
         remarkValues.sort(Comparator.<Double>reverseOrder());
         for(Double rv : remarkValues)
             if(value>rv && remarkValues.indexOf(rv)==0)
-               return rv+"_PlusInf";
+               return "> "+rv;
             else if (value>rv)
-                return rv+"-"+remarkValues.get(remarkValues.indexOf(rv)-1);
-        return "LowInf_"+remarkValues.get(remarkValues.size()-1);
+                return rv+" - "+remarkValues.get(remarkValues.indexOf(rv)-1);
+        return "under "+remarkValues.get(remarkValues.size()-1);
     }
 
-    public static String SenMLSerializer(HashMap<String,Double> dataset){
+    public static String StackedSerializer(HashMap<String,Double> dataset){
 
         StringWriter dataToPrint = new StringWriter();
         JSONWriter rootDest = new JSONWriter(dataToPrint);
         rootDest.object();
         rootDest.key("bn");
         rootDest.value("categorizedData");
-        rootDest.key("bt");
-        rootDest.value(0);
         rootDest.key("e");
         rootDest.array();
 
@@ -82,7 +80,7 @@ public class DataSimulator {
             rootDest.key("range");
             rootDest.value(s);
             rootDest.key("volume");
-            rootDest.value(dataset.get(s).toString());
+            rootDest.value(dataset.get(s));
             rootDest.endObject();
         }
         rootDest.endArray();

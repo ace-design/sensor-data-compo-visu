@@ -5,13 +5,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import utils.interfaces.DataDeserializer;
 
-import java.util.List;
-
 
 /**
  * Created by Ivan Logre on 01/07/2014.
  */
-public class SenMLDeserializer implements DataDeserializer {
+public class StackedDeserializer implements DataDeserializer {
 
     /*
      * This function deserialize a JSON string to return an hashmap according to the senml format description
@@ -23,13 +21,11 @@ public class SenMLDeserializer implements DataDeserializer {
         ConcreteData res = new ConcreteData();
         try {
             JSONObject rootSource = new JSONObject(serializedData);
-            int baseTime = rootSource.getInt("bt");
             res.setName(rootSource.getString("bn"));
-            //TODO offer to use the basetime for a absolute date or to ignore it for a relative one
             JSONArray values = rootSource.getJSONArray("e");
             for (int i = values.length() - 1; i >= 0; i--) {
                 JSONObject v = values.getJSONObject(i);
-                res.put(v.getDouble(indexName) + baseTime, v.getDouble(columnName));
+                res.put(v.getString(indexName), v.getDouble(columnName));
             }
         } catch (Exception e) {
             e.printStackTrace();

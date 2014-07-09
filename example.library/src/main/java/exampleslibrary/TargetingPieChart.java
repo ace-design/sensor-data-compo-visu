@@ -1,7 +1,5 @@
 package exampleslibrary;
 
-import EntryPoint.Library;
-import EntryPoint.Reduction;
 import constants.Consts;
 import exception.BadIDException;
 import exception.GetNameOnNonCompleteConfiguration;
@@ -22,7 +20,7 @@ public class TargetingPieChart {
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();
             Visualization visu = new Visualization();
-            visu.addData(new Data(Consts.TEMP_SENML, Format.SenML));
+            visu.addData(new Data(Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked));
             visu.setWidgetName("PieChart");
             visu.setLibraryName("highchart");
 

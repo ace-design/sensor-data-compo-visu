@@ -13,9 +13,33 @@ import java.util.TreeSet;
  */
 public class HighChartFormater implements DataTargetFormater {
 
-//TODO
     @Override
     public String convertData2LibraryFormat(ConcreteData data) {
+        HashMap<Object,Double> HM_index_value = data.getHM_dataset();
+
+        //transform the hashmap(time,value) in a format understandable by AmChart
+        StringBuilder dataToPrint = new StringBuilder();
+        dataToPrint.append("[");
+        dataToPrint.append("\n");
+        for (Object i : HM_index_value.keySet()) {
+            dataToPrint.append("[");
+            dataToPrint.append("\""+i.toString()+"\"");
+            dataToPrint.append(",");
+            dataToPrint.append(HM_index_value.get(i));
+            dataToPrint.append("],");
+            dataToPrint.append("\n");
+        }
+        dataToPrint.deleteCharAt(dataToPrint.lastIndexOf(","));
+        dataToPrint.append("\n");
+        dataToPrint.append("]");
+
+
+        return dataToPrint.toString();
+    }
+
+    //TODO
+    @Override
+    public String convertData2LibraryFormatSorted(ConcreteData data) {
 
         HashMap<Double,Double> HM_time_value = data.getHM_dataset();
 

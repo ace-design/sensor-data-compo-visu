@@ -18,7 +18,7 @@ public class Consts {
     public static final String TEMP_SENML = "http://users.polytech.unice.fr/~logre/resources/temp2.senml";
     public static final String ALTITUDE_SENML = "http://users.polytech.unice.fr/~logre/resources/altitude.senml";
     public static final String SPEED_SENML = "http://users.polytech.unice.fr/~logre/resources/ground_speed.senml";
-    public static final String CATEGORIZED_SENML = "http://users.polytech.unice.fr/~logre/resources/categorizedData.senml";
+    public static final String CATEGORIZED_STACKED = "http://users.polytech.unice.fr/~logre/resources/categorizedData.senml";
     //TODO handle the particular deserialization for GPS senml data
     public static final String LATITUDE_SENML = "http://users.polytech.unice.fr/~logre/resources/latitude.senml";
     public static final String LONGITUDE_SENML = "http://users.polytech.unice.fr/~logre/resources/longitude.senml";
