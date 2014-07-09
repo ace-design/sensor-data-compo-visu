@@ -20,20 +20,22 @@ public class HighChartFormater implements DataTargetFormater {
         HashMap<Double,Double> HM_time_value = data.getHM_dataset();
 
         //transform the hashmap(time,value) in a format understandable by AmChart
-        StringWriter dataToPrint = new StringWriter();
-        JSONWriter rootDest = new JSONWriter(dataToPrint);
-        rootDest.array();
-
+        StringBuilder dataToPrint = new StringBuilder();
         TreeSet<Double> set = new TreeSet<>(HM_time_value.keySet());
+        dataToPrint.append("[");
+        dataToPrint.append("\n");
         for (Double i : set) {
-            rootDest.object();
-            rootDest.key(data.getCategoryFieldName());
-            rootDest.value(i);
-            rootDest.key(data.getValueFieldName());
-            rootDest.value(HM_time_value.get(i));
-            rootDest.endObject();
+            dataToPrint.append("[");
+            dataToPrint.append(i);
+            dataToPrint.append(",");
+            dataToPrint.append(HM_time_value.get(i));
+            dataToPrint.append("],");
+            dataToPrint.append("\n");
         }
-        rootDest.endArray();
+        dataToPrint.deleteCharAt(dataToPrint.lastIndexOf(","));
+        dataToPrint.append("\n");
+        dataToPrint.append("]");
+
 
         return dataToPrint.toString();
     }

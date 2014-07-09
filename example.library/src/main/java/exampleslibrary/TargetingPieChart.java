@@ -35,7 +35,7 @@ public class TargetingPieChart {
         FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
 
         //store the resulting visualization in a file named after the used concern
-        FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + Consts.GENERATED_TARGET_FOLDER + "piechart.html");
+        FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + Consts.GENERATED_TARGET_FOLDER + "PieChart.html");
 
     }
 }

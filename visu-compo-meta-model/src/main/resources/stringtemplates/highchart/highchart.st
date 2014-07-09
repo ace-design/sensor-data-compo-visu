@@ -1,4 +1,4 @@
-highchart(options, graphs) ::= <<
+highchart(options,chartname,graphs) ::= <<
 \$(function () {
     // Radialize the colors
     Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
@@ -16,7 +16,7 @@ highchart(options, graphs) ::= <<
     });
 
     // Build the chart
-    \$("#container").highcharts({
+    \$("#$chartname$_div").highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
