@@ -5,6 +5,7 @@ import EntryPoint.Reduction;
 import constants.Consts;
 import exception.BadIDException;
 import exception.GetNameOnNonCompleteConfiguration;
+import exception.UnhandledDataFormatException;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -18,8 +19,6 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 class TargetingColumnChart {
 
-    private static final String GENERATED_TARGET_FOLDER = "/example.library/products/";
-
     /*
      * This example means to illustrate the capability of designing single visualization dashboard with Discrete data
      * It has to :
@@ -27,7 +26,7 @@ class TargetingColumnChart {
      *  - reduce a configuration of the feature model according to the "Discrete" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, BadIDException, GetNameOnNonCompleteConfiguration {
+    public static void main(String[] args) throws IOException, BadIDException, GetNameOnNonCompleteConfiguration, UnhandledDataFormatException {
 
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();
@@ -51,10 +50,10 @@ class TargetingColumnChart {
             String code = codeGeneration(dashboard);
 
             //Creation of the /product folder if it doesn't exist already
-            FileOperation.setUpFolder(GENERATED_TARGET_FOLDER);
+            FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
 
             //store the resulting visualization in a file named after the used concern
-            FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + GENERATED_TARGET_FOLDER + concern.toString() + ".html");
+            FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + Consts.GENERATED_TARGET_FOLDER + concern.toString() + ".html");
         }
     }
 

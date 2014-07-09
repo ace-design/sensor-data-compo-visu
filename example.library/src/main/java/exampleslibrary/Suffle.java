@@ -5,6 +5,7 @@ import EntryPoint.Reduction;
 import constants.Consts;
 import exception.BadIDException;
 import exception.GetNameOnNonCompleteConfiguration;
+import exception.UnhandledDataFormatException;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -19,7 +20,7 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 public class Suffle {
 
-    public static void main(String[] args) throws IOException, GetNameOnNonCompleteConfiguration, BadIDException {
+    public static void main(String[] args) throws IOException, GetNameOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException {
 
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();

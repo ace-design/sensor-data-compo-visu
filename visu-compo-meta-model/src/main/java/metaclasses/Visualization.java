@@ -11,8 +11,8 @@ public class Visualization {
     private Data data;
     private Concern concern;
     private String name;
-    private String widgetName;
-    //TODO check the existence
+    private String widgetName;    //TODO check the existence
+    private String libraryName = "amchart";   //TODO check the existence
 
     public Visualization(){
         this.name = "v"+ NameCorrectness.format(randomUUID().toString());
@@ -52,4 +52,13 @@ public class Visualization {
     public String getName() {
         return name;
     }
+
+    public String getLibraryName() {
+        return libraryName;
+    }
+
+    public void setLibraryName(String libraryName) {
+        this.libraryName = libraryName;
+    }
+
 }

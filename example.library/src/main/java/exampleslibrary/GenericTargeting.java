@@ -5,6 +5,7 @@ import EntryPoint.Reduction;
 import constants.Consts;
 import exception.BadIDException;
 import exception.GetNameOnNonCompleteConfiguration;
+import exception.UnhandledDataFormatException;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -27,7 +28,7 @@ class GenericTargeting {
      *  - reduce a configuration of the feature model according to the chosen criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, BadIDException, GetNameOnNonCompleteConfiguration {
+    public static void main(String[] args) throws IOException, BadIDException, GetNameOnNonCompleteConfiguration, UnhandledDataFormatException {
 
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();
