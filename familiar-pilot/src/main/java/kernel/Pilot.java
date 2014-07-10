@@ -78,12 +78,23 @@ public class Pilot {
         return FM_IDs;
     }
 
+    public String declareFM(String formula) throws FMEngineException {
+        StringBuilder t = new StringBuilder();
+        String idFM;
+        idFM = ToolBox.newID("fm_");
+        t.append(idFM);
+        t.append(" = ");
+        t.append(formula);
+        this.eval(t.toString());
+        return idFM;
+    }
+
     /**
      * Extract the FMs declaration from a file
      * @param filename the path of the .fml file to be evaluated
      * @throws FMEngineException, IOException
      */
-    public List<String> extractFMsByFile(String filename) throws FMEngineException, IOException {
+    public List<String> extractFMsByFile(String filename) throws IOException {
         List<String> inlineFMs = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(filename));
         while (br.ready()) {
@@ -334,4 +345,8 @@ public class Pilot {
         return getFMVariable(FMID).counting();
     }
 
+
+    public void selectFeatureOnConfiguration(String concern, String configId) throws FMEngineException {
+        this.eval("select " + concern + " in " + configId);
+    }
 }

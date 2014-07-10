@@ -1,5 +1,7 @@
 import EntryPoint.Library;
+import EntryPoint.Universe;
 import exception.BadIDException;
+import exception.UnhandledFamiliarException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -12,54 +14,36 @@ import static org.junit.Assert.assertEquals;
 public class TestMerge {
 
     @Test
-    public void testFamiliarMergeCounting() throws BadIDException, IOException {
-        Library lib1 = new Library(this.getClass().getResource("fms_1.fml").getPath());
-        Library lib2 = new Library(this.getClass().getResource("fms_2.fml").getPath());
-
-        double count = lib1.getNumberValidConfiguration() + lib2.getNumberValidConfiguration();
-
-        Library merged = Library.merge(lib1,lib2);
-
-        System.out.println("_____________");
-        System.out.println("MergeCounting");
-        System.out.println("Expected : "+count);
-        System.out.println("Obtained : "+merged.getNumberValidConfiguration());
-        assertEquals(count, merged.getNumberValidConfiguration(),0);
+    public void testFamiliarMergeCounting() throws BadIDException, IOException, UnhandledFamiliarException {
+        Universe universe1 = new Universe(this.getClass().getResource("fms_1.fml").getPath());
+        Universe universe2 = new Universe(this.getClass().getResource("fms_2.fml").getPath());
+        double count = universe1.getNumberSuitableTargets() + universe2.getNumberSuitableTargets();
+        Universe merged = Universe.merge(universe1,universe2);
+        assertEquals(count, merged.getNumberSuitableTargets(),0);
     }
 
     @Test
-    public void testFamiliarMergeCommutativity() throws BadIDException, IOException {
-        Library lib1 = new Library(this.getClass().getResource("fms_1.fml").getPath());
-        Library lib2 = new Library(this.getClass().getResource("fms_2.fml").getPath());
+    public void testFamiliarMergeCommutativity() throws BadIDException, IOException, UnhandledFamiliarException {
+        Universe universe1 = new Universe(this.getClass().getResource("fms_1.fml").getPath());
+        Universe universe2 = new Universe(this.getClass().getResource("fms_2.fml").getPath());
+        Universe merged1 = Universe.merge(universe1,universe2);
 
-        Library merged1 = Library.merge(lib1,lib2);
+        Universe universe3 = new Universe(this.getClass().getResource("fms_1.fml").getPath());
+        Universe universe4 = new Universe(this.getClass().getResource("fms_2.fml").getPath());
+        Universe merged2 = Universe.merge(universe4,universe3);
 
-        Library lib3 = new Library(this.getClass().getResource("fms_1.fml").getPath());
-        Library lib4 = new Library(this.getClass().getResource("fms_2.fml").getPath());
-
-        Library merged2 = Library.merge(lib3,lib4);
-
-        System.out.println("__________________");
-        System.out.println("MergeCommutativity");
-        System.out.println("Expected : "+merged1.getNumberValidConfiguration());
-        System.out.println("Obtained : "+merged2.getNumberValidConfiguration());
-        assertEquals(merged2.getNumberValidConfiguration(), merged1.getNumberValidConfiguration(),0);
+        assertEquals(merged2.getNumberSuitableTargets(), merged1.getNumberSuitableTargets(),0);
     }
 
 
     @Test
-    public void testFamiliarMergeCommutativity2() throws BadIDException, IOException {
-        Library lib1 = new Library(this.getClass().getResource("fms_1.fml").getPath());
-        Library lib2 = new Library(this.getClass().getResource("fms_2.fml").getPath());
+    public void testFamiliarMergeCommutativity2() throws BadIDException, IOException, UnhandledFamiliarException {
+        Universe universe1 = new Universe(this.getClass().getResource("fms_1.fml").getPath());
+        Universe universe2 = new Universe(this.getClass().getResource("fms_2.fml").getPath());
+        Universe merged1 = Universe.merge(universe1,universe2);
+        Universe merged2 = Universe.merge(universe2,universe1);
 
-        Library merged1 = Library.merge(lib1,lib2);
-        Library merged2 = Library.merge(lib2,lib1);
-
-        System.out.println("__________________");
-        System.out.println("MergeCommutativity2");
-        System.out.println("Expected : "+merged1.getNumberValidConfiguration());
-        System.out.println("Obtained : "+merged2.getNumberValidConfiguration());
-        assertEquals(merged2.getNumberValidConfiguration(), merged1.getNumberValidConfiguration(),0);
+        assertEquals(merged2.getNumberSuitableTargets(), merged1.getNumberSuitableTargets(),0);
     }
 
 

@@ -2,10 +2,9 @@ package exampleslibrary;
 
 import EntryPoint.Library;
 import EntryPoint.Reduction;
+import EntryPoint.Universe;
 import constants.Consts;
-import exception.BadIDException;
-import exception.GetUniqueElementOnNonCompleteConfiguration;
-import exception.UnhandledDataFormatException;
+import exception.*;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -25,31 +24,35 @@ class TargetingLineChart {
      *  - reduce a configuration of the feature model according to the "continuous" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException {
+    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException {
 
-        //Design the model of the wanted dashboard
+
+         /////
+        //1//  Design the model of the wanted dashboard
+       /////
         Dashboard dashboard = new Dashboard();
         Data data = new Data(Consts.SPEED_SENML, Format.SenML);
         Concern concern = Concern.Continuous;
         Visualization visu = new Visualization(data, concern);
         dashboard.addVisualization(visu);
 
-        //Use feature model to find a suitable generable widget
-        Library lib = new Library();
-        lib.displayLibraryState();
-        Reduction red = new Reduction(lib);
-        red.reduceByConcerns(visu.getConcernNames());
-        if(red.getNumberOfSuitableWidgets()==1){ // there is only one configuration available after this reduction
-            System.out.println("There is only one widget suitable for your visualization requirements. Let's generate it.");
-            visu.setWidgetName(red.getWidgetName().replace(" ",""));
-            visu.setLibraryName(red.getLibraryName());
+         /////
+        //2//  Use feature model to find a suitable generable widget
+       /////
+        Universe univ = new Universe();
+        univ.displayUniverseState();
+        univ.reduceByConcerns(visu.getConcernNames());
+        if (univ.isMinimal()) {
+            visu.setLibraryName(univ.getLastLibraryName());
+            visu.setWidgetName(univ.getLastWidgetName());
 
+             /////
+            //3//  Generation
+           /////
             //Generation of the HTML code from the model
             String code = codeGeneration(dashboard);
-
             //Creation of the /product folder if it doesn't exist already
             FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
-
             //store the resulting visualization in a file named after the used concern
             FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER+"Line.html");
         }

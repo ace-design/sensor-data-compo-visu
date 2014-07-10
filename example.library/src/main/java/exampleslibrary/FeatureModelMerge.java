@@ -1,8 +1,10 @@
 package exampleslibrary;
 
 import EntryPoint.Library;
+import EntryPoint.Universe;
 import constants.Consts;
 import exception.BadIDException;
+import exception.UnhandledFamiliarException;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -11,14 +13,14 @@ import java.nio.file.Paths;
  * Created by Ivan Logre on 02/07/2014.
  */
 public class FeatureModelMerge {
-    public static void main(String[] args) throws IOException, BadIDException {
-        Library lib1 = new Library(Consts.RUNTIME_FOLDER+ "/familiar-pilot/src/main/resources/fms_1.fml");
-        Library lib2 = new Library(Consts.RUNTIME_FOLDER+"/familiar-pilot/src/main/resources/fms_2.fml");
+    public static void main(String[] args) throws IOException, BadIDException, UnhandledFamiliarException {
+        Universe univ1 = new Universe(Consts.RUNTIME_FOLDER+ "/familiar-pilot/src/main/resources/fms_1.fml");
+        Universe univ2 = new Universe(Consts.RUNTIME_FOLDER+"/familiar-pilot/src/main/resources/fms_2.fml");
 
-        lib1.displayLibraryState();
-        lib2.displayLibraryState();
+        univ1.displayUniverseState();
+        univ2.displayUniverseState();
 
-        Library newLib1 = Library.merge(lib1,lib2);
-        newLib1.displayLibraryState();
+        Universe newLib1 = Universe.merge(univ1,univ2);
+        newLib1.displayUniverseState();
     }
 }

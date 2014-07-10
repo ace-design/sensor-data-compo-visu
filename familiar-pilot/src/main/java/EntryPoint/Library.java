@@ -73,7 +73,7 @@ public class Library {
             List<String> widgets = pilot.extractFMsByFile(FM_file_path);
             this.atomicFMs.addAll(widgets);
             this.fm_id = pilot.merge(atomicFMs);
-        } catch (FMEngineException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
