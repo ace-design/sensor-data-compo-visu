@@ -4,13 +4,12 @@ import EntryPoint.Library;
 import EntryPoint.Reduction;
 import constants.Consts;
 import exception.BadIDException;
-import exception.GetNameOnNonCompleteConfiguration;
+import exception.GetUniqueElementOnNonCompleteConfiguration;
 import exception.UnhandledDataFormatException;
 import metaclasses.*;
 import utils.FileOperation;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 
 import static model.exploitation.CodeGeneration.codeGeneration;
 
@@ -28,7 +27,7 @@ public class TargetingColumnLeftLineChart {
      *  - reduce a configuration of the feature model according to the "Discrete" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, GetNameOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException {
+    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException {
 
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();
@@ -36,14 +35,14 @@ public class TargetingColumnLeftLineChart {
         // #1 visualization : Discrete
         Visualization visu = new Visualization();
         Data data = new Data(Consts.TEMP_SENML, Format.SenML);
-        Concern concern = Concern.Discrete;
         visu.addData(data);
-        visu.addConcern(concern);
+        visu.addConcern(Concern.Discrete);
+        visu.addConcern(Concern.Extremum);
         dashboard.addVisualization(visu);
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
-        Data data2 = new Data(Consts.PRES_SENML, Format.SenML);
+        Data data2 = new Data(Consts.TEMP_NEG_SENML, Format.SenML);
         Concern concern2 = Concern.Continuous;
         visu2.addData(data2);
         visu2.addConcern(concern2);
@@ -54,10 +53,11 @@ public class TargetingColumnLeftLineChart {
             Library lib = new Library();
             lib.displayLibraryState();
             Reduction red = new Reduction(lib);
-            red.reduceByConcern(v.getConcern().toString());
+            red.reduceByConcerns(v.getConcernNames());
 
             System.out.println("There is only one widget suitable for your visualization requirements. Let's generate it.");
             v.setWidgetName(red.getWidgetName().replace(" ", ""));
+            v.setLibraryName(red.getLibraryName());
         }
 
 
@@ -70,7 +70,7 @@ public class TargetingColumnLeftLineChart {
         FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
 
         //store the resulting visualization in a file named after the used concern
-        FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER + concern + concern2 + ".html");
+        FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER + "LeftColumnLine.html");
     }
 
 }

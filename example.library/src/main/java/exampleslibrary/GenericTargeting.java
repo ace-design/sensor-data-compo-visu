@@ -4,13 +4,12 @@ import EntryPoint.Library;
 import EntryPoint.Reduction;
 import constants.Consts;
 import exception.BadIDException;
-import exception.GetNameOnNonCompleteConfiguration;
+import exception.GetUniqueElementOnNonCompleteConfiguration;
 import exception.UnhandledDataFormatException;
 import metaclasses.*;
 import utils.FileOperation;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 import static model.exploitation.CodeGeneration.codeGeneration;
@@ -28,7 +27,7 @@ class GenericTargeting {
      *  - reduce a configuration of the feature model according to the chosen criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, BadIDException, GetNameOnNonCompleteConfiguration, UnhandledDataFormatException {
+    public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, UnhandledDataFormatException {
 
         //Design the model of the wanted dashboard
         Dashboard dashboard = new Dashboard();
@@ -63,10 +62,11 @@ class GenericTargeting {
         Library lib = new Library();
         lib.displayLibraryState();
         Reduction red = new Reduction(lib);
-        red.reduceByConcern(visu.getConcern().toString());
+        red.reduceByConcerns(visu.getConcernNames());
         if(red.getNumberOfSuitableWidgets()==1){ // there is only one configuration available after this reduction
             System.out.println("There is only one widget suitable for your visualization requirements. Let's generate it.");
             visu.setWidgetName(red.getWidgetName().replace(" ",""));
+            visu.setLibraryName(red.getLibraryName());
 
             //Generation of the HTML code from the model
             String code = codeGeneration(dashboard);
@@ -79,6 +79,8 @@ class GenericTargeting {
             FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER + entry + ".html");
             System.out.println("OK ! Go find your html visualization in the product folder.");
         }
+        else System.out.println("There more than one widget suitable for your visualization requirements. It's a TODO !");
+
     }
 
 

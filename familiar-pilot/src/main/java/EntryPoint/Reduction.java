@@ -2,7 +2,7 @@ package EntryPoint;
 
 import exception.BadIDException;
 import exception.FMEngineException;
-import exception.GetNameOnNonCompleteConfiguration;
+import exception.GetUniqueElementOnNonCompleteConfiguration;
 import fr.familiar.interpreter.VariableNotExistingException;
 import fr.familiar.parser.VariableAmbigousConflictException;
 import fr.familiar.variable.FeatureVariable;
@@ -41,7 +41,7 @@ public class Reduction {
      */
     public void reduceByConcern(String s){
         try {
-            System.out.println("select " + s + " in " + configId);
+            //System.out.println("select " + s + " in " + configId);
             pilot.eval("select " + s + " in " + configId);
             //TODO handle the eval in the pilot
         } catch (FMEngineException e) {
@@ -59,7 +59,7 @@ public class Reduction {
         }
     }
 
-    public String getWidgetName() throws GetNameOnNonCompleteConfiguration, BadIDException {
+    public String getWidgetName() throws GetUniqueElementOnNonCompleteConfiguration, BadIDException {
         FeatureVariable f_var;
         try{
             String subLibrary = pilot.asFM(configId);
@@ -72,7 +72,7 @@ public class Reduction {
             Variable v = f_var.children().getVars().toArray(varSet)[0];
             return v.getValue();
         }
-        else throw new GetNameOnNonCompleteConfiguration("Reduction "+configId+" appears not to be complete.");
+        else throw new GetUniqueElementOnNonCompleteConfiguration("Reduction "+configId+" appears not to be complete.");
     }
 
     public List<String> getWidgetsNames() throws BadIDException {
@@ -89,5 +89,45 @@ public class Reduction {
         }
 
         return res;
+    }
+
+    public String getLibraryName() throws GetUniqueElementOnNonCompleteConfiguration, BadIDException {
+        FeatureVariable f_var;
+        try{
+            String subLibrary = pilot.asFM(configId);
+            f_var = pilot.getFVariable(subLibrary+".Library");
+        } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
+            throw new BadIDException("The ID " + this.configId + " appears to be incorrect.");
+        }
+        if(f_var.children().getVars().size()==1){
+            Variable[] varSet = new Variable[]{};
+            Variable v = f_var.children().getVars().toArray(varSet)[0];
+            return v.getValue();
+        }
+        else throw new GetUniqueElementOnNonCompleteConfiguration("Reduction "+configId+" appears not to be complete.");
+    }
+
+    public List<String> getLibrariesNames() throws GetUniqueElementOnNonCompleteConfiguration, BadIDException {
+        List<String> res = new ArrayList<>();
+        FeatureVariable f_var;
+        try{
+            String subLibrary = pilot.asFM(configId);
+            f_var = pilot.getFVariable(subLibrary+".Library");
+        } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
+            throw new BadIDException("The ID " + this.configId + " appears to be incorrect.");
+        }
+        for(Variable v : f_var.children().getVars()){
+            res.add(v.getIdentifier());
+        }
+
+        return res;
+    }
+
+    public boolean isMinimal() throws BadIDException{
+        try {
+            return pilot.isComplete(this.configId);
+        } catch (FMEngineException e) {
+            throw new BadIDException("The ID " + this.configId + " appears to be incorrect.");
+        }
     }
 }

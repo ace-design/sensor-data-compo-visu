@@ -14,7 +14,7 @@ public class Consts {
 
     //Data Library
     //SenML
-    public static final String PRES_SENML = "http://users.polytech.unice.fr/~logre/resources/pres2.senml";
+    public static final String TEMP_NEG_SENML = "http://users.polytech.unice.fr/~logre/resources/air_temp_neg.senml";
     public static final String TEMP_SENML = "http://users.polytech.unice.fr/~logre/resources/temp2.senml";
     public static final String ALTITUDE_SENML = "http://users.polytech.unice.fr/~logre/resources/altitude.senml";
     public static final String SPEED_SENML = "http://users.polytech.unice.fr/~logre/resources/ground_speed.senml";
@@ -33,7 +33,7 @@ public class Consts {
        Random random = new Random();
        switch(random.nextInt(Integer.MAX_VALUE)%4) {
            case 0:
-               return PRES_SENML;
+               return TEMP_NEG_SENML;
            case 1:
                return ALTITUDE_SENML;
            case 2:

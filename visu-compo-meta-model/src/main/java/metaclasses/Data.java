@@ -45,7 +45,7 @@ public class Data {
         switch(format){
             case SenML:
                 index = new Column("t","timestamp");
-                serie = new Column("v","scalar");
+                serie = new Column("v","double");
                 break;
             case SmartCampus:
                 index = new Column("date","timestamp");

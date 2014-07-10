@@ -16,7 +16,7 @@ public class AmChartFormater implements DataTargetFormater {
 
     @Override
     public String convertData2LibraryFormat(ConcreteData data) {
-        HashMap<Double,Double> HM_index_value = data.getHM_dataset();
+        HashMap<Object,Double> HM_index_value = data.getHM_dataset();
 
         //transform the hashmap(time,value) in a format understandable by AmChart
         StringWriter dataToPrint = new StringWriter();

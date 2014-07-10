@@ -2,6 +2,9 @@ package metaclasses;
 
 import utils.NameCorrectness;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.util.UUID.randomUUID;
 
 /**
@@ -9,13 +12,14 @@ import static java.util.UUID.randomUUID;
  */
 public class Visualization {
     private Data data;
-    private Concern concern;
+    private List<Concern> concerns;
     private String name;
     private String widgetName;    //TODO check the existence
-    private String libraryName = "amchart";   //TODO check the existence
+    private String libraryName;   //TODO check the existence
 
     public Visualization(){
         this.name = "v"+ NameCorrectness.format(randomUUID().toString());
+        this.concerns =new ArrayList<>();
     }
 
     public Visualization(metaclasses.Data data){
@@ -23,14 +27,21 @@ public class Visualization {
         this.data=data;
     }
 
-    public Visualization(metaclasses.Data data, metaclasses.Concern concern){
+    public Visualization(metaclasses.Data data, metaclasses.Concern concerns){
         this();
-        this.concern=concern;
+        this.addConcern(concerns);
         this.data=data;
     }
 
-    public Concern getConcern() {
-        return concern;
+    public List<Concern> getConcerns() {
+        return this.concerns;
+    }
+
+    public List<String> getConcernNames() {
+        List<String> names = new ArrayList<>();
+        for(Concern concern : this.concerns)
+            names.add(concern.toString());
+        return names;
     }
 
     public Data getData() {
@@ -40,7 +51,8 @@ public class Visualization {
     public void addData(Data data){this.data=data;}
 
     public void addConcern(Concern concern){
-        this.concern=concern;
+        if(!this.concerns.contains(concern))
+            this.concerns.add(concern);
     }
 
     public String getWidgetName() {return widgetName;}
