@@ -1,7 +1,5 @@
 package exampleslibrary;
 
-import EntryPoint.Library;
-import EntryPoint.Reduction;
 import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
@@ -25,7 +23,7 @@ class TargetingColumnChart {
      *  - reduce a configuration of the feature model according to the "Discrete" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException {
+    public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
          /////
         //1//  Design the model of the wanted dashboard

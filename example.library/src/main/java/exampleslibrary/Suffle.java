@@ -1,11 +1,8 @@
 package exampleslibrary;
 
-import EntryPoint.Library;
-import EntryPoint.Reduction;
+import EntryPoint.Universe;
 import constants.Consts;
-import exception.BadIDException;
-import exception.GetUniqueElementOnNonCompleteConfiguration;
-import exception.UnhandledDataFormatException;
+import exception.*;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -21,18 +18,19 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 public class Suffle {
 
-    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException {
-
-        //Design the model of the wanted dashboard
-        Dashboard dashboard = new Dashboard();
+    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
         Random random = new Random();
-
         List<String> datasets = new ArrayList<>();
         datasets.add(Consts.ALTITUDE_SENML);
         datasets.add(Consts.TEMP_NEG_SENML);
         datasets.add(Consts.SPEED_SENML);
         datasets.add(Consts.TEMP_SENML);
+
+         /////
+        //1//  Design the model of the wanted dashboard
+       /////
+        Dashboard dashboard = new Dashboard();
 
         for(int i=0;i<4;i++) {
             Visualization visu = new Visualization();
@@ -43,29 +41,32 @@ public class Suffle {
             System.out.println("Data "+i+" = "+data.getUrl());
             visu.addData(data);
             dashboard.addVisualization(visu);
-
-            //Use feature model to find a suitable generable widget
-            Library lib = new Library();
-            //lib.displayLibraryState();
-            Reduction red = new Reduction(lib);
             visu.addConcern(Concern.Extremum);
-            red.reduceByConcern(Concern.Extremum.toString());
-            while(!red.isMinimal()) {
+
+
+            /////
+            //2//  Use feature model to find a suitable generable widget
+           /////
+            Universe univ = new Universe();
+            univ.displayUniverseState();
+            univ.reduceByConcerns(visu.getConcernNames());
+            while (!univ.isMinimal()) {
                 Concern concern = Concern.values()[random.nextInt(Integer.MAX_VALUE) % 2];
-                System.out.println("Data "+i+", concer added : "+concern);
+                System.out.println("Data "+i+", concern added : "+concern);
                 visu.addConcern(concern);
-                red.reduceByConcern(concern.toString());
+                univ.reduceByConcern(concern.name());
             }
-            visu.setWidgetName(red.getWidgetName().replace(" ", ""));
-            visu.setLibraryName(red.getLibraryName());
+            visu.setLibraryName(univ.getLastLibraryName());
+            visu.setWidgetName(univ.getLastWidgetName());
         }
 
+         /////
+        //3//  Generation
+       /////
         //Generation of the HTML code from the model
         String code = codeGeneration(dashboard);
-
         //Creation of the /product folder if it doesn't exist already
         FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
-
         //store the resulting visualization in a file named after the used concern
         FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+ Consts.GENERATED_TARGET_FOLDER + "suffle.html");
     }

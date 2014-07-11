@@ -1,7 +1,5 @@
 package exampleslibrary;
 
-import EntryPoint.Library;
-import EntryPoint.Reduction;
 import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
@@ -18,7 +16,7 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 public class TargetingPieChart {
 
-    public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException {
+    public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
          /////
         //1//  Design the model of the wanted dashboard

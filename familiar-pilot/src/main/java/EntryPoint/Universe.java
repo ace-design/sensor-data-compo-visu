@@ -20,9 +20,8 @@ public class Universe {
     // the singleton instance of the pilot
     private static final Pilot pilot = Pilot.getInstance();
 
-    // the unique ID of the feature model representing the variability of known widgets in this collection of widget
-    private String ID;
-
+    // the unique fmID of the feature model representing the variability of known widgets in this collection of widget
+    private String fmID;
     private List<Widget> widgets;
 
     public Universe() throws IOException, UnhandledFamiliarException {
@@ -32,17 +31,17 @@ public class Universe {
 
     /* Launch the evaluation on the file widgetsFormulaPath, line by line.
      * It should declare the "atomic" features models (products)
-     * we store their ID in familiar and their formula used to instantiate them in Widgets
+     * we store their fmID in familiar and their formula used to instantiate them in Widgets
      */
     public Universe(String widgetsFormulaPath) throws IOException, UnhandledFamiliarException {
         widgets = new ArrayList<>();
-            // test the existence of the file
-            if (!new File(widgetsFormulaPath).exists())
-                throw new IOException("The given path -"+widgetsFormulaPath+"- does not exist !");
-            List<String> inlineWidgets = pilot.extractFMsByFile(widgetsFormulaPath);
-            for(String formula:inlineWidgets)
-                widgets.add(new Widget(formula));
-            this.ID = pilot.merge(getWidgetsIDs());
+        // test the existence of the file
+        if (!new File(widgetsFormulaPath).exists())
+            throw new IOException("The given path -"+widgetsFormulaPath+"- does not exist !");
+        List<String> inlineWidgets = pilot.extractFMsByFile(widgetsFormulaPath);
+        for(String formula:inlineWidgets)
+            widgets.add(new Widget(formula));
+        this.fmID = pilot.merge(getWidgetsIDs());
     }
 
     public static Universe merge(Universe u1, Universe u2){
@@ -62,7 +61,7 @@ public class Universe {
     public void displayUniverseState() throws BadIDException {
         FeatureModelVariable fm_var = null;
         try {
-            fm_var = pilot.getFMVariable(this.ID);
+            fm_var = pilot.getFMVariable(this.fmID);
         } catch (VariableAmbigousConflictException | VariableNotExistingException e) {
             throw new BadIDException("");
         }
@@ -80,9 +79,9 @@ public class Universe {
      */
     public double getNumberSuitableTargets() throws BadIDException{
         try {
-            return pilot.countingOnFM(this.ID);
+            return pilot.countingOnFM(this.fmID);
         } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
-            throw new BadIDException("The ID " + this.ID + " appears to be incorrect.");
+            throw new BadIDException("The fmID " + this.fmID + " appears to be incorrect.");
         }
     }
 
@@ -92,17 +91,17 @@ public class Universe {
      */
     public int getNumberOfSuitableWidgets() throws BadIDException {
         try {
-            FeatureVariable f_var = pilot.getFVariable(ID+".Name");
+            FeatureVariable f_var = pilot.getFVariable(fmID +".Name");
             return f_var.children().getVars().size();
         } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
-            throw new BadIDException("The ID " + ID + " appears to be incorrect.");
+            throw new BadIDException("The fmID " + fmID + " appears to be incorrect.");
         }
     }
 
     /*
      * This function take a list of features to select on a given configuration
      */
-    public void reduceByConcerns(List<String> ls) throws ReductionException {
+    public void reduceByConcerns(List<String> ls) throws ReductionException, BadIDException, EmptyUniverseException {
         for(String s : ls)
             reduceByConcern(s);
     }
@@ -110,13 +109,29 @@ public class Universe {
     /*
      * This function take a feature to select on a given configuration
      */
-    public void reduceByConcern(String concern) throws ReductionException {
+    public void reduceByConcern(String concern) throws ReductionException, BadIDException, EmptyUniverseException {
         try {
-            String configID = pilot.newConfig(ID);
+            String configID = pilot.newConfig(fmID);
             pilot.selectFeatureOnConfiguration(concern,configID);
-            this.ID = pilot.asFM(configID);
+            this.fmID = pilot.asFM(configID);
+            List<String> remains = getWidgetsNames();
+            List<String> widgets_fm_ids = new ArrayList<>();
+            List<Widget> newWidgetList = new ArrayList<>();
+            for(String remain : remains) {
+                for (Widget widget : this.widgets) {
+                    if (widget.getName().equalsIgnoreCase(remain)) {
+                        widgets_fm_ids.add(widget.getWidgetID());
+                        newWidgetList.add(widget);
+                        break;
+                    }
+                }
+            }
+            if(widgets_fm_ids.isEmpty())
+                throw new EmptyUniverseException("The reduction lead to no widget left");
+            this.fmID = pilot.merge(widgets_fm_ids);
+            this.widgets = newWidgetList;
         } catch (FMEngineException e) {
-            throw new ReductionException("Something went bad during reduction by the concern " + concern + " on the Universe " + ID);
+            throw new ReductionException("Something went bad during reduction by the concern " + concern + " on the Universe " + fmID);
         }
     }
 
@@ -127,16 +142,16 @@ public class Universe {
     public String getLastWidgetName() throws GetUniqueElementOnNonCompleteConfiguration, BadIDException {
         FeatureVariable f_var;
         try{
-            f_var = pilot.getFVariable(ID+".Name");
+            f_var = pilot.getFVariable(fmID +".Name");
         } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
-            throw new BadIDException("The ID " + ID + " appears to be incorrect.");
+            throw new BadIDException("The fmID " + fmID + " appears to be incorrect.");
         }
         if(f_var.children().getVars().size()==1){
             Variable[] varSet = new Variable[]{};
             Variable v = f_var.children().getVars().toArray(varSet)[0];
             return v.getValue();
         }
-        else throw new GetUniqueElementOnNonCompleteConfiguration("Reduction "+ID+" appears not to be complete.");
+        else throw new GetUniqueElementOnNonCompleteConfiguration("Reduction "+ fmID +" appears not to be complete.");
     }
 
     /*
@@ -146,12 +161,14 @@ public class Universe {
         List<String> res = new ArrayList<>();
         FeatureVariable f_var;
         try{
-            f_var = pilot.getFVariable(ID+".Name");
+            f_var = pilot.getFVariable(fmID +".Name");
         } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
-            throw new BadIDException("The ID " + this.ID + " appears to be incorrect.");
+            throw new BadIDException("The fmID " + this.fmID + " appears to be incorrect.");
         }
-        for(Variable v : f_var.children().getVars())
-            res.add(v.getIdentifier());
+        for(Variable v : f_var.children().getVars()){
+            FeatureVariable fv = (FeatureVariable) v;
+            res.add(fv.getFtName());
+        }
         return res;
     }
 
@@ -162,16 +179,16 @@ public class Universe {
     public String getLastLibraryName() throws GetUniqueElementOnNonCompleteConfiguration, BadIDException {
         FeatureVariable f_var;
         try{
-            f_var = pilot.getFVariable(ID+".Library");
+            f_var = pilot.getFVariable(fmID +".Library");
         } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
-            throw new BadIDException("The ID " + this.ID + " appears to be incorrect.");
+            throw new BadIDException("The fmID " + this.fmID + " appears to be incorrect.");
         }
         if(f_var.children().getVars().size()==1){
             Variable[] varSet = new Variable[]{};
             Variable v = f_var.children().getVars().toArray(varSet)[0];
             return v.getValue();
         }
-        else throw new GetUniqueElementOnNonCompleteConfiguration("Reduction "+ID+" appears not to be complete.");
+        else throw new GetUniqueElementOnNonCompleteConfiguration("Reduction "+ fmID +" appears not to be complete.");
     }
 
     /*
@@ -181,9 +198,9 @@ public class Universe {
         List<String> res = new ArrayList<>();
         FeatureVariable f_var;
         try{
-            f_var = pilot.getFVariable(ID+".Library");
+            f_var = pilot.getFVariable(fmID +".Library");
         } catch (VariableNotExistingException | VariableAmbigousConflictException e) {
-            throw new BadIDException("The ID " + this.ID + " appears to be incorrect.");
+            throw new BadIDException("The fmID " + this.fmID + " appears to be incorrect.");
         }
         for(Variable v : f_var.children().getVars())
             res.add(v.getIdentifier());
@@ -192,10 +209,10 @@ public class Universe {
 
     public boolean isMinimal() throws BadIDException{
         try {
-            String configID = pilot.newConfig(ID);
+            String configID = pilot.newConfig(fmID);
             return pilot.isComplete(configID);
         } catch (FMEngineException e) {
-            throw new BadIDException("The ID " + ID + " appears to be incorrect or can't have a configuration instantiated.");
+            throw new BadIDException("The fmID " + fmID + " appears to be incorrect or can't have a configuration instantiated.");
         }
     }
 
@@ -206,7 +223,7 @@ public class Universe {
     }
 
     public String getID() {
-        return ID;
+        return fmID;
     }
 
     /* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Private useful methods _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _*/
@@ -220,9 +237,12 @@ public class Universe {
 
 
     private Universe(String ID, List<Widget> widgets){
-        this.ID = ID;
+        this.fmID = ID;
         this.widgets = new ArrayList<>(widgets);
     }
 
+    private Universe(List<String> widgetsFormulas){
+
+    }
 
 }

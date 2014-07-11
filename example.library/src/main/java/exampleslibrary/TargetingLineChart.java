@@ -1,7 +1,5 @@
 package exampleslibrary;
 
-import EntryPoint.Library;
-import EntryPoint.Reduction;
 import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
@@ -24,7 +22,7 @@ class TargetingLineChart {
      *  - reduce a configuration of the feature model according to the "continuous" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException {
+    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
 
          /////

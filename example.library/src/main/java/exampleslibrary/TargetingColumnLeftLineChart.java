@@ -1,11 +1,8 @@
 package exampleslibrary;
 
-import EntryPoint.Library;
-import EntryPoint.Reduction;
+import EntryPoint.Universe;
 import constants.Consts;
-import exception.BadIDException;
-import exception.GetUniqueElementOnNonCompleteConfiguration;
-import exception.UnhandledDataFormatException;
+import exception.*;
 import metaclasses.*;
 import utils.FileOperation;
 
@@ -27,18 +24,20 @@ public class TargetingColumnLeftLineChart {
      *  - reduce a configuration of the feature model according to the "Discrete" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException {
+    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
-        //Design the model of the wanted dashboard
+         /////
+        //1//  Design the model of the wanted dashboard
+       /////
         Dashboard dashboard = new Dashboard();
 
-        // #1 visualization : Discrete
-        Visualization visu = new Visualization();
+        // #1 visualization : Discrete & Extremum
+        Visualization visu1 = new Visualization();
         Data data = new Data(Consts.TEMP_SENML, Format.SenML);
-        visu.addData(data);
-        visu.addConcern(Concern.Discrete);
-        visu.addConcern(Concern.Extremum);
-        dashboard.addVisualization(visu);
+        visu1.addData(data);
+        visu1.addConcern(Concern.Discrete);
+        visu1.addConcern(Concern.Extremum);
+        dashboard.addVisualization(visu1);
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
@@ -48,27 +47,28 @@ public class TargetingColumnLeftLineChart {
         visu2.addConcern(concern2);
         dashboard.addVisualization(visu2);
 
-        for(Visualization v : dashboard.getVisualizationList()) {
-            //Use feature model to find a suitable generable widget
-            Library lib = new Library();
-            lib.displayLibraryState();
-            Reduction red = new Reduction(lib);
-            red.reduceByConcerns(v.getConcernNames());
-
-            System.out.println("There is only one widget suitable for your visualization requirements. Let's generate it.");
-            v.setWidgetName(red.getWidgetName().replace(" ", ""));
-            v.setLibraryName(red.getLibraryName());
+         /////
+        //2//  Use feature model to find a suitable generable widget
+       /////
+        for(Visualization visu : dashboard.getVisualizationList()) {
+            Universe univ = new Universe();
+            univ.displayUniverseState();
+            univ.reduceByConcerns(visu.getConcernNames());
+            if (univ.isMinimal()) {
+                visu.setLibraryName(univ.getLastLibraryName());
+                visu.setWidgetName(univ.getLastWidgetName());
+            }
         }
 
 
 
-
+         /////
+        //3//  Generation
+       /////
         //Generation of the HTML code from the model
         String code = codeGeneration(dashboard);
-
         //Creation of the /product folder if it doesn't exist already
         FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
-
         //store the resulting visualization in a file named after the used concern
         FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER + "LeftColumnLine.html");
     }

@@ -1,13 +1,11 @@
 package exampleslibrary;
 
-import EntryPoint.Library;
 import EntryPoint.Universe;
 import constants.Consts;
 import exception.BadIDException;
 import exception.UnhandledFamiliarException;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 
 /**
  * Created by Ivan Logre on 02/07/2014.
