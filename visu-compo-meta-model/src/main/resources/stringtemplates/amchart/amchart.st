@@ -1,4 +1,4 @@
-amchart(chartname,dataname,categoryname,graphs) ::= <<
+amchart(chartname,dataname,categoryname,graphs,timedoption) ::= <<
 var $chartname$;
 AmCharts.ready(function () {
 	
@@ -6,6 +6,7 @@ AmCharts.ready(function () {
 $chartname$ = new AmCharts.AmSerialChart();
 $chartname$.dataProvider = $dataname$;
 $chartname$.categoryField = "$categoryname$";
+$timedoption$
 $chartname$.startDuration = 0.15;
 $chartname$.zoomOutButton = {
 	backgroundColor: '#0000FF',

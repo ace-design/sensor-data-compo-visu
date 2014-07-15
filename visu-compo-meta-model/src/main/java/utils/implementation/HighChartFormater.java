@@ -39,7 +39,7 @@ public class HighChartFormater implements DataTargetFormater {
 
     //TODO
     @Override
-    public String convertData2LibraryFormatSorted(ConcreteData data) {
+    public String convertTimedData2LibraryFormat(ConcreteData data) {
 
         HashMap<Double,Double> HM_time_value = data.getHM_dataset();
 

@@ -17,7 +17,7 @@ public class TestAmChart {
         ConcreteData data = new ConcreteData();
         data.put(1.0,99.0);
         data.put(2.0,98.0);
-        assertEquals("[{\"t\":1,\"v\":99},{\"t\":2,\"v\":98}]",new AmChartFormater().convertData2LibraryFormatSorted(data));
+        assertEquals("[{\"t\":\"70-01-01 01:00:01\",\"v\":99},{\"t\":\"70-01-01 01:00:02\",\"v\":98}]",new AmChartFormater().convertTimedData2LibraryFormat(data));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class TestAmChart {
         ConcreteData data = new ConcreteData();
         data.put(1.1,99.1);
         data.put(2.1,98.1);
-        assertEquals("[{\"t\":1.1,\"v\":99.1},{\"t\":2.1,\"v\":98.1}]",new AmChartFormater().convertData2LibraryFormatSorted(data));
+        assertEquals("[{\"t\":\"70-01-01 01:00:01\",\"v\":99.1},{\"t\":\"70-01-01 01:00:02\",\"v\":98.1}]",new AmChartFormater().convertTimedData2LibraryFormat(data));
     }
 
     @Test(expected = NullPointerException.class)

@@ -5,6 +5,9 @@ import org.json.JSONWriter;
 import utils.interfaces.DataTargetFormater;
 
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -18,7 +21,7 @@ public class AmChartFormater implements DataTargetFormater {
     public String convertData2LibraryFormat(ConcreteData data) {
         HashMap<Object,Double> HM_index_value = data.getHM_dataset();
 
-        //transform the hashmap(time,value) in a format understandable by AmChart
+        //transform the hashmap(index,value) in a format understandable by AmChart
         StringWriter dataToPrint = new StringWriter();
         JSONWriter rootDest = new JSONWriter(dataToPrint);
         rootDest.array();
@@ -38,7 +41,7 @@ public class AmChartFormater implements DataTargetFormater {
     }
 
     @Override
-    public String convertData2LibraryFormatSorted(ConcreteData data) {
+    public String convertTimedData2LibraryFormat(ConcreteData data) {
         HashMap<Double,Double> HM_time_value = data.getHM_dataset();
 
         //transform the hashmap(time,value) in a format understandable by AmChart
@@ -46,11 +49,16 @@ public class AmChartFormater implements DataTargetFormater {
         JSONWriter rootDest = new JSONWriter(dataToPrint);
         rootDest.array();
 
+        DateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+
         TreeSet<Double> set = new TreeSet<>(HM_time_value.keySet());
         for (Double i : set) {
             rootDest.object();
             rootDest.key(data.getCategoryFieldName());
-            rootDest.value(i);
+
+            Date date = new Date(i.longValue()*1000);
+            rootDest.value(df.format(date));
+
             rootDest.key(data.getValueFieldName());
             rootDest.value(HM_time_value.get(i));
             rootDest.endObject();
