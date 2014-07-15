@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.TreeSet;
 
 /**
@@ -49,7 +50,7 @@ public class AmChartFormater implements DataTargetFormater {
         JSONWriter rootDest = new JSONWriter(dataToPrint);
         rootDest.array();
 
-        DateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
         TreeSet<Double> set = new TreeSet<>(HM_time_value.keySet());
         for (Double i : set) {

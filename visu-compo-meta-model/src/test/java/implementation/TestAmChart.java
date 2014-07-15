@@ -4,6 +4,11 @@ import model.exploitation.ConcreteData;
 import org.junit.Test;
 import utils.implementation.AmChartFormater;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -15,17 +20,39 @@ public class TestAmChart {
     @Test
     public void testConvertIntPairToAmChartDataFormat()  {
         ConcreteData data = new ConcreteData();
-        data.put(1.0,99.0);
-        data.put(2.0,98.0);
-        assertEquals("[{\"t\":\"70-01-01 01:00:01\",\"v\":99},{\"t\":\"70-01-01 01:00:02\",\"v\":98}]",new AmChartFormater().convertTimedData2LibraryFormat(data));
+        Integer i =1;
+        Integer j =2;
+
+        DateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm:ss",Locale.ENGLISH);
+
+        data.put(i.doubleValue(),99.0);
+        data.put(j.doubleValue(),98.0);
+
+        Date dateI = new Date((long)i*1000);
+        Date dateJ = new Date((long)j*1000);
+
+        assertEquals("[{\"t\":\"" +
+                        df.format(dateI)+
+                "\",\"v\":99},{\"t\":\"" +
+                        df.format(dateJ)+
+                "\",\"v\":98}]",new AmChartFormater().convertTimedData2LibraryFormat(data));
     }
 
     @Test
     public void testConvertDoublePairToAmChartDataFormat()  {
         ConcreteData data = new ConcreteData();
-        data.put(1.1,99.1);
-        data.put(2.1,98.1);
-        assertEquals("[{\"t\":\"70-01-01 01:00:01\",\"v\":99.1},{\"t\":\"70-01-01 01:00:02\",\"v\":98.1}]",new AmChartFormater().convertTimedData2LibraryFormat(data));
+        Double i =1.1;
+        Double j =2.1;
+        DateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm:ss",Locale.ENGLISH);
+        data.put(i,99.1);
+        data.put(j,98.1);
+        Date dateI = new Date(i.longValue()*1000);
+        Date dateJ = new Date(j.longValue()*1000);
+        assertEquals("[{\"t\":\"" +
+                        df.format(dateI)+
+                "\",\"v\":99.1},{\"t\":\"" +
+                        df.format(dateJ)+
+                "\",\"v\":98.1}]",new AmChartFormater().convertTimedData2LibraryFormat(data));
     }
 
     @Test(expected = NullPointerException.class)
