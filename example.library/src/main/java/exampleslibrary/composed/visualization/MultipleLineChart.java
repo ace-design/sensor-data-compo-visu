@@ -11,32 +11,22 @@ import java.io.IOException;
 import static model.exploitation.CodeGeneration.codeGeneration;
 
 /**
- * Created by ivan on 03/07/2014.
+ * Created by ivan on 17/07/2014.
  */
-public class TargetingPieLeftLineChart {
+public class MultipleLineChart {
 
-
-
-    /*
-     * This example means to illustrate the capability of designing single visualization dashboard with Discrete data
-     * It has to :
-     *  - instantiate a valid model (conforms to the meta model)
-     *  - reduce a configuration of the feature model according to the "Discrete" criteria
-     *  - generate the code of the resulting visualization
-     */
     public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
-         /////
+        /////
         //1//  Design the model of the wanted dashboard
-       /////
+        /////
         Dashboard dashboard = new Dashboard();
 
         // #1 visualization : Discrete & Extremum
         Visualization visu1 = new Visualization();
-        Data data = new Data(Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
+        Data data = new Data(Consts.TEMP_SENML, Format.SenML);
         visu1.addData(data);
-        visu1.addConcern(Concern.Proportion);
-        dashboard.addVisualization(visu1);
+        visu1.addConcern(Concern.Continuous);
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
@@ -44,32 +34,29 @@ public class TargetingPieLeftLineChart {
         Concern concern2 = Concern.Continuous;
         visu2.addData(data2);
         visu2.addConcern(concern2);
-        dashboard.addVisualization(visu2);
 
-         /////
+        Visualization visu = Visualization.Fusion(visu1, visu2);
+        dashboard.addVisualization(visu);
+
+        /////
         //2//  Use feature model to find a suitable generable widget
-       /////
-        for(Visualization visu : dashboard.getVisualizationList()) {
-            Universe univ = new Universe();
-            univ.displayUniverseState();
-            univ.reduceByConcerns(visu.getConcernNames());
-            if (univ.isMinimal()) {
-                visu.setLibraryName(univ.getLastLibraryName());
-                visu.setWidgetName(univ.getLastWidgetName());
-            }
+        /////
+        Universe univ = new Universe();
+        univ.displayUniverseState();
+        univ.reduceByConcerns(visu.getConcernNames());
+        if (univ.isMinimal()) {
+            visu.setLibraryName(univ.getLastLibraryName());
+            visu.setWidgetName(univ.getLastWidgetName());
         }
 
-
-
-         /////
+        /////
         //3//  Generation
-       /////
+        /////
         //Generation of the HTML code from the model
         String code = codeGeneration(dashboard);
         //Creation of the /product folder if it doesn't exist already
         FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
         //store the resulting visualization in a file named after the used concern
-        FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER + "LeftPieLine.html");
+        FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER + "MultipleLine.html");
     }
-
 }

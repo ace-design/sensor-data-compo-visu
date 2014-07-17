@@ -8,9 +8,9 @@ html(imports,data,chartsscript,chartsbody) ::= <<
 			$imports; separator="\n"$
 			<script type="text/javascript">
 
-				$data$
+				$data; separator="\n"$
 	
-				$chartsscript$
+				$chartsscript; separator="\n"$
 				
 			</script>
 		</head>

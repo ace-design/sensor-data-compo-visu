@@ -11,7 +11,7 @@ import static java.util.UUID.randomUUID;
  * Created by Ivan Logre on 23/06/2014.
  */
 public class Visualization {
-    private Data data;
+    private List<Data> data;
     private List<Concern> concerns;
     private String name;
     private String widgetName;    //TODO check the existence
@@ -19,18 +19,25 @@ public class Visualization {
 
     public Visualization(){
         this.name = "v"+ NameCorrectness.format(randomUUID().toString());
-        this.concerns =new ArrayList<>();
+        this.concerns = new ArrayList<>();
+        this.data = new ArrayList<>();
     }
 
-    public Visualization(metaclasses.Data data){
+    public Visualization(Data data){
         this();
-        this.data=data;
+        this.data.add(data);
     }
 
-    public Visualization(metaclasses.Data data, metaclasses.Concern concerns){
+    public Visualization(Data data, Concern concerns){
         this();
         this.addConcern(concerns);
-        this.data=data;
+        this.data.add(data);
+    }
+
+    public Visualization(List<Data> data, List<Concern> concerns){
+        this();
+        this.concerns.addAll(concerns);
+        this.data.addAll(data);
     }
 
     public List<Concern> getConcerns() {
@@ -44,11 +51,14 @@ public class Visualization {
         return names;
     }
 
-    public Data getData() {
+    public List<Data> getDataSets() {
         return data;
     }
 
-    public void addData(Data data){this.data=data;}
+    public void addData(Data data){
+        if(!this.data.contains(data))
+            this.data.add(data);
+    }
 
     public void addConcern(Concern concern){
         if(!this.concerns.contains(concern))
@@ -73,4 +83,15 @@ public class Visualization {
         this.libraryName = libraryName;
     }
 
+    public static Visualization Fusion(Visualization visu1, Visualization visu2) {
+        List<Data> data = visu1.getDataSets();
+        for(Data d :visu2.getDataSets())
+            if(!data.contains(d))
+                data.add(d);
+        List<Concern> concerns = visu1.getConcerns();
+        for(Concern c :visu2.getConcerns())
+            if(!concerns.contains(c))
+                concerns.add(c);
+        return new Visualization(data,concerns);
+    }
 }
