@@ -1,4 +1,4 @@
-package exampleslibrary;
+package exampleslibrary.variability;
 
 import EntryPoint.Universe;
 import constants.Consts;
@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Ivan Logre on 02/07/2014.
  */
-public class FeatureModelMerge {
+public class UniverseDeclarationAndMerge {
     public static void main(String[] args) throws IOException, BadIDException, UnhandledFamiliarException {
         Universe univ1 = new Universe(Consts.RUNTIME_FOLDER+ "/familiar-pilot/src/main/resources/fms_1.fml");
         Universe univ2 = new Universe(Consts.RUNTIME_FOLDER+"/familiar-pilot/src/main/resources/fms_2.fml");

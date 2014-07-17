@@ -1,4 +1,4 @@
-package exampleslibrary;
+package exampleslibrary.composed.visualization;
 
 import EntryPoint.Universe;
 import constants.Consts;
