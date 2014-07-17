@@ -23,15 +23,15 @@ class TargetingColumnChart {
      *  - reduce a configuration of the feature model according to the "Discrete" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
+    public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, VisitorException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
          /////
         //1//  Design the model of the wanted dashboard
        /////
         Dashboard dashboard = new Dashboard();
         Visualization visu = new Visualization();
-        Data data = new Data(Consts.TEMP_SENML, Format.SenML);
-        visu.addData(data);
+        Resource resource = new Resource(Consts.TEMP_SENML, Format.SenML);
+        visu.addResource(resource);
         visu.addConcern(Concern.Discrete);
         visu.addConcern(Concern.Extremum);
         dashboard.addVisualization(visu);

@@ -1,5 +1,9 @@
 package metaclasses;
 
+import exception.VisitorException;
+import model.exploitation.VisitorTemplate.Generable;
+import model.exploitation.VisitorTemplate.IGenerativeVisitor;
+
 /**
  * Created by ivan on 09/07/2014.
  */

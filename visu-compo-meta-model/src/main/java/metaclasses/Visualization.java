@@ -1,5 +1,8 @@
 package metaclasses;
 
+import exception.VisitorException;
+import model.exploitation.VisitorTemplate.Generable;
+import model.exploitation.VisitorTemplate.IGenerativeVisitor;
 import utils.NameCorrectness;
 
 import java.util.ArrayList;
@@ -10,8 +13,9 @@ import static java.util.UUID.randomUUID;
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
-public class Visualization {
-    private List<Data> data;
+public class Visualization implements Generable {
+    private Dashboard dashboard;
+    private List<Resource> resources;
     private List<Concern> concerns;
     private String name;
     private String widgetName;    //TODO check the existence
@@ -20,24 +24,24 @@ public class Visualization {
     public Visualization(){
         this.name = "v"+ NameCorrectness.format(randomUUID().toString());
         this.concerns = new ArrayList<>();
-        this.data = new ArrayList<>();
+        this.resources = new ArrayList<>();
     }
 
-    public Visualization(Data data){
+    public Visualization(Resource resource){
         this();
-        this.data.add(data);
+        this.addResource(resource);
     }
 
-    public Visualization(Data data, Concern concerns){
+    public Visualization(Resource resource, Concern concerns){
         this();
         this.addConcern(concerns);
-        this.data.add(data);
+        this.addResource(resource);
     }
 
-    public Visualization(List<Data> data, List<Concern> concerns){
+    public Visualization(List<Resource> resource, List<Concern> concerns){
         this();
         this.concerns.addAll(concerns);
-        this.data.addAll(data);
+        this.resources.addAll(resource);
     }
 
     public List<Concern> getConcerns() {
@@ -51,13 +55,15 @@ public class Visualization {
         return names;
     }
 
-    public List<Data> getDataSets() {
-        return data;
+    public List<Resource> getResources() {
+        return resources;
     }
 
-    public void addData(Data data){
-        if(!this.data.contains(data))
-            this.data.add(data);
+    public void addResource(Resource resource){
+        if(!this.resources.contains(resource)) {
+            this.resources.add(resource);
+            resource.setVisualization(this);
+        }
     }
 
     public void addConcern(Concern concern){
@@ -83,15 +89,29 @@ public class Visualization {
         this.libraryName = libraryName;
     }
 
+    public Dashboard getDashboard() {
+        return dashboard;
+    }
+
+    public void setDashboard(Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
+
     public static Visualization Fusion(Visualization visu1, Visualization visu2) {
-        List<Data> data = visu1.getDataSets();
-        for(Data d :visu2.getDataSets())
-            if(!data.contains(d))
-                data.add(d);
-        List<Concern> concerns = visu1.getConcerns();
-        for(Concern c :visu2.getConcerns())
-            if(!concerns.contains(c))
-                concerns.add(c);
-        return new Visualization(data,concerns);
+        Visualization visualization = new Visualization();
+        for(Resource resource : visu1.getResources())
+            visualization.addResource(resource);
+        for(Resource resource : visu2.getResources())
+            visualization.addResource(resource);
+        for(Concern concern : visu1.getConcerns())
+            visualization.addConcern(concern);
+        for(Concern concern : visu2.getConcerns())
+            visualization.addConcern(concern);
+        return visualization;
+    }
+
+    @Override
+    public void accept(IGenerativeVisitor gv) throws VisitorException {
+        gv.visit(this);
     }
 }

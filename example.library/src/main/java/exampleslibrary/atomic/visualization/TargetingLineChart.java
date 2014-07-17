@@ -22,16 +22,16 @@ class TargetingLineChart {
      *  - reduce a configuration of the feature model according to the "continuous" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
+    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, VisitorException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
 
          /////
         //1//  Design the model of the wanted dashboard
        /////
         Dashboard dashboard = new Dashboard();
-        Data data = new Data(Consts.SPEED_SENML, Format.SenML);
+        Resource resource = new Resource(Consts.SPEED_SENML, Format.SenML);
         Concern concern = Concern.Continuous;
-        Visualization visu = new Visualization(data, concern);
+        Visualization visu = new Visualization(resource, concern);
         dashboard.addVisualization(visu);
 
          /////

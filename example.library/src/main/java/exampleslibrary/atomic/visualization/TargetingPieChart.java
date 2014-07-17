@@ -16,13 +16,13 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 public class TargetingPieChart {
 
-    public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
+    public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, VisitorException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
          /////
         //1//  Design the model of the wanted dashboard
        /////
         Dashboard dashboard = new Dashboard();
-        Visualization visu = new Visualization(new Data(Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked),Concern.Proportion);
+        Visualization visu = new Visualization(new Resource(Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked),Concern.Proportion);
         dashboard.addVisualization(visu);
 
 

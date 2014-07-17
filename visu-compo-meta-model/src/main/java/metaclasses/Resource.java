@@ -1,29 +1,40 @@
 package metaclasses;
 
-import java.util.HashMap;
-import java.util.UUID;
+import exception.VisitorException;
+import model.exploitation.VisitorTemplate.Generable;
+import model.exploitation.VisitorTemplate.IGenerativeVisitor;
 
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
-public class Data {
+public class Resource implements Generable {
+    private Visualization visualization;
     private final String url;
     private final Format format;
     private Column index;
     private Column serie;
 
-    public Data(String url,Format format){
+    public Resource(String url, Format format){
         this.url=url;
         this.format = format;
         fillIndexSerieFromFormat();
     }
 
-    public Data(String url,Column index,Column serie,Format format){
+    public Resource(String url, Column index, Column serie, Format format){
         this.url=url;
         this.index = index;
         this.serie = serie;
         this.format = format;
     }
+
+    public Visualization getVisualization() {
+        return visualization;
+    }
+
+    public void setVisualization(Visualization visualization) {
+        this.visualization = visualization;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -52,6 +63,12 @@ public class Data {
                 serie = new Column("value","scalar");
                 break;
         }
+    }
+
+
+    @Override
+    public void accept(IGenerativeVisitor gv) throws VisitorException {
+        gv.visit(this);
     }
 
 }

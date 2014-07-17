@@ -18,7 +18,7 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 public class Suffle {
 
-    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
+    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, VisitorException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
         Random random = new Random();
         List<String> datasets = new ArrayList<>();
@@ -37,9 +37,9 @@ public class Suffle {
             String rand;
             do rand = Consts.getRandomSenMLData(); while(!datasets.contains(rand));
             datasets.remove(rand);
-            Data data = new Data(rand, Format.SenML);
-            System.out.println("Data "+i+" = "+data.getUrl());
-            visu.addData(data);
+            Resource resource = new Resource(rand, Format.SenML);
+            System.out.println("Data "+i+" = "+ resource.getUrl());
+            visu.addResource(resource);
             dashboard.addVisualization(visu);
             visu.addConcern(Concern.Extremum);
 

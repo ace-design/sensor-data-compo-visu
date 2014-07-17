@@ -15,7 +15,7 @@ import static model.exploitation.CodeGeneration.codeGeneration;
  */
 public class MultipleLineChart {
 
-    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
+    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, VisitorException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
         /////
         //1//  Design the model of the wanted dashboard
@@ -24,15 +24,15 @@ public class MultipleLineChart {
 
         // #1 visualization : Discrete & Extremum
         Visualization visu1 = new Visualization();
-        Data data = new Data(Consts.TEMP_SENML, Format.SenML);
-        visu1.addData(data);
+        Resource resource = new Resource(Consts.TEMP_SENML, Format.SenML);
+        visu1.addResource(resource);
         visu1.addConcern(Concern.Continuous);
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
-        Data data2 = new Data(Consts.TEMP_NEG_SENML, Format.SenML);
+        Resource resource2 = new Resource(Consts.TEMP_NEG_SENML, Format.SenML);
         Concern concern2 = Concern.Continuous;
-        visu2.addData(data2);
+        visu2.addResource(resource2);
         visu2.addConcern(concern2);
 
         Visualization visu = Visualization.Fusion(visu1, visu2);

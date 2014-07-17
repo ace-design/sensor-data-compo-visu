@@ -24,7 +24,7 @@ public class TargetingPieLeftLineChart {
      *  - reduce a configuration of the feature model according to the "Discrete" criteria
      *  - generate the code of the resulting visualization
      */
-    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, UnhandledDataFormatException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
+    public static void main(String[] args) throws IOException, GetUniqueElementOnNonCompleteConfiguration, BadIDException, VisitorException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
          /////
         //1//  Design the model of the wanted dashboard
@@ -33,16 +33,16 @@ public class TargetingPieLeftLineChart {
 
         // #1 visualization : Discrete & Extremum
         Visualization visu1 = new Visualization();
-        Data data = new Data(Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
-        visu1.addData(data);
+        Resource resource = new Resource(Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
+        visu1.addResource(resource);
         visu1.addConcern(Concern.Proportion);
         dashboard.addVisualization(visu1);
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
-        Data data2 = new Data(Consts.TEMP_NEG_SENML, Format.SenML);
+        Resource resource2 = new Resource(Consts.TEMP_NEG_SENML, Format.SenML);
         Concern concern2 = Concern.Continuous;
-        visu2.addData(data2);
+        visu2.addResource(resource2);
         visu2.addConcern(concern2);
         dashboard.addVisualization(visu2);
 
