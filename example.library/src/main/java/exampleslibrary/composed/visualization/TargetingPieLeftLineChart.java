@@ -33,14 +33,14 @@ public class TargetingPieLeftLineChart {
 
         // #1 visualization : Discrete & Extremum
         Visualization visu1 = new Visualization();
-        Resource resource = new Resource(Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
+        Resource resource = new Resource("Proportion",Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
         visu1.addResource(resource);
         visu1.addConcern(Concern.Proportion);
         dashboard.addVisualization(visu1);
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
-        Resource resource2 = new Resource(Consts.TEMP_NEG_SENML, Format.SenML);
+        Resource resource2 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
         Concern concern2 = Concern.Continuous;
         visu2.addResource(resource2);
         visu2.addConcern(concern2);

@@ -37,7 +37,7 @@ public class Suffle {
             String rand;
             do rand = Consts.getRandomSenMLData(); while(!datasets.contains(rand));
             datasets.remove(rand);
-            Resource resource = new Resource(rand, Format.SenML);
+            Resource resource = new Resource("rand"+i,rand, Format.SenML);
             System.out.println("Data "+i+" = "+ resource.getUrl());
             visu.addResource(resource);
             dashboard.addVisualization(visu);

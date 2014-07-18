@@ -30,7 +30,7 @@ class TargetingColumnChart {
        /////
         Dashboard dashboard = new Dashboard();
         Visualization visu = new Visualization();
-        Resource resource = new Resource(Consts.TEMP_SENML, Format.SenML);
+        Resource resource = new Resource("Temp",Consts.TEMP_SENML, Format.SenML);
         visu.addResource(resource);
         visu.addConcern(Concern.Discrete);
         visu.addConcern(Concern.Extremum);

@@ -13,18 +13,25 @@ public class Resource implements Generable {
     private final Format format;
     private Column index;
     private Column serie;
+    private String name;
 
-    public Resource(String url, Format format){
+    public Resource(String name, String url, Format format){
+        this.name= name;
         this.url=url;
         this.format = format;
         fillIndexSerieFromFormat();
     }
 
-    public Resource(String url, Column index, Column serie, Format format){
+    public Resource(String name, String url, Column index, Column serie, Format format){
+        this.name= name;
         this.url=url;
         this.index = index;
         this.serie = serie;
         this.format = format;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Visualization getVisualization() {

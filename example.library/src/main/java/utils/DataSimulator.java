@@ -1,10 +1,12 @@
 package utils;
 
 import constants.Consts;
+import metaclasses.Format;
+import metaclasses.Resource;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONWriter;
-import utils.implementation.SenMLDeserializer;
+import model.exploitation.toJavaScript.implementation.SenMLDeserializer;
 
 import java.io.*;
 import java.util.*;
@@ -17,13 +19,13 @@ public class DataSimulator {
 
 
     public static void main(String[] args) throws IOException {
-        String dataset_JSON = FileOperation.getStringFromFile(Consts.TEMP_SENML);
-        HashMap<Double, Double> dataSource = new SenMLDeserializer().getConcreteDataFromSerializedData(dataset_JSON,"t","v").getHM_dataset();
+        /*Resource resource = new Resource("ToPorportion",Consts.TEMP_SENML, Format.SenML);
+        HashMap<Double, Double> dataSource = new SenMLDeserializer().serializedResource2Pivot(resource).getPairs();
         List<Double> remarkValues = new ArrayList<>();
         remarkValues.add((double) 27);
         remarkValues.add((double) 30);
         HashMap<String,Double> categorizedValues = SenML2CategorizedByRemarkableValues(remarkValues,dataSource);
-        FileOperation.fillFileFromObject(StackedSerializer(categorizedValues),Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER+"categorizedData.senml");
+        FileOperation.fillFileFromObject(StackedSerializer(categorizedValues),Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER+"categorizedData.senml");*/
     }
 
     /*

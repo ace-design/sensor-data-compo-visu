@@ -33,7 +33,7 @@ public class TargetingColumnLeftLineChart {
 
         // #1 visualization : Discrete & Extremum
         Visualization visu1 = new Visualization();
-        Resource resource = new Resource(Consts.TEMP_SENML, Format.SenML);
+        Resource resource = new Resource("Temp",Consts.TEMP_SENML, Format.SenML);
         visu1.addResource(resource);
         visu1.addConcern(Concern.Discrete);
         visu1.addConcern(Concern.Extremum);
@@ -41,7 +41,7 @@ public class TargetingColumnLeftLineChart {
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
-        Resource resource2 = new Resource(Consts.TEMP_NEG_SENML, Format.SenML);
+        Resource resource2 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
         Concern concern2 = Concern.Continuous;
         visu2.addResource(resource2);
         visu2.addConcern(concern2);

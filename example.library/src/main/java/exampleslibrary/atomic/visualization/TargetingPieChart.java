@@ -22,7 +22,7 @@ public class TargetingPieChart {
         //1//  Design the model of the wanted dashboard
        /////
         Dashboard dashboard = new Dashboard();
-        Visualization visu = new Visualization(new Resource(Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked),Concern.Proportion);
+        Visualization visu = new Visualization(new Resource("Proportion",Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked),Concern.Proportion);
         dashboard.addVisualization(visu);
 
 

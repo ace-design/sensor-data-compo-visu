@@ -29,7 +29,7 @@ class TargetingLineChart {
         //1//  Design the model of the wanted dashboard
        /////
         Dashboard dashboard = new Dashboard();
-        Resource resource = new Resource(Consts.SPEED_SENML, Format.SenML);
+        Resource resource = new Resource("Speed",Consts.SPEED_SENML, Format.SenML);
         Concern concern = Concern.Continuous;
         Visualization visu = new Visualization(resource, concern);
         dashboard.addVisualization(visu);
