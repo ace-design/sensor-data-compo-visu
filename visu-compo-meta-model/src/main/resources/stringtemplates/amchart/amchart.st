@@ -13,6 +13,8 @@ $chartname$.zoomOutButton = {
 	backgroundAlpha: 0.15
 };
 $chartname$.categoryAxis.labelRotation = 45;
+$chartname$.categoryAxis.equalSpacing = false;
+
 	
 // AXES 
 $chartname$.addValueAxis(new AmCharts.ValueAxis());
