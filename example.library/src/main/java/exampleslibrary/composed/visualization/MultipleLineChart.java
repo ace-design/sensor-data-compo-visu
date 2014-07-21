@@ -35,7 +35,14 @@ public class MultipleLineChart {
         visu2.addResource(resource2);
         visu2.addConcern(concern2);
 
-        Visualization visu = Visualization.Fusion(visu1, visu2);
+        // #3 visualization : Continuous
+        Visualization visu3 = new Visualization();
+        Resource resource3 = new Resource("Speed",Consts.SPEED_SENML, Format.SenML);
+        Concern concern3 = Concern.Continuous;
+        visu3.addResource(resource3);
+        visu3.addConcern(concern3);
+
+        Visualization visu = Visualization.Fusion(Visualization.Fusion(visu1, visu2), visu3);
         dashboard.addVisualization(visu);
 
         /////
