@@ -3,7 +3,7 @@ graph(chartname,graphname,seriename,graphspe) ::= <<
 var $graphname$;
 $graphname$ = new AmCharts.AmGraph();
 $graphname$.valueField = "$seriename$";
-$graphname$.connect = false;
+$graphname$.connect = true;
 $graphname$.title = "$seriename$";
 $graphspe$
 $chartname$.addGraph($graphname$);

@@ -1,4 +1,4 @@
-highchart(options,chartname,graphs) ::= <<
+highchart(options,chartname,graphs,title) ::= <<
 \$(function () {
     // Radialize the colors
     Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
@@ -21,6 +21,9 @@ highchart(options,chartname,graphs) ::= <<
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false
+        },
+        title: {
+            text: "$title$"
         },
         $options; separator="\n"$
         legend: {

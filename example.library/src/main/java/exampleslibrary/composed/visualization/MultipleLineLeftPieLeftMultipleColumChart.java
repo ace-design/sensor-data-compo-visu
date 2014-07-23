@@ -28,21 +28,22 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
             Visualization visu1 = new Visualization();
             Resource resource = new Resource("Temp",Consts.TEMP_SENML, Format.SenML);
             visu1.addResource(resource);
-            visu1.addConcern(Concern.Continuous);
+            visu1.addConcern(Concern.Extremum);
+            visu1.addConcern(Concern.Discrete);
 
             // #2 visualization : Continuous
             Visualization visu2 = new Visualization();
             Resource resource2 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
-            Concern concern2 = Concern.Continuous;
+            visu2.addConcern(Concern.Discrete);
+            visu2.addConcern(Concern.Extremum);
             visu2.addResource(resource2);
-            visu2.addConcern(concern2);
 
             // #3 visualization : Continuous
             Visualization visu3 = new Visualization();
             Resource resource3 = new Resource("Speed",Consts.SPEED_SENML, Format.SenML);
-            Concern concern3 = Concern.Continuous;
+            visu3.addConcern(Concern.Extremum);
+            visu3.addConcern(Concern.Discrete);
             visu3.addResource(resource3);
-            visu3.addConcern(concern3);
 
             Visualization visuLine = Visualization.Fusion(Visualization.Fusion(visu1, visu2), visu3);
             dashboard.addVisualization(visuLine);
@@ -51,9 +52,9 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
 
         // Second simple visu //
 
-            // #1 visualization : Discrete & Extremum
+            // #4 visualization : Proportion
             Visualization visu4 = new Visualization();
-            Resource resource4 = new Resource("Temp",Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
+            Resource resource4 = new Resource("Proportion",Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
             visu4.addResource(resource4);
             visu4.addConcern(Concern.Proportion);
 
@@ -63,28 +64,19 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
 
         // First composite visu //
 
-            // #5 visualization : Discrete & Extremum
+            // #5 visualization : Continuous
             Visualization visu5 = new Visualization();
-            Resource resource5 = new Resource("Temp",Consts.TEMP_SENML, Format.SenML);
+            Resource resource5 = new Resource("Light",Consts.Raw_LIGHT_SMARTCAMPUS, Format.SmartCampus);
             visu5.addResource(resource5);
-            visu5.addConcern(Concern.Extremum);
-            visu5.addConcern(Concern.Discrete);
+            visu5.addConcern(Concern.Continuous);
 
-            // #6 visualization : Discrete & Extremum
+            // #6 visualization : Continuous
             Visualization visu6 = new Visualization();
-            Resource resource6 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
+            Resource resource6 = new Resource("Temp442",Consts.Raw_TEMP_SMARTCAMPUS, Format.SmartCampus);
             visu6.addResource(resource6);
-            visu6.addConcern(Concern.Extremum);
-            visu6.addConcern(Concern.Discrete);
+            visu6.addConcern(Concern.Continuous);
 
-            // #7 visualization : Discrete & Extremum
-            Visualization visu7 = new Visualization();
-            Resource resource7 = new Resource("Speed",Consts.SPEED_SENML, Format.SenML);
-            visu7.addResource(resource7);
-            visu7.addConcern(Concern.Extremum);
-            visu7.addConcern(Concern.Discrete);
-
-            Visualization visuCol = Visualization.Fusion(Visualization.Fusion(visu5, visu6), visu7);
+            Visualization visuCol = Visualization.Fusion(visu5, visu6);
             dashboard.addVisualization(visuCol);
 
         /////
