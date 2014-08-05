@@ -4,6 +4,8 @@ import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
 import metaclasses.*;
+import metaclasses.concern.Concern;
+import metaclasses.concern.ConcernFactory;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -30,8 +32,8 @@ class TargetingLineChart {
        /////
         Dashboard dashboard = new Dashboard();
         Resource resource = new Resource("Speed",Consts.SPEED_SENML, Format.SenML);
-        Concern concern = Concern.Continuous;
-        Visualization visu = new Visualization(resource, concern);
+        ConcernFactory factory = new ConcernFactory();
+        Visualization visu = new Visualization(resource, factory.Continuous());
         dashboard.addVisualization(visu);
 
          /////

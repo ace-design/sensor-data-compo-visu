@@ -4,6 +4,8 @@ import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
 import metaclasses.*;
+import metaclasses.concern.Concern;
+import metaclasses.concern.ConcernFactory;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -21,6 +23,7 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
         //1//  Design the model of the wanted dashboard
         /////
         Dashboard dashboard = new Dashboard();
+        ConcernFactory factory = new ConcernFactory();
 
         // First composite visu //
 
@@ -28,21 +31,21 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
             Visualization visu1 = new Visualization();
             Resource resource = new Resource("Temp",Consts.TEMP_SENML, Format.SenML);
             visu1.addResource(resource);
-            visu1.addConcern(Concern.Extremum);
-            visu1.addConcern(Concern.Discrete);
+            visu1.addConcern(factory.Extremum());
+            visu1.addConcern(factory.Discrete());
 
             // #2 visualization : Continuous
             Visualization visu2 = new Visualization();
             Resource resource2 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
-            visu2.addConcern(Concern.Discrete);
-            visu2.addConcern(Concern.Extremum);
+            visu2.addConcern(factory.Discrete());
+            visu2.addConcern(factory.Extremum());
             visu2.addResource(resource2);
 
             // #3 visualization : Continuous
             Visualization visu3 = new Visualization();
             Resource resource3 = new Resource("Speed",Consts.SPEED_SENML, Format.SenML);
-            visu3.addConcern(Concern.Extremum);
-            visu3.addConcern(Concern.Discrete);
+            visu3.addConcern(factory.Extremum());
+            visu3.addConcern(factory.Discrete());
             visu3.addResource(resource3);
 
             Visualization visuLine = Visualization.Fusion(Visualization.Fusion(visu1, visu2), visu3);
@@ -56,7 +59,7 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
             Visualization visu4 = new Visualization();
             Resource resource4 = new Resource("Proportion",Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
             visu4.addResource(resource4);
-            visu4.addConcern(Concern.Proportion);
+            visu4.addConcern(factory.Proportion());
 
             dashboard.addVisualization(visu4);
 
@@ -68,13 +71,13 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
             Visualization visu5 = new Visualization();
             Resource resource5 = new Resource("Light",Consts.Raw_LIGHT_SMARTCAMPUS, Format.SmartCampus);
             visu5.addResource(resource5);
-            visu5.addConcern(Concern.Continuous);
+            visu5.addConcern(factory.Continuous());
 
             // #6 visualization : Continuous
             Visualization visu6 = new Visualization();
             Resource resource6 = new Resource("Temp442",Consts.Raw_TEMP_SMARTCAMPUS, Format.SmartCampus);
             visu6.addResource(resource6);
-            visu6.addConcern(Concern.Continuous);
+            visu6.addConcern(factory.Continuous());
 
             Visualization visuCol = Visualization.Fusion(visu5, visu6);
             dashboard.addVisualization(visuCol);

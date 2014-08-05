@@ -4,6 +4,8 @@ import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
 import metaclasses.*;
+import metaclasses.concern.Concern;
+import metaclasses.concern.ConcernFactory;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -32,8 +34,9 @@ class TargetingColumnChart {
         Visualization visu = new Visualization();
         Resource resource = new Resource("Temp",Consts.TEMP_SENML, Format.SenML);
         visu.addResource(resource);
-        visu.addConcern(Concern.Discrete);
-        visu.addConcern(Concern.Extremum);
+        ConcernFactory factory = new ConcernFactory();
+        visu.addConcern(factory.Discrete());
+        visu.addConcern(factory.Extremum());
         dashboard.addVisualization(visu);
 
          /////

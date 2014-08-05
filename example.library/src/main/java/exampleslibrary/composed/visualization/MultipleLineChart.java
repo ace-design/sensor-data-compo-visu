@@ -4,6 +4,8 @@ import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
 import metaclasses.*;
+import metaclasses.concern.Concern;
+import metaclasses.concern.ConcernFactory;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -21,24 +23,25 @@ public class MultipleLineChart {
         //1//  Design the model of the wanted dashboard
         /////
         Dashboard dashboard = new Dashboard();
+        ConcernFactory factory = new ConcernFactory();
 
         // #1 visualization : Discrete & Extremum
         Visualization visu1 = new Visualization();
         Resource resource = new Resource("Temp",Consts.TEMP_SENML, Format.SenML);
         visu1.addResource(resource);
-        visu1.addConcern(Concern.Continuous);
+        visu1.addConcern(factory.Continuous());
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
         Resource resource2 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
-        Concern concern2 = Concern.Continuous;
+        Concern concern2 = factory.Continuous();
         visu2.addResource(resource2);
         visu2.addConcern(concern2);
 
         // #3 visualization : Continuous
         Visualization visu3 = new Visualization();
         Resource resource3 = new Resource("Speed",Consts.SPEED_SENML, Format.SenML);
-        Concern concern3 = Concern.Continuous;
+        Concern concern3 = factory.Continuous();
         visu3.addResource(resource3);
         visu3.addConcern(concern3);
 

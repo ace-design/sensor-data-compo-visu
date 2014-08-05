@@ -25,8 +25,20 @@ public class Consts {
 
     //SmartCampus
     //public static final String Virtual_TEMP_SMARTCAMPUS = "http://54.76.227.250:80/data-api/sensors/TEMP_442V/data?date=2014-06-28%2007:00:00/2014-06-28%2010:00:00";
-    public static final String Raw_TEMP_SMARTCAMPUS = "http://54.76.227.250:80/data-api/sensors/TEMP_442/data?date=2014-06-28%2007:00:00/2014-06-28%2010:00:00";
-    public static final String Raw_LIGHT_SMARTCAMPUS = "http://54.76.227.250:80/data-api/sensors/LIGHT_442/data?date=2014-06-28%2007:00:00/2014-06-28%2010:00:00";
+    public static final String Raw_TEMP_SMARTCAMPUS = "http://smartcampus.unice.fr/data-api/sensors/TEMP_442/data?date=2014-08-01%2007:00:00/2014-08-01%2010:00:00";
+    public static final String Raw_LIGHT_SMARTCAMPUS = "http://smartcampus.unice.fr/data-api/sensors/LIGHT_442/data?date=2014-08-01%2007:00:00/2014-08-01%2010:00:00";
+
+    // Map data
+    public static final String SVG_DESCRIPTION = Consts.class.getClassLoader().getResource("plan_T1_4e.svg").getPath();
+    public static final String LAST_STATE = Consts.class.getClassLoader().getResource("last_states.json").getPath();
+        //Icon
+        public static final String ICON_DOOR = Consts.class.getClassLoader().getResource("door.png").getPath();
+        public static final String ICON_WINDOW = Consts.class.getClassLoader().getResource("window.png").getPath();
+        public static final String ICON_TEMP = Consts.class.getClassLoader().getResource("temp.png").getPath();
+        public static final String ICON_BROKEN = Consts.class.getClassLoader().getResource("bad.png").getPath();
+        public static final String ICON_LIGHT = Consts.class.getClassLoader().getResource("light.png").getPath();
+        public static final String ICON_MOTION = Consts.class.getClassLoader().getResource("motion.png").getPath();
+
 
 
    public static String getRandomSenMLData(){

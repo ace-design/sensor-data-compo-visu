@@ -2,11 +2,11 @@ package metaclasses;
 
 import exception.IncompatibleIndexAxisException;
 import exception.VisitorException;
+import metaclasses.concern.Concern;
 import model.exploitation.VisitorTemplate.Generable;
 import model.exploitation.VisitorTemplate.IGenerativeVisitor;
 import utils.NameCorrectness;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

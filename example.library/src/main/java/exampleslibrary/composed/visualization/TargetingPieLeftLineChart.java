@@ -4,6 +4,8 @@ import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
 import metaclasses.*;
+import metaclasses.concern.Concern;
+import metaclasses.concern.ConcernFactory;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -30,18 +32,19 @@ public class TargetingPieLeftLineChart {
         //1//  Design the model of the wanted dashboard
        /////
         Dashboard dashboard = new Dashboard();
+        ConcernFactory factory = new ConcernFactory();
 
         // #1 visualization : Discrete & Extremum
         Visualization visu1 = new Visualization();
         Resource resource = new Resource("Proportion",Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
         visu1.addResource(resource);
-        visu1.addConcern(Concern.Proportion);
+        visu1.addConcern(factory.Proportion());
         dashboard.addVisualization(visu1);
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
         Resource resource2 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
-        Concern concern2 = Concern.Continuous;
+        Concern concern2 = factory.Continuous();
         visu2.addResource(resource2);
         visu2.addConcern(concern2);
         dashboard.addVisualization(visu2);
