@@ -1,54 +1,39 @@
 package metaclasses.concern;
 
+import java.util.HashMap;
+
 /**
  * Created by Ivan Logre on 23/06/2014.
  */
 public class Concern {
 
-    // My static instances //
-     static final Concern Discrete = new Concern("Discrete");
-     static final Concern Continuous = new Concern("Continuous");
-     static final Concern Extremum = new Concern("Extremum");
-     static final Concern Proportion = new Concern("Proportion");
 
     // Constructors //
-    private Concern(String name){
-        this.name =name;
+    protected Concern(){
+        this.params = new HashMap<>();
     }
 
-    Concern(String name, String param ){
-        new Parameterized(name,param);
-    }
-
-    // Inner subclass in case the instance need a parameter //
-    private class Parameterized extends Concern{
-
-        private String parameter;
-
-        Parameterized(String name, String parameter){
-            super(name);
-            this.parameter = parameter;
-        }
-
-        public String getParameter() {
-            return parameter;
-        }
-
-        public void setParameter(String parameter) {
-            this.parameter = parameter;
-        }
+    protected Concern(String param, Object value ){
+        super();
+        this.params.put(param,value);
     }
 
     // Attributes //
-    private String name;
+    protected HashMap<String,Object> params;
+
 
     // Get & Set //
-    public String getName(){return name;}
-    public void setName(String name){this.name = name;}
+    public HashMap<String, Object> getParams() {
+        return params;
+    }
+
 
     // Others //
     @Override
     public String toString(){
-        return this.getName();
+        StringBuilder sb = new StringBuilder();
+        for(String s :params.keySet())
+            sb.append("-"+params.get(s).toString());
+        return this.getClass().getName()+sb.toString();
     }
 }

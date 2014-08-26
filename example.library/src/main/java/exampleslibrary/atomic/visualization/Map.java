@@ -27,7 +27,7 @@ public class Map {
         Resource resource = new Resource("Temp", Consts.TEMP_SENML, Format.SenML);
         visu.addResource(resource);
         ConcernFactory factory = new ConcernFactory();
-        visu.addConcern(factory.Spatial(Consts.SVG_DESCRIPTION));
+        visu.addConcern(factory.Location(Consts.SVG_DESCRIPTION));
         dashboard.addVisualization(visu);
 
         /////
