@@ -31,9 +31,6 @@ public class Concern {
     // Others //
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        for(String s :params.keySet())
-            sb.append("-"+params.get(s).toString());
-        return this.getClass().getName()+sb.toString();
+        return this.getClass().getSimpleName();
     }
 }
