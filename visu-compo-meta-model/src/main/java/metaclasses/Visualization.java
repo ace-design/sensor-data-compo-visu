@@ -3,6 +3,8 @@ package metaclasses;
 import exception.IncompatibleIndexAxisException;
 import exception.VisitorException;
 import metaclasses.concern.Concern;
+import metaclasses.resource.DataType;
+import metaclasses.resource.Resource;
 import model.exploitation.VisitorTemplate.Generable;
 import model.exploitation.VisitorTemplate.IGenerativeVisitor;
 import utils.NameCorrectness;
@@ -22,7 +24,7 @@ public class Visualization implements Generable {
     private String name;
     private String widgetName;    //TODO check the existence
     private String libraryName;   //TODO check the existence
-    private String indexName;
+    private String keyName;
 
     public Visualization(){
         this.name = "v"+ NameCorrectness.format(randomUUID().toString());
@@ -66,9 +68,9 @@ public class Visualization implements Generable {
         if(!this.resources.contains(resource)) {
             this.resources.add(resource);
             resource.setVisualization(this);
-            if(this.indexName==null)
-                this.indexName = resource.getIndex().getName();
-            else if(!this.indexName.equalsIgnoreCase(resource.getIndex().getName()))
+            if(this.keyName ==null)
+                this.keyName = resource.getKey().getName();
+            else if(!this.keyName.equalsIgnoreCase(resource.getKey().getName()))
                 throw new IncompatibleIndexAxisException("You can't add a ressource with a different kind of index to this visualization.");
         }
     }
@@ -113,10 +115,10 @@ public class Visualization implements Generable {
         boolean sametype = true;
         Object[] array = visualization.getResources().toArray();
         Resource first = (Resource)array[0];
-        String type = first.getIndex().getType();
+        DataType type = first.getKey().getType();
         for(int i=1;i<array.length;i++) {
             Resource current = (Resource)array[i];
-            if (!current.getIndex().getType().equalsIgnoreCase(type))
+            if (!current.getKey().getType().equals(type))
                 throw new IncompatibleIndexAxisException("You can't fusion visualization with different index types !");
         }
         for(Concern concern : visu1.getConcerns())
@@ -131,7 +133,7 @@ public class Visualization implements Generable {
         gv.visit(this);
     }
 
-    public String getIndexName() {
-        return indexName;
+    public String getKeyName() {
+        return keyName;
     }
 }

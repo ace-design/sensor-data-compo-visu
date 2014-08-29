@@ -4,8 +4,12 @@ import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
 import metaclasses.*;
+import metaclasses.resource.Arity;
+import metaclasses.resource.AtomicResource;
 import metaclasses.concern.Concern;
 import metaclasses.concern.ConcernFactory;
+import metaclasses.resource.DataType;
+import metaclasses.resource.Element;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -15,7 +19,7 @@ import static model.exploitation.CodeGeneration.codeGeneration;
 /**
  * Created by ivan on 03/07/2014.
  */
-public class TargetingPieLeftLineChart {
+public class PieLeftLineChart {
 
 
 
@@ -36,14 +40,29 @@ public class TargetingPieLeftLineChart {
 
         // #1 visualization : Discrete & Extremum
         Visualization visu1 = new Visualization();
-        Resource resource = new Resource("Proportion",Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
+
+        AtomicResource resource = new AtomicResource(
+                "Proportion of the temperature in the office under 27°, above 30° and between",
+                "Proportion",
+                Arity.One,
+                Consts.CATEGORIZED_STACKED,
+                Format.Stacked,
+                new Element("range", DataType.textual),
+                new Element("volume",DataType.numerical));
         visu1.addResource(resource);
         visu1.addConcern(factory.Proportion());
         dashboard.addVisualization(visu1);
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
-        Resource resource2 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
+        AtomicResource resource2 = new AtomicResource(
+                "Edited external temperature in Oslo",
+                "NoTemp",
+                Arity.One,
+                Consts.TEMP_NEG_SENML,
+                Format.SenML,
+                new Element("t",DataType.numerical),
+                new Element("v",DataType.numerical));
         Concern concern2 = factory.Continuous();
         visu2.addResource(resource2);
         visu2.addConcern(concern2);

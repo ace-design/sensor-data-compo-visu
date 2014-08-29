@@ -4,8 +4,12 @@ import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
 import metaclasses.*;
+import metaclasses.resource.Arity;
+import metaclasses.resource.AtomicResource;
 import metaclasses.concern.Concern;
 import metaclasses.concern.ConcernFactory;
+import metaclasses.resource.DataType;
+import metaclasses.resource.Element;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -27,20 +31,41 @@ public class MultipleLineChart {
 
         // #1 visualization : Discrete & Extremum
         Visualization visu1 = new Visualization();
-        Resource resource = new Resource("Temp",Consts.TEMP_SENML, Format.SenML);
+        AtomicResource resource = new AtomicResource(
+                "External temperature in Oslo",
+                "Temp",
+                Arity.One,
+                Consts.TEMP_SENML,
+                Format.SenML,
+                new Element("t", DataType.numerical),
+                new Element("v",DataType.numerical));
         visu1.addResource(resource);
         visu1.addConcern(factory.Continuous());
 
         // #2 visualization : Continuous
         Visualization visu2 = new Visualization();
-        Resource resource2 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
+        AtomicResource resource2 = new AtomicResource(
+                "Edited external temperature in Oslo",
+                "NoTemp",
+                Arity.One,
+                Consts.TEMP_NEG_SENML,
+                Format.SenML,
+                new Element("t",DataType.numerical),
+                new Element("v",DataType.numerical));
         Concern concern2 = factory.Continuous();
         visu2.addResource(resource2);
         visu2.addConcern(concern2);
 
         // #3 visualization : Continuous
         Visualization visu3 = new Visualization();
-        Resource resource3 = new Resource("Speed",Consts.SPEED_SENML, Format.SenML);
+        AtomicResource resource3 = new AtomicResource(
+                "Ground speed of a bike in Oslo",
+                "Speed",
+                Arity.One,
+                Consts.SPEED_SENML,
+                Format.SenML,
+                new Element("t",DataType.numerical),
+                new Element("v",DataType.numerical));
         Concern concern3 = factory.Continuous();
         visu3.addResource(resource3);
         visu3.addConcern(concern3);

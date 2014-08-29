@@ -4,8 +4,11 @@ import EntryPoint.Universe;
 import constants.Consts;
 import exception.*;
 import metaclasses.*;
-import metaclasses.concern.Concern;
+import metaclasses.resource.Arity;
+import metaclasses.resource.AtomicResource;
 import metaclasses.concern.ConcernFactory;
+import metaclasses.resource.DataType;
+import metaclasses.resource.Element;
 import utils.FileOperation;
 
 import java.io.IOException;
@@ -29,21 +32,42 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
 
             // #1 visualization : Continuous
             Visualization visu1 = new Visualization();
-            Resource resource = new Resource("Temp",Consts.TEMP_SENML, Format.SenML);
+            AtomicResource resource = new AtomicResource(
+                "External temperature in Oslo",
+                "Temp",
+                Arity.One,
+                Consts.TEMP_SENML,
+                Format.SenML,
+                new Element("t", DataType.numerical),
+                new Element("v",DataType.numerical));
             visu1.addResource(resource);
             visu1.addConcern(factory.Extremum());
             visu1.addConcern(factory.Discrete());
 
             // #2 visualization : Continuous
             Visualization visu2 = new Visualization();
-            Resource resource2 = new Resource("NoTemp",Consts.TEMP_NEG_SENML, Format.SenML);
+            AtomicResource resource2 = new AtomicResource(
+                "Edited external temperature in Oslo",
+                "NoTemp",
+                Arity.One,
+                Consts.TEMP_NEG_SENML,
+                Format.SenML,
+                new Element("t",DataType.numerical),
+                new Element("v",DataType.numerical));
             visu2.addConcern(factory.Discrete());
             visu2.addConcern(factory.Extremum());
             visu2.addResource(resource2);
 
             // #3 visualization : Continuous
             Visualization visu3 = new Visualization();
-            Resource resource3 = new Resource("Speed",Consts.SPEED_SENML, Format.SenML);
+            AtomicResource resource3 = new AtomicResource(
+                "Ground speed of a bike in Oslo",
+                "Speed",
+                Arity.One,
+                Consts.SPEED_SENML,
+                Format.SenML,
+                new Element("t",DataType.numerical),
+                new Element("v",DataType.numerical));
             visu3.addConcern(factory.Extremum());
             visu3.addConcern(factory.Discrete());
             visu3.addResource(resource3);
@@ -57,7 +81,14 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
 
             // #4 visualization : Proportion
             Visualization visu4 = new Visualization();
-            Resource resource4 = new Resource("Proportion",Consts.CATEGORIZED_STACKED, new Column("range","range"), new Column("volume","scalar"), Format.Stacked);
+            AtomicResource resource4 = new AtomicResource(
+                "Proportion of the temperature in the office under 27°, above 30° and between",
+                "Proportion",
+                Arity.One,
+                Consts.CATEGORIZED_STACKED,
+                Format.Stacked,
+                new Element("range",DataType.textual),
+                new Element("volume",DataType.numerical));
             visu4.addResource(resource4);
             visu4.addConcern(factory.Proportion());
 
@@ -69,13 +100,27 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
 
             // #5 visualization : Continuous
             Visualization visu5 = new Visualization();
-            Resource resource5 = new Resource("Light",Consts.Raw_LIGHT_SMARTCAMPUS, Format.SmartCampus);
+            AtomicResource resource5 = new AtomicResource(
+                "Luminosity of the 442 office",
+                "Light442",
+                Arity.Many,
+                Consts.Raw_LIGHT_SMARTCAMPUS,
+                Format.SmartCampus,
+                new Element("date",DataType.numerical),
+                new Element("value",DataType.numerical));
             visu5.addResource(resource5);
             visu5.addConcern(factory.Continuous());
 
             // #6 visualization : Continuous
             Visualization visu6 = new Visualization();
-            Resource resource6 = new Resource("Temp442",Consts.Raw_TEMP_SMARTCAMPUS, Format.SmartCampus);
+            AtomicResource resource6 = new AtomicResource(
+                "Temperature of the 442 office",
+                "Temp442",
+                Arity.Many,
+                Consts.Raw_TEMP_SMARTCAMPUS,
+                Format.SmartCampus,
+                new Element("date",DataType.numerical),
+                new Element("value",DataType.numerical));
             visu6.addResource(resource6);
             visu6.addConcern(factory.Continuous());
 

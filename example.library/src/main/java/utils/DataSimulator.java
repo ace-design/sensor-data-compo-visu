@@ -1,12 +1,8 @@
 package utils;
 
-import constants.Consts;
-import metaclasses.Format;
-import metaclasses.Resource;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONWriter;
-import model.exploitation.toJavaScript.implementation.SenMLDeserializer;
 
 import java.io.*;
 import java.util.*;
