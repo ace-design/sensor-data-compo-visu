@@ -5,6 +5,7 @@ import metaclasses.concern.how.datajournalism.Location;
 import metaclasses.concern.how.datajournalism.Proportion;
 import metaclasses.concern.how.intent.Extremum;
 import metaclasses.concern.how.intent.Variations;
+import metaclasses.concern.what.graphical.Icon;
 import metaclasses.concern.what.property.Continuous;
 import metaclasses.concern.what.property.Discrete;
 
@@ -23,4 +24,6 @@ public class ConcernFactory {
     // Concerns for Resources //
     public Continuous Continuous(){return new Continuous();};
     public Discrete Discrete(){return new Discrete();};
+    public Icon Icon(String pngPath){return new Icon("IconPath",pngPath);};
+
 }

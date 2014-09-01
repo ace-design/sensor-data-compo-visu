@@ -30,7 +30,11 @@ public class Consts {
 
     // Map data
     public static final String SVG_DESCRIPTION = Consts.class.getClassLoader().getResource("plan_T1_4e.svg").getPath();
-    public static final String LAST_STATE = Consts.class.getClassLoader().getResource("last_states.json").getPath();
+    public static final String LAST_STATE_DOORS = Consts.class.getClassLoader().getResource("last_states_doors.json").getPath();
+    public static final String LAST_STATE_LIGHTS = Consts.class.getClassLoader().getResource("last_states_lights.json").getPath();
+    public static final String LAST_STATE_MOTIONS = Consts.class.getClassLoader().getResource("last_states_motions.json").getPath();
+    public static final String LAST_STATE_TEMPS = Consts.class.getClassLoader().getResource("last_states_temps.json").getPath();
+    public static final String LAST_STATE_WINDOWS = Consts.class.getClassLoader().getResource("last_states_windows.json").getPath();
         //Icon
         public static final String ICON_DOOR = Consts.class.getClassLoader().getResource("door.png").getPath();
         public static final String ICON_WINDOW = Consts.class.getClassLoader().getResource("window.png").getPath();

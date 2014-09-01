@@ -22,29 +22,100 @@ import static model.exploitation.CodeGeneration.codeGeneration;
 public class Map {
     public static void main(String[] args) throws IOException, BadIDException, GetUniqueElementOnNonCompleteConfiguration, VisitorException, UnhandledFamiliarException, ReductionException, EmptyUniverseException {
 
-        /////
+         /////
         //1//  Design the model of the wanted dashboard
-        /////
+       /////
         Dashboard dashboard = new Dashboard();
         Visualization visu = new Visualization();
-        //TODO : declare a proper resource (composed one)
-        AtomicResource resource = new AtomicResource(
-                "Last sensor stats on the 4th floor map",
-                "LastState",
-                Arity.Many,
-                Consts.LAST_STATE,
-                Format.Custom,
-                new Element("range", DataType.textual),
-                new Element("volume",DataType.numerical)
-                );
-        visu.addResource(resource);
         ConcernFactory factory = new ConcernFactory();
+
         visu.addConcern(factory.Location(Consts.SVG_DESCRIPTION));
+
+        AtomicResource resourceDoors = new AtomicResource(
+            "Last door sensor stats on the 4th floor map",
+            "door",
+            Arity.Many,
+            Consts.LAST_STATE_DOORS,
+            Format.Custom,
+            new Element("id", DataType.textual),
+            new Element("kind",DataType.textual),
+            new Element("value",DataType.numerical),
+            new Element("bat",DataType.bool),
+            new Element("floor",DataType.numerical),
+            new Element("salle",DataType.textual),
+            new Element("location",DataType.textual));
+        resourceDoors.addConcern(factory.Icon(Consts.ICON_DOOR));
+        visu.addResource(resourceDoors);
+
+        AtomicResource resourceLights = new AtomicResource(
+            "Last light sensor stats on the 4th floor map",
+            "light",
+            Arity.Many,
+            Consts.LAST_STATE_LIGHTS,
+            Format.Custom,
+            new Element("id", DataType.textual),
+            new Element("kind",DataType.textual),
+            new Element("value",DataType.numerical),
+            new Element("bat",DataType.bool),
+            new Element("floor",DataType.numerical),
+            new Element("salle",DataType.textual),
+            new Element("location",DataType.textual));
+        resourceLights.addConcern(factory.Icon(Consts.ICON_LIGHT));
+        visu.addResource(resourceLights);
+
+        AtomicResource resourceMotions = new AtomicResource(
+            "Last motion sensor stats on the 4th floor map",
+            "motion",
+            Arity.Many,
+            Consts.LAST_STATE_MOTIONS,
+            Format.Custom,
+            new Element("id", DataType.textual),
+            new Element("kind",DataType.textual),
+            new Element("value",DataType.numerical),
+            new Element("bat",DataType.bool),
+            new Element("floor",DataType.numerical),
+            new Element("salle",DataType.textual),
+            new Element("location",DataType.textual));
+        resourceMotions.addConcern(factory.Icon(Consts.ICON_MOTION));
+        visu.addResource(resourceMotions);
+
+        AtomicResource resourceTemps = new AtomicResource(
+            "Last temperature sensor stats on the 4th floor map",
+            "temperature",
+            Arity.Many,
+            Consts.LAST_STATE_TEMPS,
+            Format.Custom,
+            new Element("id", DataType.textual),
+            new Element("kind",DataType.textual),
+            new Element("value",DataType.numerical),
+            new Element("bat",DataType.bool),
+            new Element("floor",DataType.numerical),
+            new Element("salle",DataType.textual),
+            new Element("location",DataType.textual));
+        resourceTemps.addConcern(factory.Icon(Consts.ICON_TEMP));
+        visu.addResource(resourceTemps);
+
+        AtomicResource resourceWindows = new AtomicResource(
+            "Last window sensor stats on the 4th floor map",
+            "window",
+            Arity.Many,
+            Consts.LAST_STATE_WINDOWS,
+            Format.Custom,
+            new Element("id", DataType.textual),
+            new Element("kind",DataType.textual),
+            new Element("value",DataType.numerical),
+            new Element("bat",DataType.bool),
+            new Element("floor",DataType.numerical),
+            new Element("salle",DataType.textual),
+            new Element("location",DataType.textual));
+        resourceWindows.addConcern(factory.Icon(Consts.ICON_WINDOW));
+        visu.addResource(resourceWindows);
+
         dashboard.addVisualization(visu);
 
-        /////
+         /////
         //2//  Use feature model to find a suitable generable widget
-        /////
+       /////
         Universe univ = new Universe();
         univ.displayUniverseState();
         univ.reduceByConcerns(visu.getConcernNames());
@@ -53,9 +124,9 @@ public class Map {
             visu.setLibraryName(univ.getLastLibraryName());
             visu.setWidgetName(univ.getLastWidgetName());
 
-            /////
+             /////
             //3//  Generation
-            /////
+           /////
             //Generation of the HTML code from the model
             String code = codeGeneration(dashboard);
             //Creation of the /product folder if it doesn't exist already

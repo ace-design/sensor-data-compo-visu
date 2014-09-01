@@ -14,7 +14,7 @@ public class Concern {
     }
 
     protected Concern(String param, Object value ){
-        super();
+        this();
         this.params.put(param,value);
     }
 
