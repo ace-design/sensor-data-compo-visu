@@ -16,7 +16,7 @@ public class DataSimulator {
 
     public static void main(String[] args) throws IOException {
         /*Resource resource = new Resource("ToPorportion",Consts.TEMP_SENML, Format.SenML);
-        HashMap<Double, Double> dataSource = new SenMLDeserializer().serializedResource2Pivot(resource).getPairs();
+        HashMap<Double, Double> dataSource = new SenMLDeserializer().extractInstancesFromResource(resource).getTuples();
         List<Double> remarkValues = new ArrayList<>();
         remarkValues.add((double) 27);
         remarkValues.add((double) 30);
