@@ -1,3 +1,3 @@
-icon(name,path) ::= <<
+icon(kind,path) ::= <<
 "$kind$":"$path$"
 >>

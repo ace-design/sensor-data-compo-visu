@@ -7,6 +7,7 @@ import metaclasses.concern.what.WhatQualifier;
 import model.exploitation.VisitorTemplate.Generable;
 import model.exploitation.VisitorTemplate.IGenerativeVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public abstract class Resource implements Generable {
         this.name = name; //TODO : insure unicity
         this.arity = arity;
         this.url = url;
+        this.concerns = new ArrayList<>();
     }
 
     public void addConcern(WhatQualifier q){

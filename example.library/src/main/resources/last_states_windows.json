@@ -1,4 +1,4 @@
-{"id":"list-sensors","sensors":[
+[
     {"id":"window_1",
      "kind":"window",
      "value":true,
@@ -438,4 +438,4 @@
      "salle":"s_60",
      "location":"N"
     }
-]}
+]

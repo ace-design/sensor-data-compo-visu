@@ -37,13 +37,13 @@ public class Map {
             Arity.Many,
             Consts.LAST_STATE_DOORS,
             Format.Custom,
-            new Element("id", DataType.textual_type),
-            new Element("kind",DataType.textual_type),
-            new Element("value",DataType.long_type),
-            new Element("bat",DataType.boolean_type),
-            new Element("floor",DataType.long_type),
-            new Element("salle",DataType.textual_type),
-            new Element("location",DataType.textual_type));
+                new Element("id", DataType.textual_type),
+                new Element("kind",DataType.textual_type),
+                new Element("bat",DataType.textual_type),
+                new Element("value",DataType.boolean_type),
+                new Element("floor",DataType.long_type),
+                new Element("salle",DataType.textual_type),
+                new Element("location",DataType.textual_type));
         resourceDoors.addConcern(factory.Icon(Consts.ICON_DOOR));
         visu.addResource(resourceDoors);
 
@@ -53,13 +53,13 @@ public class Map {
             Arity.Many,
             Consts.LAST_STATE_LIGHTS,
             Format.Custom,
-            new Element("id", DataType.textual_type),
-            new Element("kind",DataType.textual_type),
-            new Element("value",DataType.long_type),
-            new Element("bat",DataType.boolean_type),
-            new Element("floor",DataType.long_type),
-            new Element("salle",DataType.textual_type),
-            new Element("location",DataType.textual_type));
+                new Element("id", DataType.textual_type),
+                new Element("kind",DataType.textual_type),
+                new Element("bat",DataType.textual_type),
+                new Element("value",DataType.boolean_type),
+                new Element("floor",DataType.long_type),
+                new Element("salle",DataType.textual_type),
+                new Element("location",DataType.textual_type));
         resourceLights.addConcern(factory.Icon(Consts.ICON_LIGHT));
         visu.addResource(resourceLights);
 
@@ -69,13 +69,13 @@ public class Map {
             Arity.Many,
             Consts.LAST_STATE_MOTIONS,
             Format.Custom,
-            new Element("id", DataType.textual_type),
-            new Element("kind",DataType.textual_type),
-            new Element("value",DataType.long_type),
-            new Element("bat",DataType.boolean_type),
-            new Element("floor",DataType.long_type),
-            new Element("salle",DataType.textual_type),
-            new Element("location",DataType.textual_type));
+                new Element("id", DataType.textual_type),
+                new Element("kind",DataType.textual_type),
+                new Element("bat",DataType.textual_type),
+                new Element("value",DataType.boolean_type),
+                new Element("floor",DataType.long_type),
+                new Element("salle",DataType.textual_type),
+                new Element("location",DataType.textual_type));
         resourceMotions.addConcern(factory.Icon(Consts.ICON_MOTION));
         visu.addResource(resourceMotions);
 
@@ -85,13 +85,13 @@ public class Map {
             Arity.Many,
             Consts.LAST_STATE_TEMPS,
             Format.Custom,
-            new Element("id", DataType.textual_type),
-            new Element("kind",DataType.textual_type),
-            new Element("value",DataType.long_type),
-            new Element("bat",DataType.boolean_type),
-            new Element("floor",DataType.long_type),
-            new Element("salle",DataType.textual_type),
-            new Element("location",DataType.textual_type));
+                new Element("id", DataType.textual_type),
+                new Element("kind",DataType.textual_type),
+                new Element("bat",DataType.textual_type),
+                new Element("value",DataType.double_type),
+                new Element("floor",DataType.long_type),
+                new Element("salle",DataType.textual_type),
+                new Element("location",DataType.textual_type));
         resourceTemps.addConcern(factory.Icon(Consts.ICON_TEMP));
         visu.addResource(resourceTemps);
 
@@ -101,13 +101,13 @@ public class Map {
             Arity.Many,
             Consts.LAST_STATE_WINDOWS,
             Format.Custom,
-            new Element("id", DataType.textual_type),
-            new Element("kind",DataType.textual_type),
-            new Element("value",DataType.long_type),
-            new Element("bat",DataType.boolean_type),
-            new Element("floor",DataType.long_type),
-            new Element("salle",DataType.textual_type),
-            new Element("location",DataType.textual_type));
+                new Element("id", DataType.textual_type),
+                new Element("kind",DataType.textual_type),
+                new Element("bat",DataType.textual_type),
+                new Element("value",DataType.boolean_type),
+                new Element("floor",DataType.long_type),
+                new Element("salle",DataType.textual_type),
+                new Element("location",DataType.textual_type));
         resourceWindows.addConcern(factory.Icon(Consts.ICON_WINDOW));
         visu.addResource(resourceWindows);
 

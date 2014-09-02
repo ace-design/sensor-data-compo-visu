@@ -1,4 +1,4 @@
-{"id":"list-sensors","sensors":[
+[
     {"id":"motion_1",
         "kind":"motion",
         "value":true,
@@ -431,4 +431,4 @@
         "salle":"s_60",
         "location":"N"
     }
-]}
+]

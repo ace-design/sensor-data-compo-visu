@@ -1,4 +1,4 @@
-{"id":"list-sensors","sensors":[
+[
     {"id":"temp_1",
     "kind":"temp",
     "value":25,
@@ -193,7 +193,7 @@
     },
     {"id":"temp_26",
         "kind":"temp",
-        "value":true,
+        "value":15,
         "bat":"temp1",
         "floor":4,
         "salle":"s_26",
@@ -479,4 +479,4 @@
         "salle":"s_67",
         "location":"N"
     }
-]}
+]

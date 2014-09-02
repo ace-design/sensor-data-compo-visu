@@ -1,4 +1,4 @@
-{"id":"list-sensors","sensors":[
+[
     {"id":"door_1",
     "kind":"door",
     "value":true,
@@ -495,4 +495,4 @@
     "salle":"s_67",
     "location":"N"
     }
-]}
+]
