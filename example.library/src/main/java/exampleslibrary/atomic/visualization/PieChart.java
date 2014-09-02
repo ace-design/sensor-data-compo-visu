@@ -34,8 +34,8 @@ public class PieChart {
                 Arity.One,
                 Consts.CATEGORIZED_STACKED,
                 Format.Stacked,
-                new Element("range", DataType.textual),
-                new Element("volume",DataType.numerical));
+                new Element("range", DataType.textual_type),
+                new Element("volume",DataType.double_type));
         visu.addResource(resource);
         visu.addConcern(new ConcernFactory().Proportion());
         dashboard.addVisualization(visu);

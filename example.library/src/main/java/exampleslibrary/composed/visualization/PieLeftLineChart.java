@@ -47,8 +47,8 @@ public class PieLeftLineChart {
                 Arity.One,
                 Consts.CATEGORIZED_STACKED,
                 Format.Stacked,
-                new Element("range", DataType.textual),
-                new Element("volume",DataType.numerical));
+                new Element("range", DataType.textual_type),
+                new Element("volume",DataType.double_type));
         visu1.addResource(resource);
         visu1.addConcern(factory.Proportion());
         dashboard.addVisualization(visu1);
@@ -61,8 +61,8 @@ public class PieLeftLineChart {
                 Arity.One,
                 Consts.TEMP_NEG_SENML,
                 Format.SenML,
-                new Element("t",DataType.numerical),
-                new Element("v",DataType.numerical));
+                new Element("t",DataType.long_type),
+                new Element("v",DataType.double_type));
         Concern concern2 = factory.Continuous();
         visu2.addResource(resource2);
         visu2.addConcern(concern2);

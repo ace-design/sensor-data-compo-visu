@@ -41,8 +41,8 @@ class ColumnChart {
                 Arity.Many,
                 Consts.TEMP_SENML,
                 Format.SenML,
-                new Element("t", DataType.numerical),
-                new Element("v",DataType.numerical));
+                new Element("t", DataType.long_type),
+                new Element("v",DataType.double_type));
         visu.addResource(resource);
         ConcernFactory factory = new ConcernFactory();
         visu.addConcern(factory.Discrete());

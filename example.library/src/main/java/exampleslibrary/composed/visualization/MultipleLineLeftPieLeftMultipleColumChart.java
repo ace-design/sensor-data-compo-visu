@@ -38,8 +38,8 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
                 Arity.One,
                 Consts.TEMP_SENML,
                 Format.SenML,
-                new Element("t", DataType.numerical),
-                new Element("v",DataType.numerical));
+                new Element("t", DataType.long_type),
+                new Element("v",DataType.double_type));
             visu1.addResource(resource);
             visu1.addConcern(factory.Extremum());
             visu1.addConcern(factory.Discrete());
@@ -52,8 +52,8 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
                 Arity.One,
                 Consts.TEMP_NEG_SENML,
                 Format.SenML,
-                new Element("t",DataType.numerical),
-                new Element("v",DataType.numerical));
+                new Element("t",DataType.long_type),
+                new Element("v",DataType.double_type));
             visu2.addConcern(factory.Discrete());
             visu2.addConcern(factory.Extremum());
             visu2.addResource(resource2);
@@ -66,8 +66,8 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
                 Arity.One,
                 Consts.SPEED_SENML,
                 Format.SenML,
-                new Element("t",DataType.numerical),
-                new Element("v",DataType.numerical));
+                new Element("t",DataType.long_type),
+                new Element("v",DataType.double_type));
             visu3.addConcern(factory.Extremum());
             visu3.addConcern(factory.Discrete());
             visu3.addResource(resource3);
@@ -87,8 +87,8 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
                 Arity.One,
                 Consts.CATEGORIZED_STACKED,
                 Format.Stacked,
-                new Element("range",DataType.textual),
-                new Element("volume",DataType.numerical));
+                new Element("range",DataType.textual_type),
+                new Element("volume",DataType.double_type));
             visu4.addResource(resource4);
             visu4.addConcern(factory.Proportion());
 
@@ -106,8 +106,8 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
                 Arity.Many,
                 Consts.Raw_LIGHT_SMARTCAMPUS,
                 Format.SmartCampus,
-                new Element("date",DataType.numerical),
-                new Element("value",DataType.numerical));
+                new Element("date",DataType.long_type),
+                new Element("value",DataType.double_type));
             visu5.addResource(resource5);
             visu5.addConcern(factory.Continuous());
 
@@ -119,8 +119,8 @@ public class MultipleLineLeftPieLeftMultipleColumChart {
                 Arity.Many,
                 Consts.Raw_TEMP_SMARTCAMPUS,
                 Format.SmartCampus,
-                new Element("date",DataType.numerical),
-                new Element("value",DataType.numerical));
+                new Element("date",DataType.long_type),
+                new Element("value",DataType.double_type));
             visu6.addResource(resource6);
             visu6.addConcern(factory.Continuous());
 

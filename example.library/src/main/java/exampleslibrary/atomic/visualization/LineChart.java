@@ -40,8 +40,8 @@ class LineChart {
                 Arity.One,
                 Consts.SPEED_SENML,
                 Format.SenML,
-                new Element("t", DataType.numerical),
-                new Element("v",DataType.numerical));
+                new Element("t", DataType.long_type),
+                new Element("v",DataType.double_type));
         ConcernFactory factory = new ConcernFactory();
         Visualization visu = new Visualization(resource, factory.Continuous());
         dashboard.addVisualization(visu);

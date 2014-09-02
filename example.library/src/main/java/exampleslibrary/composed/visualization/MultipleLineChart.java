@@ -37,8 +37,8 @@ public class MultipleLineChart {
                 Arity.One,
                 Consts.TEMP_SENML,
                 Format.SenML,
-                new Element("t", DataType.numerical),
-                new Element("v",DataType.numerical));
+                new Element("t", DataType.long_type),
+                new Element("v",DataType.double_type));
         visu1.addResource(resource);
         visu1.addConcern(factory.Continuous());
 
@@ -50,8 +50,8 @@ public class MultipleLineChart {
                 Arity.One,
                 Consts.TEMP_NEG_SENML,
                 Format.SenML,
-                new Element("t",DataType.numerical),
-                new Element("v",DataType.numerical));
+                new Element("t",DataType.long_type),
+                new Element("v",DataType.double_type));
         Concern concern2 = factory.Continuous();
         visu2.addResource(resource2);
         visu2.addConcern(concern2);
@@ -64,8 +64,8 @@ public class MultipleLineChart {
                 Arity.One,
                 Consts.SPEED_SENML,
                 Format.SenML,
-                new Element("t",DataType.numerical),
-                new Element("v",DataType.numerical));
+                new Element("t",DataType.long_type),
+                new Element("v",DataType.double_type));
         Concern concern3 = factory.Continuous();
         visu3.addResource(resource3);
         visu3.addConcern(concern3);
