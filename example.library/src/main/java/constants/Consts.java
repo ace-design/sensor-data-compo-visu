@@ -11,6 +11,7 @@ public class Consts {
     //Identify the folder where generated visualization will be stored
     public static final String GENERATED_TARGET_FOLDER = "/example.library/products/";
     public static final String RUNTIME_FOLDER = Paths.get("").toAbsolutePath().toString();
+    public static final String SERVER_FOLDER = "/Applications/MAMP/htdocs/map/";
 
     //Data Library
     //SenML
@@ -29,7 +30,7 @@ public class Consts {
     public static final String Raw_LIGHT_SMARTCAMPUS = "http://smartcampus.unice.fr/data-api/sensors/LIGHT_442/data?date=2014-08-01%2007:00:00/2014-08-01%2010:00:00";
 
     // Map data
-    public static final String SVG_DESCRIPTION = Consts.class.getClassLoader().getResource("plan_T1_4e.svg").getPath();
+    public static final String SVG_DESCRIPTION = "http://users.polytech.unice.fr/~logre/resources/plan_T1_4e.svg";
     public static final String LAST_STATE_DOORS = Consts.class.getClassLoader().getResource("last_states_doors.json").getPath();
     public static final String LAST_STATE_LIGHTS = Consts.class.getClassLoader().getResource("last_states_lights.json").getPath();
     public static final String LAST_STATE_MOTIONS = Consts.class.getClassLoader().getResource("last_states_motions.json").getPath();

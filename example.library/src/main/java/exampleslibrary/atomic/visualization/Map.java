@@ -128,11 +128,7 @@ public class Map {
             //3//  Generation
            /////
             //Generation of the HTML code from the model
-            String code = codeGeneration(dashboard);
-            //Creation of the /product folder if it doesn't exist already
-            FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
-            //store the resulting visualization in a file named after the used concern
-            FileOperation.fillFileFromObject(code, Paths.get("").toAbsolutePath().toString() + Consts.GENERATED_TARGET_FOLDER + "Map.html");
+            codeGeneration(dashboard,Consts.SERVER_FOLDER,"Map.html");
         }
     }
 }

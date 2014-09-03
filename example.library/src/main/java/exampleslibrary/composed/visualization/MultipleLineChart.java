@@ -88,10 +88,6 @@ public class MultipleLineChart {
         //3//  Generation
         /////
         //Generation of the HTML code from the model
-        String code = codeGeneration(dashboard);
-        //Creation of the /product folder if it doesn't exist already
-        FileOperation.setUpFolder(Consts.GENERATED_TARGET_FOLDER);
-        //store the resulting visualization in a file named after the used concern
-        FileOperation.fillFileFromObject(code, Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER + "MultipleLine.html");
+        codeGeneration(dashboard,Consts.RUNTIME_FOLDER+Consts.GENERATED_TARGET_FOLDER , "MultipleLine.html");
     }
 }

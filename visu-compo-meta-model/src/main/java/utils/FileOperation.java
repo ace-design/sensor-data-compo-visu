@@ -55,7 +55,7 @@ public class FileOperation {
         String inputLine;
 
         while ((inputLine = reader.readLine()) != null)
-            res.append(inputLine);
+            res.append(inputLine+"\n");
         reader.close();
 
         return res.toString();
