@@ -1,13 +1,17 @@
 package utils;
 
+import org.codehaus.plexus.util.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONWriter;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Random;
 
 /**
@@ -93,4 +97,24 @@ public class FileOperation {
         }else
             throw new IOException("Creating a \"null\" folder, really ?");
     }
+
+    public static void copyFile(String dataSource,String destination) throws IOException {
+        //the extraction is not the same if it's a remote file or a local one.
+        if (dataSource.contains("http://") || dataSource.contains("https://") || dataSource.contains("localhost:"))
+            FileOperation.copyRemoteFile(dataSource, destination);
+        else
+            FileOperation.copyLocalFile(dataSource, destination);
+    }
+
+    private static void copyRemoteFile(String dataSource, String destination) throws IOException {
+        URL in = new URL(dataSource);
+        File out = new File(destination);
+        FileUtils.copyURLToFile(in, out);
+    }
+
+    private static void copyLocalFile(String dataSource, String destination) throws IOException {
+        Files.copy(new File(dataSource).toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    //
 }

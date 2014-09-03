@@ -43,7 +43,12 @@ public class Consts {
         public static final String ICON_BROKEN = Consts.class.getClassLoader().getResource("bad.png").getPath();
         public static final String ICON_LIGHT = Consts.class.getClassLoader().getResource("light.png").getPath();
         public static final String ICON_MOTION = Consts.class.getClassLoader().getResource("motion.png").getPath();
-
+        public static final String ICON_DOOR_REMOTE = "http://users.polytech.unice.fr/~logre/resources/door.png";
+        public static final String ICON_WINDOW_REMOTE = "http://users.polytech.unice.fr/~logre/resources/window.png";
+        public static final String ICON_TEMP_REMOTE = "http://users.polytech.unice.fr/~logre/resources/temp.png";
+        public static final String ICON_BROKEN_REMOTE = "http://users.polytech.unice.fr/~logre/resources/bad.png";
+        public static final String ICON_LIGHT_REMOTE = "http://users.polytech.unice.fr/~logre/resources/light.png";
+        public static final String ICON_MOTION_REMOTE = "http://users.polytech.unice.fr/~logre/resources/motion.png";
 
 
    public static String getRandomSenMLData(){
