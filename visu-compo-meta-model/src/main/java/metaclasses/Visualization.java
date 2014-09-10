@@ -24,7 +24,10 @@ public class Visualization implements Generable {
     private String name;
     private String widgetName;    //TODO check the existence
     private String libraryName;   //TODO check the existence
+
+    //calculated or maintained data
     private String keyName;
+    private DataType keyType;
 
     public Visualization(){
         this.name = "v"+ NameCorrectness.format(randomUUID().toString());
@@ -43,10 +46,18 @@ public class Visualization implements Generable {
         this.addResource(resource);
     }
 
-    public Visualization(List<Resource> resource, List<Concern> concerns){
+    public Visualization(List<Resource> resources, List<Concern> concerns) throws IncompatibleIndexAxisException {
         this();
         this.concerns.addAll(concerns);
-        this.resources.addAll(resource);
+        for(Resource resource : resources)
+            this.addResource(resource);
+    }
+
+    public Visualization(Resource resource, Concern... concerns) throws IncompatibleIndexAxisException {
+        this();
+        for(Concern concern: concerns)
+            this.concerns.add(concern);
+        this.addResource(resource);
     }
 
     public List<Concern> getConcerns() {
@@ -68,9 +79,11 @@ public class Visualization implements Generable {
         if(!this.resources.contains(resource)) {
             this.resources.add(resource);
             resource.setVisualization(this);
-            if(this.keyName ==null)
+            if(this.keyName ==null & this.keyType ==null) {
                 this.keyName = resource.getKey().getName();
-            else if(!this.keyName.equalsIgnoreCase(resource.getKey().getName()))
+                this.keyType = resource.getKey().getType();
+            }
+            else if( (!this.keyName.equalsIgnoreCase(resource.getKey().getName())) | (!this.keyType.equals(resource.getKey().getType()))  )
                 throw new IncompatibleIndexAxisException("You can't add a ressource with a different kind of index to this visualization.");
         }
     }
@@ -104,6 +117,10 @@ public class Visualization implements Generable {
 
     public void setDashboard(Dashboard dashboard) {
         this.dashboard = dashboard;
+    }
+
+    public DataType getKeyType() {
+        return keyType;
     }
 
     public static Visualization Fusion(Visualization visu1, Visualization visu2) throws IncompatibleIndexAxisException {

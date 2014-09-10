@@ -1,4 +1,4 @@
 FM(widget:Name Comparison DataOverTime Value Variations Extremum Dimension Continuous Library; Name:"Line Chart"; Dimension:TwoD; Library:AmChart;)
-FM(widget:Name Comparison DataOverTime Value Variations Extremum Dimension Discrete Library; Name:"Column Chart"; Dimension:TwoD; Library:AmChart;)
-FM(widget:Name Comparison Proportion Value Discrete Dimension Library; Name:"Pie Chart"; Dimension:TwoD; Library:HighChart;)
+FM(widget:Name Comparison DataOverTime Value Variations Extremum Dimension Discrete Volume Library; Name:"Column Chart"; Dimension:TwoD; Library:AmChart;)
+FM(widget:Name Comparison Proportion Value Discrete Dimension Volume Library; Name:"Pie Chart"; Dimension:TwoD; Library:HighChart;)
 FM(widget:Name Dimension Library Location; Name:"Map"; Dimension:ThreeD; Library:SmartCampus;)
