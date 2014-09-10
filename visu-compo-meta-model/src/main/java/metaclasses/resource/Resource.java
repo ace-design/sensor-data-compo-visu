@@ -6,9 +6,12 @@ import metaclasses.Visualization;
 import metaclasses.concern.what.WhatQualifier;
 import model.exploitation.VisitorTemplate.Generable;
 import model.exploitation.VisitorTemplate.IGenerativeVisitor;
+import utils.NameCorrectness;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.UUID.randomUUID;
 
 /**
  * Created by Ivan Logre on 23/06/2014.
@@ -23,7 +26,7 @@ public abstract class Resource implements Generable {
 
     public Resource(String semantic, String name, Arity arity, String url) {
         this.semantic = semantic;
-        this.name = name; //TODO : insure unicity
+        this.name = name+NameCorrectness.format(randomUUID().toString());
         this.arity = arity;
         this.url = url;
         this.concerns = new ArrayList<>();
