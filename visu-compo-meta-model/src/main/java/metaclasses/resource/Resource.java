@@ -26,7 +26,7 @@ public abstract class Resource implements Generable {
 
     public Resource(String semantic, String name, Arity arity, String url) {
         this.semantic = semantic;
-        this.name = name+NameCorrectness.format(randomUUID().toString());
+        this.name = name; //+NameCorrectness.format(randomUUID().toString())
         this.arity = arity;
         this.url = url;
         this.concerns = new ArrayList<>();

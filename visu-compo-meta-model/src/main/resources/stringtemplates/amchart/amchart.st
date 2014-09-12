@@ -14,6 +14,7 @@ $chartname$.zoomOutButton = {
 };
 $chartname$.categoryAxis.labelRotation = 45;
 $chartname$.categoryAxis.equalSpacing = false;
+$chartname$.numberFormatter.precision = 2;
 
 	
 // AXES 

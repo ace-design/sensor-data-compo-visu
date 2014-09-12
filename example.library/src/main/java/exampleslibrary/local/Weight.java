@@ -50,11 +50,38 @@ class Weight {
                 new Element("t", DataType.long_type),
                 new Element("v",DataType.double_type));
         visu1.addResource(resource1);
+        AtomicResource threshold1 = new AtomicResource(
+                "Limit between overweight and obesity",
+                "Threshold_Obesity",
+                Arity.Many,
+                "http://users.polytech.unice.fr/~logre/resources/obesity.me",
+                Format.Custom,
+                new Element("t", DataType.long_type),
+                new Element("v",DataType.double_type));
+        visu1.addResource(threshold1);
+        AtomicResource threshold2 = new AtomicResource(
+                "Limit between standard and overweight",
+                "Threshold Overweight",
+                Arity.Many,
+                "http://users.polytech.unice.fr/~logre/resources/overweight.me",
+                Format.Custom,
+                new Element("t", DataType.long_type),
+                new Element("v",DataType.double_type));
+        visu1.addResource(threshold2);
+        AtomicResource trend = new AtomicResource(
+                "Trend of my weight lost the 12th of october",
+                "Trend 09.12",
+                Arity.Many,
+                "http://users.polytech.unice.fr/~logre/resources/trend_at_09.12.me",
+                Format.Custom,
+                new Element("t", DataType.long_type),
+                new Element("v",DataType.double_type));
+        visu1.addResource(trend);
+
         visu1.addConcern(factory.Continuous());
         dashboard.addVisualization(visu1);
 
-
-        Visualization visu2 = new Visualization();
+/*        Visualization visu2 = new Visualization();
         AtomicResource resource2 = new AtomicResource(
                 "Weight lost since 22th august",
                 "Weight",
@@ -75,7 +102,7 @@ class Weight {
         visu2.addResource(resource3);
         visu2.addConcern(factory.Discrete());
         visu2.addConcern(factory.Variations());
-        dashboard.addVisualization(visu2);
+        dashboard.addVisualization(visu2);*/
 
         /////
         //2//  Use feature model to find a suitable generable widget
